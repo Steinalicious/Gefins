@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Gefins</string>
+    <string name="user_account">User account</string>
+    <string name="register">Register</string>
+</resources>
