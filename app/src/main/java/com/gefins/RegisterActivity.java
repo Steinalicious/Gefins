@@ -24,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText nameEdTxt, emailEdTxt, passEdTxt, confirmEdTxt;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
         emailEdTxt = findViewById(R.id.registerEmailEditText);
         passEdTxt = findViewById(R.id.registerPassEditText);
         confirmEdTxt = findViewById(R.id.registerPassConfEditText);
-
         registerBtn = findViewById(R.id.registerButton);
 
         // Virkni á RegisterTakkanum
@@ -42,13 +40,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick (View v) {
 
-                // Nær í textan frá input field sem eru á register skjá
-                // aka notandanafn, tölvupóstinn, lykillorðið og endurtekninguna
+                /* Nær í textan frá input field sem eru á register skjá
+                   aka notandanafn, tölvupóstinn, lykillorðið og endurtekninguna
+                */
                 String name = nameEdTxt.getText().toString();
                 String email = emailEdTxt.getText().toString();
                 String password = passEdTxt.getText().toString();
                 String passwordConfirm = confirmEdTxt.getText().toString();
 
+                //Meðhöndlun á svari frá server
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -57,12 +57,16 @@ public class RegisterActivity extends AppCompatActivity {
                             boolean success = jsonResponse.getBoolean("success");
 
                             if (success) {
+
+                                //Fer frá register skjá á Login skjá
                                 Intent intent = new Intent(RegisterActivity.this, UserActivity.class);
                                 RegisterActivity.this.startActivity(intent);
                             } else {
+
+                                //Gefur upp glugga um að skráning mistókst
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Register failed")
-                                        .setNegativeButton("Retry",null)
+                                builder.setMessage("Skráning mistókst")
+                                        .setNegativeButton("Reyna aftur",null)
                                         .create()
                                         .show();
                             }
@@ -74,10 +78,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 if (password.equals(passwordConfirm)) {
+
+                    //Tengist server
                     RegisterRequest registerRequest = new RegisterRequest(name, email, password, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(registerRequest);
                 } else {
+
                     //Varar við að Lykilorð eru mismunandi
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setMessage("Mismundandi lykilorð")

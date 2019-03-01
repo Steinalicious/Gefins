@@ -16,12 +16,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Virkni á user takanum
         userBtn = findViewById(R.id.userImageButton);
 
+        // Virknin á user takkanum
         userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Færir frá aðalskjá yfir á Login skjá
                 Intent intent = new Intent(MainActivity.this, UserActivity.class);
                 startActivity(intent);
             }
