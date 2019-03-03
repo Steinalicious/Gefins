@@ -17,8 +17,8 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/email"
+        tools:ignore="Autofill"
         android:inputType="textEmailAddress"
-        android:autofillHints="username"
         app:layout_constraintBottom_toTopOf="@+id/loginPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -35,11 +35,13 @@
         android:layout_marginBottom="92dp"
         android:ems="10"
         android:hint="@string/password"
+        tools:ignore="Autofill"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+         />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -55,6 +57,7 @@
 
         <Button
             android:id="@+id/registerButton"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -64,6 +67,7 @@
 
         <Button
             android:id="@+id/loginButton"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
