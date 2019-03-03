@@ -3,4 +3,8 @@
     <string name="user_account">User account</string>
     <string name="register">Nýskrá</string>
     <string name="login">Innskrá</string>
+    <string name="email">Netfang</string>
+    <string name="password">Lykilorð</string>
+    <string name="passwordConfirm">Lykilorð aftur</string>
+    <string name="username">Notendanafn</string>
 </resources>
