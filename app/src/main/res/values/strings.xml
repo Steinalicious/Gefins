@@ -9,4 +9,12 @@
     <string name="username">Notendanafn</string>
     <string name="newAd">Skrá auglýsingu</string>
     <string name="sort">Sía</string>
+    <string name="title">Titill</string>
+    <string name="description">Lýsing</string>
+    <string name="zip">Póstnúmer</string>
+    <string name="category">Flokkur</string>
+    <string name="itemLoc">Staðsetning hlutar</string>
+    <string name="phone">Sími</string>
+    <string name="photo">Setja inn mynd</string>
+    <string name="submitAd">Skrá</string>
 </resources>

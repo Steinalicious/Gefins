@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/createAdButton"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:text="@string/newAd" />
