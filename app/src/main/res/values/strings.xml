@@ -17,4 +17,6 @@
     <string name="phone">Sími</string>
     <string name="photo">Setja inn mynd</string>
     <string name="submitAd">Skrá</string>
+    <string name="myAds">Mínar auglýsingar</string>
+    <string name="inQueueFor">Hlutir sem ég er í röð fyrir</string>
 </resources>
