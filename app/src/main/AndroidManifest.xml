@@ -21,9 +21,9 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".UserActivity"></activity>
         <activity android:name=".MyspaceActivity"></activity>
-        <activity android:exported="true" android:name=".NavbarActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".AdActivity"></activity>
+        <activity android:exported="true" android:name=".NavbarActivity"></activity>
     </application>
 
 </manifest>
