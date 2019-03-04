@@ -7,4 +7,6 @@
     <string name="password">Lykilorð</string>
     <string name="passwordConfirm">Lykilorð aftur</string>
     <string name="username">Notendanafn</string>
+    <string name="newAd">Skrá auglýsingu</string>
+    <string name="sort">Sía</string>
 </resources>
