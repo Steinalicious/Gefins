@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">Gefins</string>
+    <string name="app_name">GEFINS</string>
     <string name="user_account">User account</string>
-    <string name="register">Register</string>
     <string name="myspace">Mitt svæði</string>
     <string name="settings">Stillingar</string>
     <string name="log_out">Útskrá</string>
@@ -14,4 +13,22 @@
     <string name="ad_phone">Símanúmer: </string>
     <string name="ad_image">Setja inn mynd: </string>
     <string name="ad_register">Skrá</string>
+    <string name="register">Nýskrá</string>
+    <string name="login">Innskrá</string>
+    <string name="email">Netfang</string>
+    <string name="password">Lykilorð</string>
+    <string name="passwordConfirm">Lykilorð aftur</string>
+    <string name="username">Notendanafn</string>
+    <string name="newAd">Skrá auglýsingu</string>
+    <string name="sort">Sía</string>
+    <string name="title">Titill</string>
+    <string name="description">Lýsing</string>
+    <string name="zip">Póstnúmer</string>
+    <string name="category">Flokkur</string>
+    <string name="itemLoc">Staðsetning hlutar</string>
+    <string name="phone">Sími</string>
+    <string name="photo">Setja inn mynd</string>
+    <string name="submitAd">Skrá</string>
+    <string name="myAds">Mínar auglýsingar</string>
+    <string name="inQueueFor">Hlutir sem ég er í röð fyrir</string>
 </resources>

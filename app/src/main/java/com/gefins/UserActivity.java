@@ -21,30 +21,18 @@ import org.json.JSONObject;
 public class UserActivity extends AppCompatActivity {
 
     // Skilgreiningar
-    private Button registerBtn, loginBtn;
+    private Button loginBtn;
     private EditText emailEdTxt, passEdTxt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        registerBtn = findViewById(R.id.registerButton);
         loginBtn = findViewById(R.id.loginButton);
         emailEdTxt = findViewById(R.id.loginEmail);
         passEdTxt = findViewById(R.id.loginPass);
-
-
-        // Virknin á Register takkanum
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Færir frá login skjá á register skjá
-                Intent intent = new Intent(UserActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //Virknin á Login takkanum
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,8 +54,8 @@ public class UserActivity extends AppCompatActivity {
 
                             if(connected) {
 
-                                // Færir frá Login skjá á Myspace skjá
-                                Intent intent = new Intent( UserActivity.this, MyspaceActivity.class);
+                                // Færir frá Login skjá á forsíðu
+                                Intent intent = new Intent( UserActivity.this, MainActivity.class);
                                 UserActivity.this.startActivity(intent);
                             } else{
 
@@ -92,4 +80,5 @@ public class UserActivity extends AppCompatActivity {
         });
 
     }
+
 }

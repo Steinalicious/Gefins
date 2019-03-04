@@ -1,34 +1,31 @@
 package com.gefins;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Skilgreinigar
-    private ImageButton userBtn;
+    private Button createAdBtn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userBtn = findViewById(R.id.userImageButton);
+        createAdBtn = findViewById(R.id.createAdButton);
 
-        // Virknin á user takkanum
-        userBtn.setOnClickListener(new View.OnClickListener() {
+        // Virknin á "skrá auglýsingu" takkanum
+        createAdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //Færir frá aðalskjá yfir á Login skjá
-                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                //Færir frá forsíðu yfir á ný auglýsing skjá
+                Intent intent = new Intent(MainActivity.this, AdActivity.class);
                 startActivity(intent);
             }
         });
-
-
     }
 }
