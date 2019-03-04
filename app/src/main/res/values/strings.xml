@@ -2,4 +2,16 @@
     <string name="app_name">Gefins</string>
     <string name="user_account">User account</string>
     <string name="register">Register</string>
+    <string name="myspace">Mitt svæði</string>
+    <string name="settings">Stillingar</string>
+    <string name="log_out">Útskrá</string>
+    <string name="new_ad">Ný auglýsing</string>
+    <string name="ad_title">Heiti auglýsingar: </string>
+    <string name="ad_description">Lýsing: </string>
+    <string name="ad_zip">Póstnúmer: </string>
+    <string name="ad_category">Flokkur: </string>
+    <string name="ad_itemlocation">Staðsetning hlutar: </string>
+    <string name="ad_phone">Símanúmer: </string>
+    <string name="ad_image">Setja inn mynd: </string>
+    <string name="ad_register">Skrá</string>
 </resources>
