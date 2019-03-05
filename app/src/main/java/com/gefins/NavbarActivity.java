@@ -16,6 +16,9 @@ import android.support.v7.app.ActionBar;
 public class NavbarActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private MenuItem myspace;
+    private MenuItem settings;
+    private MenuItem logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,12 @@ public class NavbarActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        myspace = findViewById(R.id.nav_myspace);
+        settings = findViewById(R.id.nav_settings);
+        logout = findViewById(R.id.nav_logout);
 
+
+        
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {

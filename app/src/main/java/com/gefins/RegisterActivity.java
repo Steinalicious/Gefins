@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends NavbarActivity {
 
     //Skilgreiningar
     private Button registerBtn;
@@ -27,7 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+        getLayoutInflater().inflate(R.layout.activity_register, contentFrameLayout);
 
         nameEdTxt = findViewById(R.id.usernameEditText);
         emailEdTxt = findViewById(R.id.registerEmailEditText);

@@ -92,18 +92,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:labelFor="@id/category_input"
             android:text="@string/category"
             android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
-        <EditText
-            android:id="@+id/category_input"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:ignore="Autofill" />
+            android:backgroundTint="@android:color/holo_red_light"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/android_dropdown_arrays"
+            android:padding="5dp"
+            android:spinnerMode="dropdown" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -165,18 +167,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:labelFor="@id/photo_input"
             android:text="@string/photo"
             android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
-        <EditText
-            android:id="@+id/photo_input"
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:ignore="Autofill" />
+            android:id="@+id/btn_picker"
+            android:text="@string/choosePhoto" />
+
     </LinearLayout>
 
     <LinearLayout

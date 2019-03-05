@@ -31,4 +31,18 @@
     <string name="submitAd">Skrá</string>
     <string name="myAds">Mínar auglýsingar</string>
     <string name="inQueueFor">Hlutir sem ég er í röð fyrir</string>
+    <string name="choosePhoto">Velja mynd</string>
+    <string-array name="android_dropdown_arrays">
+        <item>Flokkur</item>
+        <item>Húsgögn</item>
+        <item>Fatnaður</item>
+        <item>Barnavörur</item>
+        <item>Raftæki</item>
+        <item>Verkfæri</item>
+        <item>Farartæki</item>
+        <item>Matur</item>
+        <item>Dýr</item>
+        <item>Annað</item>
+    </string-array>
+
 </resources>
