@@ -1,5 +1,6 @@
 package com.gefins;
 
+
 import android.util.Log;
 import android.view.textclassifier.TextLinks;
 
