@@ -8,7 +8,8 @@ import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
 
-    private static final String REGISTER_REQUEST_URL = "https://hugbo2.000webhostapp.com/connect/register.php";//linkur á Server
+    //private static final String REGISTER_REQUEST_URL = "https://hugbo2.000webhostapp.com/connect/register.php";//linkur á Server
+    private static final String REGISTER_REQUEST_URL = "https://gefins-server.herokuapp.com/register";
     private Map<String, String> params;
 
     public RegisterRequest(String username , String email, String password, Response.Listener<String> listener) {
