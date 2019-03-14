@@ -48,7 +48,7 @@ public class UserActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             //debug
-                            Log.d("json", response);
+                            Log.d("JSONLOGIN", response);
                             JSONObject jsonResponse= new JSONObject(response);
                             boolean connected = jsonResponse.getBoolean("success");
 
@@ -74,6 +74,7 @@ public class UserActivity extends AppCompatActivity {
 
                 // Tengist server
                 LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
+
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);
             }
