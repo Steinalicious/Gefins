@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LocationActivity"></activity>
+        <activity android:name=".CategoryActivity" />
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".UserActivity"></activity>
-        <activity android:name=".MyspaceActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".AdActivity"></activity>
-        <activity android:exported="true" android:name=".NavbarActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".MyspaceActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AdActivity" />
+        <activity android:name=".SortActivity" />
+        <activity
+            android:name=".NavbarActivity"
+            android:exported="true" />
+        <activity android:name=".ExitNavbarActivity" />
     </application>
 
 </manifest>
