@@ -32,6 +32,7 @@ public class RegisterActivity extends NavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_register, contentFrameLayout);
 
+
         nameEdTxt = findViewById(R.id.usernameEditText);
         emailEdTxt = findViewById(R.id.registerEmailEditText);
         passEdTxt = findViewById(R.id.registerPassEditText);
