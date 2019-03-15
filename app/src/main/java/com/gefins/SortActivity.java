@@ -31,7 +31,7 @@ public class SortActivity extends ExitNavbarActivity {
             }
         });
 
-        // Virknin á "Flokkar" takkanum
+        // Virknin á "Staðsetning" takkanum
         sortLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

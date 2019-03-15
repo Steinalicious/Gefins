@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/content_frame"
@@ -17,35 +13,23 @@
         android:clickable="true">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/back_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             app:titleTextColor="@color/black">
 
             <TextView
-                android:id="@+id/drawer_title"
+                android:id="@+id/backTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
+                android:text="@string/backTitle"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@color/white"
                 android:textSize="22sp" />
         </android.support.v7.widget.Toolbar>
 
     </FrameLayout>
 
-    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/drawer_view"
-        android:background="@color/white"
-        app:itemTextColor="@color/black"
-        app:headerLayout="@layout/nav_header"/>
-
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>

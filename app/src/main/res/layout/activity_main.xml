@@ -10,6 +10,7 @@
         android:layout_width="387dp"
         android:layout_height="58dp"
         android:background="@drawable/button_border"
+        android:textSize="17sp"
         android:text="@string/newAd" />
 
     <LinearLayout
@@ -28,6 +29,7 @@
             android:id="@+id/filterButton"
             android:layout_width="188dp"
             android:layout_height="wrap_content"
+            android:textSize="17sp"
             android:background="@drawable/button_border"
             android:text="@string/filter" />
 

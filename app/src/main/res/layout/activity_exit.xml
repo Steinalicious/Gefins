@@ -16,8 +16,8 @@
             android:id="@+id/exit_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:titleTextColor="@color/black" >
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/black">
 
             <TextView
                 android:id="@+id/sort_title"
@@ -25,8 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/filter"
-                android:textSize="18dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="22sp" />
         </android.support.v7.widget.Toolbar>
 
     </FrameLayout>
