@@ -20,13 +20,12 @@
             app:titleTextColor="@color/black">
 
             <TextView
-                android:id="@+id/sort_title"
+                android:id="@+id/exit_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/filter"
-                android:textColor="@color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@color/white"
                 android:textSize="22sp" />
         </android.support.v7.widget.Toolbar>
 

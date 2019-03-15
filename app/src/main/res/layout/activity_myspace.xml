@@ -24,12 +24,16 @@
             android:layout_width="match_parent"
             android:layout_height="361dp"
             android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/white"
+            android:textSize="17sp"
             android:text="@string/myAds" />
 
         <Button
             android:id="@+id/inQueueForButton"
             android:layout_width="match_parent"
             android:layout_height="361dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
             android:backgroundTint="@android:color/holo_red_light"
             android:text="@string/inQueueFor" />
     </LinearLayout>

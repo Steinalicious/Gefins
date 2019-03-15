@@ -3,6 +3,7 @@ package com.gefins;
 import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -18,7 +19,13 @@ public class CategoryActivity extends BackNavbarActivity {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_category, contentFrameLayout);
-        getSupportActionBar().setTitle("");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
+        mTitle.setText(R.string.categories);
+
     }
 
     public void onCheckboxClicked(View view) {
