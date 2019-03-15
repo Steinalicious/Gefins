@@ -3,10 +3,24 @@ package com.gefins;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ListView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Array;
 
 public class MainActivity extends NavbarActivity {
 
@@ -21,6 +35,37 @@ public class MainActivity extends NavbarActivity {
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //debug
+                    Log.d("JSONADLIST ", response);
+                    JSONObject jsonResponse= new JSONObject(response);
+                   /* JSONArray items =  jsonResponse.getJSONArray("items");
+                    String names[] = new String[items.length()];
+
+                    for(int i = 0; i < items.length(); i++){
+                        JSONObject item = items.getJSONObject(i);
+                        names[i] = item.getString("name");
+                        Log.d("NAME", names[i]);
+                    }
+                    ListView listView = findViewById(R.id.itemsList);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, names);
+                    listView.setAdapter(adapter);
+*/
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        AdListRequest adListRequest = new AdListRequest(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(adListRequest);
+
 
         // Virknin á "skrá auglýsingu" takkanum
         createAdBtn.setOnClickListener(new View.OnClickListener() {
