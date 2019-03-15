@@ -43,7 +43,16 @@
 
 
 
+    <string name="backTitle"></string>
 
+    <string name="category_furniture">Húsgögn</string>
+    <string name="category_clothing">Fatnaður</string>
+    <string name="category_kids">Barnavörur</string>
+    <string name="category_electronics">Raftæki</string>
+    <string name="category_tools">Verkfæri</string>
+    <string name="category_commute">Farartæki</string>
+    <string name="category_food">Húsgögn</string>
+    <string name="category_animals">Dýr</string>
 
     <string-array name="android_dropdown_arrays">
         <item>Flokkur</item>

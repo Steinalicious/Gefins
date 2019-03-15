@@ -28,7 +28,7 @@ public class NavbarActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        actionbar.setHomeAsUpIndicator(R.drawable.baseline_menu_white2_18dp);
 
         drawerLayout = findViewById(R.id.drawer_layout);
 

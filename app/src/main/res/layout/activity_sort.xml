@@ -12,20 +12,32 @@
 
     <LinearLayout
         android:layout_width="371dp"
-        android:layout_height="496dp"
+        android:layout_height="60dp"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/sort_categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/categories" />
+            android:background="@drawable/button_border"
+            android:text="@string/categories"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="371dp"
+        android:layout_height="400dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/sort_loc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/location" />
+            android:background="@drawable/button_border"
+            android:text="@string/location"
+            android:textSize="17sp" />
+
     </LinearLayout>
 
     <Button
@@ -33,6 +45,7 @@
         android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_border"
-        android:text="@string/viewSortedItems" />
+        android:text="@string/viewSortedItems"
+        android:textSize="17sp" />
 
 </LinearLayout>
