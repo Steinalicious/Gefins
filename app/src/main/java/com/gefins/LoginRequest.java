@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class LoginRequest extends StringRequest {
    // private static final String LOGIN_REQUEST_URL = "https://hugbo2.000webhostapp.com/connect/login.php";//linkur á server
-    private static final String LOGIN_REQUEST_URL = "https://gefins-server.herokuapp.com/logintest";
+    private static final String LOGIN_REQUEST_URL = "https://gefins-server.herokuapp.com/login";
     private Map<String,String> params;
 
     public LoginRequest(String email, String password, Response.Listener<String> listener){
