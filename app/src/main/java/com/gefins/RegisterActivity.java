@@ -19,7 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
-public class RegisterActivity extends NavbarActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     //Skilgreiningar
     private Button registerBtn;
@@ -29,8 +29,7 @@ public class RegisterActivity extends NavbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
-        getLayoutInflater().inflate(R.layout.activity_register, contentFrameLayout);
+        setContentView(R.layout.activity_register);
 
 
         nameEdTxt = findViewById(R.id.usernameEditText);
