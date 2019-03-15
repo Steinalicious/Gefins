@@ -29,6 +29,20 @@
     <string name="categories">Flokkar</string>
     <string name="location">Staðsetning</string>
     <string name="viewSortedItems">Leita</string>
+    <string name="viewad_numberqueue">Fjöldi í röð: </string>
+    <string name="viewad_enterqueue">Fara í röð</string>
+    <string name="viewad_category">Flokkur: </string>
+    <string name="viewad_zip">Póstnúmer: </string>
+    <string name="viewad_description">Lýsing: </string>
+    <string name="viewad_ownerinfo">Upplýsingar um gefanda: </string>
+    <string name="viewad_cancel">Hætta við</string>
+    <string name="viewad_message">Senda skilaboð</string>
+    <string name="viewad_delete">Eyða</string>
+    <string name="viewad_edit">Breyta</string>
+
+
+
+
 
 
     <string-array name="android_dropdown_arrays">

@@ -29,6 +29,9 @@
         <activity
             android:name=".NavbarActivity"
             android:exported="true" />
+        <activity
+            android:name=".ViewAdActivity"
+            android:exported="true" />
         <activity android:name=".ExitNavbarActivity" />
     </application>
 
