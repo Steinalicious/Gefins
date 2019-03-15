@@ -1,16 +1,20 @@
 package com.gefins;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,15 +23,27 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AdActivity extends AppCompatActivity {
+import Entities.Item;
+import Requests.ItemRequest;
+
+public class AdActivity extends ExitNavbarActivity {
     private Spinner spinner1;
     private Button button, submitBtn;
-    private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt;
+    private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt,category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ad);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+        getLayoutInflater().inflate(R.layout.activity_ad, contentFrameLayout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.exit_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.exit_title);
+        mTitle.setText(R.string.new_ad);
+
+
 
         spinner1 = findViewById(R.id.spinner);
         spinner1.setOnItemSelectedListener(new ItemSelectedListener());
@@ -52,11 +68,11 @@ public class AdActivity extends AppCompatActivity {
                 locEdTxt = findViewById(R.id.itemLoc_input);
                 phoneEdTxt = findViewById(R.id.phone_input);
 
-                String title = titleEdTxt.getText().toString();
-                String desc = descEdTxt.getText().toString();
-                String zip = zipEdTxt.getText().toString();
-                String location = locEdTxt.getText().toString();
-                String phone = phoneEdTxt.getText().toString();
+                Item item =new Item("maggi",descEdTxt.getText().toString(),locEdTxt.getText().toString(),
+                        phoneEdTxt.getText().toString(),titleEdTxt.getText().toString(),
+                        "maggi@hi.is",zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
+
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -86,9 +102,9 @@ public class AdActivity extends AppCompatActivity {
                         }
                     }
                 };
-                AdMakerRequest adMakerRequest = new AdMakerRequest(title, desc, zip, location, phone, responseListener);
+                ItemRequest itemRequest = new ItemRequest(item, "admaker", responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AdActivity.this);
-                queue.add(adMakerRequest);
+                queue.add(itemRequest);
             }
         });
     }

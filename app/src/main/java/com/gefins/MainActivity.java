@@ -5,11 +5,16 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+import android.support.v7.widget.Toolbar;
+>>>>>>> 86636967111baa50f86586e024a2c3eef46cf530
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+<<<<<<< HEAD
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -21,6 +26,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Array;
+=======
+import android.widget.TextView;
+>>>>>>> 86636967111baa50f86586e024a2c3eef46cf530
 
 public class MainActivity extends NavbarActivity {
 
@@ -31,7 +39,12 @@ public class MainActivity extends NavbarActivity {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_main, contentFrameLayout);
-        getSupportActionBar().setTitle("");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
+        mTitle.setText(R.string.app_name);
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);

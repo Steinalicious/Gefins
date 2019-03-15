@@ -37,18 +37,22 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/holo_blue_bright"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/login"
-            android:textAppearance="@android:style/TextAppearance.Material.Widget.Button" />
+            android:textColor="@color/white"
+            android:textAppearance="@android:style/TextAppearance.Material.Widget.Button"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/main_register"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/holo_blue_bright"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/register"
-            android:textAppearance="@android:style/TextAppearance.Material.Widget.Button" />
+            android:textAppearance="@android:style/TextAppearance.Material.Widget.Button"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

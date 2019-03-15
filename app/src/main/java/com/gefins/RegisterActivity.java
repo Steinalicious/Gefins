@@ -19,6 +19,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import Entities.User;
+import Requests.UserRequest;
+
 public class RegisterActivity extends AppCompatActivity {
 
     //Skilgreiningar
@@ -46,9 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
                 /* Nær í textan frá input field sem eru á register skjá
                    aka notandanafn, tölvupóstinn, lykillorðið og endurtekninguna
                 */
-                String name = nameEdTxt.getText().toString();
-                String email = emailEdTxt.getText().toString();
-                String password = passEdTxt.getText().toString();
+                //***********vanntar phone, location og zipcode!!!**********************************
+                User user=new User("0", nameEdTxt.getText().toString(),
+                        passEdTxt.getText().toString(), "phone", emailEdTxt.getText().toString(),
+                        "location", "zipcode", "0", "0");
+
                 String passwordConfirm = confirmEdTxt.getText().toString();
 
                 //Meðhöndlun á svari frá server
@@ -81,10 +86,10 @@ public class RegisterActivity extends AppCompatActivity {
                 };
 
 
-                if (password.equals(passwordConfirm)) {
+                if (user.getPassword().equals(passwordConfirm)) {
 
                     //Tengist server
-                    RegisterRequest registerRequest = new RegisterRequest(name, email, password, responseListener);
+                    UserRequest registerRequest = new UserRequest(user,"register", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(registerRequest);
                 } else {

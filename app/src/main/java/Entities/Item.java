@@ -1,33 +1,62 @@
 package Entities;
+import java.util.ArrayList;
 import java.util.List;
 public class Item {
-    private int id;
+    private String id;
     private String owner;
     private String acceptedUser;
-    private String pickupTime;
     private String description;
     private String location;
     private String generalLocation;
     private String phone;
     private String name;
     private String email;
-    private Integer zipcode;
+    private String zipcode;
     private String category;
-    private String rated="";
+    private String rated;
     private List<String> users;
     private String messenger;
     private String img;
     // Notice the empty constructor, because we need to be able to create an empty PostitNote to add
     // to our model so we can use it with our form
     public Item() {
+
     }
-    public Item(int id, String owner, String acceptedUser, String pickupTime,
-                String description, String location, String generalLocation, String phone,
-                String name, String email, Integer zipcode,List<String> users,
-                String category, String rated) {
+    public Item(String owner, String description,
+                String location, String phone, String name,
+                String email, String zipcode, String category){
+        this.id = "0";
+        this.owner=owner;
+        this.description = description;
+        this.location = location;
+        this.generalLocation = "general Location";
+        this.phone = phone;
+        this.name = name;
+        this.email = email;
+        this.zipcode = zipcode;
+        this.category = category;
+        this.rated = "0";
+        this.acceptedUser = "0";
+        this.users = new ArrayList<>();
+        this.messenger="";
+        this.img="";
+
+    }
+    public Item(String id,
+                String owner,
+                String acceptedUser,
+                String description,
+                String location,
+                String generalLocation,
+                String phone,
+                String name,
+                String email,
+                String zipcode,
+                List<String> users,
+                String category,
+                String rated) {
         this.id = id;
         this.owner=owner;
-        this.pickupTime = pickupTime;
         this.description = description;
         this.location = location;
         this.generalLocation = generalLocation;
@@ -42,6 +71,16 @@ public class Item {
         this.messenger=messenger;
         this.img=img;
     }
+
+
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
     public String getMessenger() {
         return messenger;
     }
@@ -51,13 +90,13 @@ public class Item {
     public void addMessage(String sender, String message){
         this.messenger=this.messenger+"/n"+"/n"+sender+"/n"+message;
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
     public void remove(String userName) {
         remove(userName);
     }
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getAcceptedUser() {
@@ -69,14 +108,8 @@ public class Item {
     public String getOwner() {
         return owner;
     }
-    public void setOwner(String userName) {
+    public void setOwner(String owner) {
         this.owner = owner;
-    }
-    public String getPickupTime() {
-        return pickupTime;
-    }
-    public void setPickupTime(String pickupTime) {
-        this.pickupTime = pickupTime;
     }
     public List<String> getUsers() {
         return users;
@@ -111,11 +144,11 @@ public class Item {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public String getname() {
+    public String getItemName() {
         return name;
     }
     public void setItemName(String itemName) {
-        this.name = name;
+        this.name = itemName;
     }
     public String getEmail() {
         return email;
@@ -123,10 +156,10 @@ public class Item {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Integer getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
-    public void setZipcode(Integer zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
     public String getCategory() {

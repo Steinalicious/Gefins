@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:onClick="onCheckboxClicked"
+            android:textSize="22sp"
             android:text="@string/category_furniture" />
 
         <View
@@ -29,7 +30,21 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:onClick="onCheckboxClicked"
+            android:textSize="22sp"
             android:text="@string/category_clothing" />
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+        <CheckBox
+            android:id="@+id/checkbox_kids"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="onCheckboxClicked"
+            android:textSize="22sp"
+            android:text="@string/category_kids" />
+
     </LinearLayout>
 
 </LinearLayout>
