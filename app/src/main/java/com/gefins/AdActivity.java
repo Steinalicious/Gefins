@@ -26,7 +26,7 @@ import org.json.JSONObject;
 import Entities.Item;
 import Requests.ItemRequest;
 
-public class AdActivity extends AppCompatActivity {
+public class AdActivity extends ExitNavbarActivity {
     private Spinner spinner1;
     private Button button, submitBtn;
     private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt,category;
