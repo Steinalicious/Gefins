@@ -18,6 +18,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Entities.User;
+import Requests.UserRequest;
+
 public class UserActivity extends AppCompatActivity {
 
     // Skilgreiningar
@@ -38,9 +41,9 @@ public class UserActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String email = emailEdTxt.getText().toString();
-                String password = passEdTxt.getText().toString();
+                User user=new User();
+                user.setEmail(emailEdTxt.getText().toString());
+                user.setPassword(passEdTxt.getText().toString());
 
                 //Meðhöndlun á svari frá server
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -73,7 +76,7 @@ public class UserActivity extends AppCompatActivity {
                 };
 
                 // Tengist server
-                LoginRequest loginRequest = new LoginRequest(email, password, responseListener);
+                UserRequest loginRequest = new UserRequest(user, "login", responseListener);
 
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);

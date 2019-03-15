@@ -19,10 +19,13 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Entities.Item;
+import Requests.ItemRequest;
+
 public class AdActivity extends AppCompatActivity {
     private Spinner spinner1;
     private Button button, submitBtn;
-    private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt;
+    private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt,category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +55,11 @@ public class AdActivity extends AppCompatActivity {
                 locEdTxt = findViewById(R.id.itemLoc_input);
                 phoneEdTxt = findViewById(R.id.phone_input);
 
-                String title = titleEdTxt.getText().toString();
-                String desc = descEdTxt.getText().toString();
-                String zip = zipEdTxt.getText().toString();
-                String location = locEdTxt.getText().toString();
-                String phone = phoneEdTxt.getText().toString();
+                Item item =new Item("maggi",descEdTxt.getText().toString(),locEdTxt.getText().toString(),
+                        phoneEdTxt.getText().toString(),titleEdTxt.getText().toString(),
+                        "maggi@hi.is",zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
+
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -86,9 +89,9 @@ public class AdActivity extends AppCompatActivity {
                         }
                     }
                 };
-                AdMakerRequest adMakerRequest = new AdMakerRequest(title, desc, zip, location, phone, responseListener);
+                ItemRequest itemRequest = new ItemRequest(item, "admaker", responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AdActivity.this);
-                queue.add(adMakerRequest);
+                queue.add(itemRequest);
             }
         });
     }
