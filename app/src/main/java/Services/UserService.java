@@ -7,7 +7,7 @@ public class UserService {
 
     }
     public void updateUser(User user){
-        //Todo update user
+
     }
 
     public Boolean save(User user) {
@@ -15,7 +15,6 @@ public class UserService {
     }
 
     public void delete(User user) {
-        //Todo function to delete user
     }
 
     public List<User> findByUsers(List<String> users) {

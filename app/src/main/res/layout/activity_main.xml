@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="match_parent"
     android:gravity="bottom|center_horizontal"
     android:orientation="vertical">
 
@@ -10,8 +10,8 @@
         android:layout_width="387dp"
         android:layout_height="58dp"
         android:background="@drawable/button_border"
-        android:textSize="17sp"
-        android:text="@string/newAd" />
+        android:text="@string/newAd"
+        android:textSize="17sp" />
 
     <LinearLayout
         android:layout_width="387dp"
@@ -29,18 +29,17 @@
             android:id="@+id/filterButton"
             android:layout_width="188dp"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
             android:background="@drawable/button_border"
-            android:text="@string/filter" />
+            android:text="@string/filter"
+            android:textSize="17sp" />
 
-        <!--<ListView
+        <!--   <ListView
             android:id="@+id/itemsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>-->
     </LinearLayout>
-
- <!--   <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -51,6 +50,5 @@
 
         </ListView>
     </LinearLayout>
--->
 
 </LinearLayout>

@@ -43,7 +43,7 @@ public class MainActivity extends NavbarActivity {
                     //debug
                     Log.d("JSONADLIST ", response);
                     JSONObject jsonResponse= new JSONObject(response);
-                   /* JSONArray items =  jsonResponse.getJSONArray("items");
+                    JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
 
                     for(int i = 0; i < items.length(); i++){
@@ -54,7 +54,7 @@ public class MainActivity extends NavbarActivity {
                     ListView listView = findViewById(R.id.itemsList);
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, names);
                     listView.setAdapter(adapter);
-*/
+
 
                 } catch (JSONException e){
                     e.printStackTrace();
