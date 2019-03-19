@@ -1,5 +1,6 @@
 package com.gefins;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -44,7 +45,6 @@ public class AdActivity extends ExitNavbarActivity {
         mTitle.setText(R.string.new_ad);
 
 
-
         spinner1 = findViewById(R.id.spinner);
         spinner1.setOnItemSelectedListener(new ItemSelectedListener());
         button = findViewById(R.id.btn_picker);
@@ -73,7 +73,6 @@ public class AdActivity extends ExitNavbarActivity {
                         "maggi@hi.is",zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
 
 
-
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -81,15 +80,13 @@ public class AdActivity extends ExitNavbarActivity {
                             //debug
                             Log.d("JSONADMAKER", response);
                             JSONObject jsonResponse= new JSONObject(response);
-                            boolean connected = jsonResponse.getBoolean("success");
+                            boolean success = jsonResponse.getBoolean("success");
 
-                            if(connected) {
-
+                            if(success) {
                                 // Færir frá Login skjá á forsíðu
                                 Intent intent = new Intent( AdActivity.this, MainActivity.class);
                                 AdActivity.this.startActivity(intent);
                             } else{
-
                                 // Lætur vita ef innskráning mistókst
                                 AlertDialog.Builder builder = new AlertDialog.Builder( AdActivity.this);
                                 builder.setMessage("Auglýsingaskráning mistókst")
@@ -134,16 +131,16 @@ public class AdActivity extends ExitNavbarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 7:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
                     String PathHolder = data.getData().getPath();
                     Toast.makeText(AdActivity.this, PathHolder, Toast.LENGTH_LONG).show();
                 }
                 break;
         }
     }
+
 }
 

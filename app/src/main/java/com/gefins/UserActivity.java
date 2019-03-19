@@ -53,15 +53,13 @@ public class UserActivity extends AppCompatActivity {
                             //debug
                             Log.d("JSONLOGIN", response);
                             JSONObject jsonResponse= new JSONObject(response);
-                            boolean connected = jsonResponse.getBoolean("success");
+                            boolean success = jsonResponse.getBoolean("success");
 
-                            if(connected) {
-
+                            if(success) {
                                 // Færir frá Login skjá á forsíðu
                                 Intent intent = new Intent( UserActivity.this, MainActivity.class);
                                 UserActivity.this.startActivity(intent);
                             } else{
-
                                 // Lætur vita ef innskráning mistókst
                                 AlertDialog.Builder builder = new AlertDialog.Builder( UserActivity.this);
                                 builder.setMessage("Innskráning mistókst")
@@ -77,7 +75,6 @@ public class UserActivity extends AppCompatActivity {
 
                 // Tengist server
                 UserRequest loginRequest = new UserRequest(user, "login", responseListener);
-
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);
             }

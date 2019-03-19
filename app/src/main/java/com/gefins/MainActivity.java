@@ -5,16 +5,14 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-<<<<<<< HEAD
 import android.util.Log;
-=======
 import android.support.v7.widget.Toolbar;
->>>>>>> 86636967111baa50f86586e024a2c3eef46cf530
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
-<<<<<<< HEAD
+
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -25,10 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Array;
-=======
 import android.widget.TextView;
->>>>>>> 86636967111baa50f86586e024a2c3eef46cf530
+
+import Requests.ItemRequest;
+
 
 public class MainActivity extends NavbarActivity {
 
@@ -64,10 +62,9 @@ public class MainActivity extends NavbarActivity {
                         names[i] = item.getString("name");
                         Log.d("NAME", names[i]);
                     }
-                    ListView listView = findViewById(R.id.itemsList);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, names);
-                    listView.setAdapter(adapter);
-
+                    GridView gridView = findViewById(R.id.gridView);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
+                    gridView.setAdapter(adapter);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -75,7 +72,7 @@ public class MainActivity extends NavbarActivity {
             }
         };
 
-        AdListRequest adListRequest = new AdListRequest(responseListener);
+        ItemRequest adListRequest = new ItemRequest("items", responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(adListRequest);
 

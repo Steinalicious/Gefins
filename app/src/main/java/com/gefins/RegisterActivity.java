@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
                 /* Nær í textan frá input field sem eru á register skjá
                    aka notandanafn, tölvupóstinn, lykillorðið og endurtekninguna
                 */
-                //***********vanntar phone, location og zipcode!!!**********************************
+                //***********vantar phone, location og zipcode!!!**********************************
                 User user=new User("0", nameEdTxt.getText().toString(),
                         passEdTxt.getText().toString(), "phone", emailEdTxt.getText().toString(),
                         "location", "zipcode", "0", "0");

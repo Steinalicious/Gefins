@@ -25,6 +25,7 @@ public class Item {
     public Item(String owner, String description,
                 String location, String phone, String name,
                 String email, String zipcode, String category){
+
         this.id = "0";
         this.owner=owner;
         this.description = description;

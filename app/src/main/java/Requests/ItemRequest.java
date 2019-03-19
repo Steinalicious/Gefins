@@ -1,7 +1,13 @@
 package Requests;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +18,10 @@ public class ItemRequest extends StringRequest {
 //admaker
     private static final String ADMAKER_REQUEST_URL = "https://gefins-server.herokuapp.com/";
     private Map<String, String> params;
+
+    public ItemRequest(String request, Response.Listener<String> listener){
+        super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
+    }
 
     public ItemRequest(Item item, String request, Response.Listener<String> listener){
         super(Method.POST, ADMAKER_REQUEST_URL+request, listener, null);
@@ -33,6 +43,8 @@ public class ItemRequest extends StringRequest {
         params.put("phone", item.getPhone());
     }
 
+
     @Override
     public Map<String, String> getParams(){ return params; }
+
 }

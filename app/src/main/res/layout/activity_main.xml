@@ -40,7 +40,6 @@
             android:layout_width="188dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_border"
-<<<<<<< HEAD
             android:text="@string/filter"
             android:textSize="17sp" />
 
@@ -54,16 +53,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/itemsList"
+        <GridView
+            android:id="@+id/gridView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </ListView>
-=======
-            android:text="@string/filter" />
-
->>>>>>> 86636967111baa50f86586e024a2c3eef46cf530
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            ></GridView>
     </LinearLayout>
 
 </LinearLayout>
