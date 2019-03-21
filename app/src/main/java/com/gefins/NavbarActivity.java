@@ -47,7 +47,7 @@ public class NavbarActivity extends AppCompatActivity {
                             Intent intent = new Intent(NavbarActivity.this, MyspaceActivity.class);
                             startActivity(intent);
                         } else if (id == R.id.nav_settings) {
-                            Intent intent = new Intent(NavbarActivity.this, MyspaceActivity.class);
+                            Intent intent = new Intent(NavbarActivity.this, SettingsActivity.class);
                             startActivity(intent);
                         } else if (id == R.id.nav_logout) {
                             Intent intent = new Intent(NavbarActivity.this, MyspaceActivity.class);
