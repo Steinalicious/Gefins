@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+/* Eftir að klára allt varðandi ViewAd */
+
 public class ViewAdActivity extends NavbarActivity {
 
     @Override
