@@ -4,16 +4,9 @@
     android:layout_height="match_parent"
     android:gravity="bottom|center_horizontal"
     android:orientation="vertical">
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="92dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_height="92dp"></LinearLayout>
 
     <Button
         android:id="@+id/createAdButton"
@@ -43,13 +36,8 @@
             android:text="@string/filter"
             android:textSize="17sp" />
 
-        <!--   <ListView
-            android:id="@+id/itemsList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>-->
     </LinearLayout>
-    <LinearLayout
+   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -60,5 +48,4 @@
             android:numColumns="2"
             ></GridView>
     </LinearLayout>
-
 </LinearLayout>
