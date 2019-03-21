@@ -33,6 +33,9 @@
         <activity
             android:name=".ViewAdActivity"
             android:exported="true" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true" />
         <activity android:name=".ExitNavbarActivity" />
     </application>
 
