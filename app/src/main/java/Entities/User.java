@@ -1,7 +1,14 @@
 package Entities;
 
+import org.json.JSONObject;
+
+import java.util.UUID;
+
 public class User {
+
+
     // Declare that this attribute is the id
+    private String mId;
     private String id;
     private String userName;
     private String password;
@@ -15,6 +22,7 @@ public class User {
     // Notice the empty constructor, because we need to be able to create an empty PostitNote to add
     // to our model so we can use it with our form
     public User() {
+        this.mId = UUID.randomUUID().toString();
         this.id = "0";
         this.userName = "0";
         this.password = "0";
@@ -25,8 +33,26 @@ public class User {
         this.stars = "0";
         this.starsNumber = "0";
     }
+    public User(JSONObject json){
+        try {
+            this.id = json.getString("id");
+            this.mId = json.getString("mId");
+            this.userName = json.getString("userName");
+            this.password = json.getString("password");
+            this.phone = json.getString("phone");
+            this.email = json.getString("email");
+            this.location = json.getString("location");
+            this.zipcode = json.getString("zipcode");
+            this.stars = json.getString("stars");
+            this.starsNumber = json.getString("starsNumber");
+        } catch (Exception e){
+
+        }
+    }
+
     public User(String id, String userName, String password, String phone, String email,
                 String location, String zipcode, String stars, String starNumber) {
+        this.mId = UUID.randomUUID().toString();
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -37,6 +63,15 @@ public class User {
         this.stars = stars;
         this.starsNumber = starNumber;
     }
+
+    public String getmId() {
+        return mId;
+    }
+
+    public void setmId(String mId) {
+        this.mId = mId;
+    }
+
     public String getId() {
         return id;
     }

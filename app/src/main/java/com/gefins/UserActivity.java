@@ -20,13 +20,14 @@ import org.json.JSONObject;
 
 import Entities.User;
 import Requests.UserRequest;
+import Services.UserService;
 
 public class UserActivity extends AppCompatActivity {
 
     // Skilgreiningar
     private Button loginBtn;
     private EditText emailEdTxt, passEdTxt;
-
+    private UserService userService=new UserService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +54,10 @@ public class UserActivity extends AppCompatActivity {
                             //debug
                             Log.d("JSONLOGIN", response);
                             JSONObject jsonResponse= new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
 
-                            if(success) {
+
+                            if(!jsonResponse.isNull("id")) {
+                                User currentuser = new User(jsonResponse);
                                 // Færir frá Login skjá á forsíðu
                                 Intent intent = new Intent( UserActivity.this, MainActivity.class);
                                 UserActivity.this.startActivity(intent);
