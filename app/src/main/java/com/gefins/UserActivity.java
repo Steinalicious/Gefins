@@ -54,9 +54,9 @@ public class UserActivity extends AppCompatActivity {
                             //debug
                             Log.d("JSONLOGIN", response);
                             JSONObject jsonResponse= new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
 
-
-                            if(!jsonResponse.isNull("id")) {
+                            if(success) {
                                 User currentuser = new User(jsonResponse);
                                 // Færir frá Login skjá á forsíðu
                                 Intent intent = new Intent( UserActivity.this, MainActivity.class);
