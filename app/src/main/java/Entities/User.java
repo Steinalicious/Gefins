@@ -129,16 +129,18 @@ public class User {
     public void setStarsNumber(String starsnumber) {
         this.starsNumber = starsnumber;
     }
+
     public void rate(int stars) {
-        int a=Integer.parseInt(this.starsNumber);
+        int a = Integer.parseInt(this.starsNumber);
         a++;
-        this.starsNumber=String.valueOf(a);
+        this.starsNumber = String.valueOf(a);
 
 
-        int b=Integer.parseInt(this.stars);
-        b+=stars;
-        this.stars=String.valueOf(b);
+        int b = Integer.parseInt(this.stars);
+        b += stars;
+        this.stars = String.valueOf(b);
     }
+
     public int getratings() {
         int a=Integer.parseInt(this.starsNumber);
         int b=Integer.parseInt(this.stars);
