@@ -95,8 +95,12 @@ public class MainActivity extends NavbarActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Log.d("GRIDVIEW", String.valueOf(position) );
-                            items.get(0);
+                            try {
+                                Item item = new Item(items.getJSONObject(position));
+                                Log.d("ITEMID", item.getId());
+                            } catch (Exception e) {
 
+                            }
                         }
                     });
 
