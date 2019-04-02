@@ -42,6 +42,7 @@
     <string name="settings_submit">Staðfesta</string>
     <string name="chosen">Valið:</string>
     <string name="chosenItems"></string>
+    <string name="chosenLocs"></string>
     <string name="choose">Velja</string>
     <string name="rvk">Reykjavík</string>
     <string name="kop">Kópavogur</string>

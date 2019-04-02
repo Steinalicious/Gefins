@@ -131,12 +131,21 @@ public class MainActivity extends NavbarActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             String request = ArrayStringListToRequest(extras.getStringArrayList("chosenCategories"));
+            //String request2 = ArrayStringListToRequest2(extras.getStringArrayList("chosenLocations"));
 
             Log.d("REMOLAÐI", request);
+            //Log.d("REMOLAÐI2", request2);
+
 
             ItemRequest sortRequest = new ItemRequest(request, responseListener);
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
             queue.add(sortRequest);
+            /*
+            ItemRequest sortRequest2 = new ItemRequest(request2, responseListener);
+            RequestQueue queue2 = Volley.newRequestQueue(MainActivity.this);
+            queue2.add(sortRequest2);
+            */
+
         } else {
             ItemRequest adListRequest = new ItemRequest("items", responseListener);
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
@@ -176,6 +185,17 @@ public class MainActivity extends NavbarActivity {
         String request = "items?";
         for(int i = 0; i < list.size(); i++){
             request += "category=" + list.get(i);
+            if(i+1 != list.size()){
+                request += "&";
+            }
+        }
+
+        return request;
+    }
+    public String ArrayStringListToRequest2(ArrayList<String> list) {
+        String request = "items?";
+        for(int i = 0; i < list.size(); i++){
+            request += "zip=" + list.get(i);
             if(i+1 != list.size()){
                 request += "&";
             }

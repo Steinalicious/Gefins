@@ -34,10 +34,14 @@ public class SortActivity extends ExitNavbarActivity {
 
         chosenSort = findViewById(R.id.chosenSort);
         final Bundle extras = getIntent().getExtras();
+        //Boolean extras2 = getIntent().hasExtra("extrasCat");
+        //Log.d("ErExtra?", extras2.toString());
+
         if(extras != null) {
-            String newText = extras.getString("chosen_items");
-            if(newText != null) {
-                chosenSort.setText(newText);
+            String filters = extras.getString("chosen_items");
+            filters += extras.getString("chosen_items2");
+            if(filters != null) {
+                chosenSort.setText(filters);
             }
         }
 
@@ -49,7 +53,7 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, CategoryActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 5);
             }
         });
 
@@ -60,7 +64,7 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, LocationActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 5);
             }
         });
 
@@ -73,6 +77,7 @@ public class SortActivity extends ExitNavbarActivity {
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
                 intent.putExtra("chosenCategories", extras.getStringArrayList("chosen_cat"));
+                //intent.putExtra("chosenLocations", extras.getStringArrayList("chosen_loc"));
                 startActivity(intent);
             }
         });

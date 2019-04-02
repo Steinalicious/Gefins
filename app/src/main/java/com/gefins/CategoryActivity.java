@@ -54,7 +54,7 @@ public class CategoryActivity extends BackNavbarActivity {
             public void onClick(View v) {
                 String chosenItems = getString(R.string.chosenItems);
                 ArrayList<String> chosenCategories = new ArrayList<>();
-                chosenItems += "Valið:";
+                chosenItems += "Valdir flokkar:";
                 if(furniture.isChecked()) {
                     chosenItems += "\nHúsgögn";
                     chosenCategories.add("Húsgögn");
@@ -90,6 +90,7 @@ public class CategoryActivity extends BackNavbarActivity {
 
                 //Færir frá "Flokkar" yfir á "Sort" skjá
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
+                sortIntent.putExtra(Intent.EXTRA_SUBJECT, "extrasCat");
                 sortIntent.putExtra("chosen_items", chosenItems);
                 sortIntent.putExtra("chosen_cat", chosenCategories);
                 startActivity(sortIntent);
