@@ -70,6 +70,7 @@ public class MainActivity extends NavbarActivity {
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
 
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -106,7 +107,7 @@ public class MainActivity extends NavbarActivity {
 
             }
         };
-        GridView gridView = findViewById(R.id.gridView);
+       /* GridView gridView = findViewById(R.id.gridView);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -117,9 +118,10 @@ public class MainActivity extends NavbarActivity {
                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
                 startActivity(i);
 
+
             }
         });
-
+*/
 
 
         Bundle extras = getIntent().getExtras();
