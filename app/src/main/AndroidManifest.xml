@@ -26,17 +26,21 @@
         <activity android:name=".MyspaceActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AdActivity" />
-        <activity android:name=".SortActivity" />
         <activity
-            android:name=".NavbarActivity"
-            android:exported="true" />
+            android:name=".SortActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity android:name=".NavbarActivity"/>
         <activity
             android:name=".ViewAdActivity"
             android:exported="true" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="true" />
-        <activity android:name=".ExitNavbarActivity" />
+            android:name=".SettingsActivity"/>
+        <activity android:name=".ExitNavbarActivity"/>
+        <activity android:name=".BackNavbarActivity" />
     </application>
 
 </manifest>

@@ -38,7 +38,6 @@ public class SortActivity extends ExitNavbarActivity {
             String newText = extras.getString("chosen_items");
             if(newText != null) {
                 chosenSort.setText(newText);
-                Log.d("Chosen: ", extras.toString());
             }
         }
 

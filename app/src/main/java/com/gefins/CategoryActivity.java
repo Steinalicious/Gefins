@@ -77,7 +77,7 @@ public class CategoryActivity extends BackNavbarActivity {
                 }
                 if(commute.isChecked()) {
                     chosenItems += "\nFarartæki";
-                    chosenCategories.add("Faratæki");
+                    chosenCategories.add("Farartæki");
                 }
                 if(food.isChecked()) {
                     chosenItems += "\nMatur";

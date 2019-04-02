@@ -95,7 +95,7 @@ public class MainActivity extends NavbarActivity {
             ItemRequest sortRequest = new ItemRequest(request, responseListener);
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
             queue.add(sortRequest);
-        }else {
+        } else {
             ItemRequest adListRequest = new ItemRequest("items", responseListener);
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
             queue.add(adListRequest);
