@@ -40,6 +40,9 @@
     <string name="viewad_delete">Eyða</string>
     <string name="viewad_edit">Breyta</string>
     <string name="settings_submit">Staðfesta</string>
+    <string name="chosen">Valið:</string>
+    <string name="chosenItems"></string>
+    <string name="choose">Velja</string>
 
 
 
@@ -53,7 +56,7 @@
     <string name="category_electronics">Raftæki</string>
     <string name="category_tools">Verkfæri</string>
     <string name="category_commute">Farartæki</string>
-    <string name="category_food">Húsgögn</string>
+    <string name="category_food">Matur</string>
     <string name="category_animals">Dýr</string>
 
     <string-array name="android_dropdown_arrays">

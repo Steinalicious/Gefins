@@ -3,13 +3,15 @@ package com.gefins;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class SortActivity extends ExitNavbarActivity {
-    private Button sortCatBtn, sortLocBtn;
+    private Button sortCatBtn, sortLocBtn, submitBtn;
+    private TextView chosenSort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,18 @@ public class SortActivity extends ExitNavbarActivity {
 
         sortCatBtn = findViewById(R.id.sort_categories);
         sortLocBtn = findViewById(R.id.sort_loc);
+        submitBtn = findViewById(R.id.sortItemsButton);
+
+
+        chosenSort = findViewById(R.id.chosenSort);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            String newText = extras.getString("chosen_items");
+            if(newText != null) {
+                chosenSort.setText(newText);
+                Log.d("Chosen: ", extras.toString());
+            }
+        }
 
 
         // Virknin á "Flokkar" takkanum
@@ -49,5 +63,15 @@ public class SortActivity extends ExitNavbarActivity {
             }
         });
 
+        // Virknin á "Leita" takkanum
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Færir frá forsíðu yfir á ný auglýsing skjá
+                Intent intent = new Intent(SortActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

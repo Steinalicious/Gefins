@@ -2,22 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="bottom"
+    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="607dp"
+        android:layout_height="501dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <CheckBox
             android:id="@+id/checkbox_furniture"
-            android:layout_width="match_parent"
+            android:layout_width="370dp"
             android:layout_height="50dp"
             android:onClick="onCheckboxClicked"
-            android:textSize="22sp"
-            android:text="@string/category_furniture" />
+            android:text="@string/category_furniture"
+            android:textSize="22sp" />
 
         <View
             android:id="@+id/divider2"
@@ -27,24 +27,102 @@
 
         <CheckBox
             android:id="@+id/checkbox_clothing"
-            android:layout_width="match_parent"
+            android:layout_width="370dp"
             android:layout_height="50dp"
             android:onClick="onCheckboxClicked"
-            android:textSize="22sp"
-            android:text="@string/category_clothing" />
+            android:text="@string/category_clothing"
+            android:textSize="22sp" />
+
         <View
             android:id="@+id/divider3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
+
         <CheckBox
             android:id="@+id/checkbox_kids"
-            android:layout_width="match_parent"
+            android:layout_width="370dp"
             android:layout_height="50dp"
             android:onClick="onCheckboxClicked"
-            android:textSize="22sp"
-            android:text="@string/category_kids" />
+            android:text="@string/category_kids"
+            android:textSize="22sp" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <CheckBox
+            android:id="@+id/checkbox_electronics"
+            android:layout_width="370dp"
+            android:layout_height="50dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/category_electronics"
+            android:textSize="22sp" />
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <CheckBox
+            android:id="@+id/checkbox_tools"
+            android:layout_width="370dp"
+            android:layout_height="50dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/category_tools"
+            android:textSize="22sp" />
+
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <CheckBox
+            android:id="@+id/checkbox_commute"
+            android:layout_width="370dp"
+            android:layout_height="50dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/category_commute"
+            android:textSize="22sp" />
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <CheckBox
+            android:id="@+id/checkbox_food"
+            android:layout_width="370dp"
+            android:layout_height="50dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/category_food"
+            android:textSize="22sp" />
+
+        <View
+            android:id="@+id/divider8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <CheckBox
+            android:id="@+id/checkbox_animals"
+            android:layout_width="370dp"
+            android:layout_height="50dp"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/category_animals"
+            android:textSize="22sp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/choose_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/choose" />
 
 </LinearLayout>
