@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".LocationActivity" />
+        <activity android:name=".LocationActivity" android:exported="true"/>
         <activity android:name=".CategoryActivity" />
         <activity android:name=".WelcomeActivity">
             <intent-filter>
