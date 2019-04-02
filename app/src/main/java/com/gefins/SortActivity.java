@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class SortActivity extends ExitNavbarActivity {
     private Button sortCatBtn, sortLocBtn, submitBtn;
     private TextView chosenSort;
@@ -31,7 +33,7 @@ public class SortActivity extends ExitNavbarActivity {
 
 
         chosenSort = findViewById(R.id.chosenSort);
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         if(extras != null) {
             String newText = extras.getString("chosen_items");
             if(newText != null) {
@@ -68,8 +70,10 @@ public class SortActivity extends ExitNavbarActivity {
             @Override
             public void onClick(View v) {
 
+                //ArrayList<String> test =  extras.getStringArrayList("chosen_cat");
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
+                intent.putExtra("chosenCategories", extras.getStringArrayList("chosen_cat"));
                 startActivity(intent);
             }
         });

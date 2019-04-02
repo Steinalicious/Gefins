@@ -12,6 +12,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Button;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class CategoryActivity extends BackNavbarActivity {
     private Button choose_button;
     private Intent sortIntent;
@@ -50,35 +53,45 @@ public class CategoryActivity extends BackNavbarActivity {
             @Override
             public void onClick(View v) {
                 String chosenItems = getString(R.string.chosenItems);
+                ArrayList<String> chosenCategories = new ArrayList<>();
                 chosenItems += "Valið:";
                 if(furniture.isChecked()) {
                     chosenItems += "\nHúsgögn";
+                    chosenCategories.add("Húsgögn");
                 }
                 if(clothing.isChecked()) {
                     chosenItems += "\nFatnaður";
+                    chosenCategories.add("Fatnaður");
                 }
                 if(kids.isChecked()) {
                     chosenItems += "\nBarnavörur";
+                    chosenCategories.add("Barnavörur");
                 }
                 if(electronics.isChecked()) {
                     chosenItems += "\nRaftæki";
+                    chosenCategories.add("Raftæki");
                 }
                 if(tools.isChecked()) {
                     chosenItems += "\nVerkfæri";
+                    chosenCategories.add("Verkfæri");
                 }
                 if(commute.isChecked()) {
                     chosenItems += "\nFarartæki";
+                    chosenCategories.add("Faratæki");
                 }
                 if(food.isChecked()) {
                     chosenItems += "\nMatur";
+                    chosenCategories.add("Matur");
                 }
                 if(animals.isChecked()) {
                     chosenItems +="\nDýr";
+                    chosenCategories.add("Dýr");
                 }
 
                 //Færir frá "Flokkar" yfir á "Sort" skjá
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
                 sortIntent.putExtra("chosen_items", chosenItems);
+                sortIntent.putExtra("chosen_cat", chosenCategories);
                 startActivity(sortIntent);
             }
         });

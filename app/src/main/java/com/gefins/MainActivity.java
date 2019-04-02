@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -24,6 +25,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import Requests.ItemRequest;
 
@@ -47,6 +51,7 @@ public class MainActivity extends NavbarActivity {
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
 
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -66,15 +71,36 @@ public class MainActivity extends NavbarActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
                     gridView.setAdapter(adapter);
 
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
+                        }
+                    });
+
+
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
             }
         };
 
-        ItemRequest adListRequest = new ItemRequest("items", responseListener);
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        queue.add(adListRequest);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            String request = ArrayStringListToRequest(extras.getStringArrayList("chosenCategories"));
+
+            Log.d("REMOLAÐI", request);
+
+            ItemRequest sortRequest = new ItemRequest(request, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+            queue.add(sortRequest);
+        }else {
+            ItemRequest adListRequest = new ItemRequest("items", responseListener);
+            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+            queue.add(adListRequest);
+        }
+
 
 
         // Virknin á "skrá auglýsingu" takkanum
@@ -102,5 +128,17 @@ public class MainActivity extends NavbarActivity {
         GradientDrawable gd1 = new GradientDrawable();
         gd1.setCornerRadius(5);
 
+    }
+
+    public String ArrayStringListToRequest(ArrayList<String> list) {
+        String request = "items?";
+        for(int i = 0; i < list.size(); i++){
+            request += "category=" + list.get(i);
+            if(i+1 != list.size()){
+                request += "&";
+            }
+        }
+
+        return request;
     }
 }
