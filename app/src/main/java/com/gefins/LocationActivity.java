@@ -127,7 +127,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
         multiSelectSpinnerVest.setListener(this);
         multiSelectSpinnerVestland.setListener(this);
         multiSelectSpinnerAust.setListener(this);
-        multiSelectSpinnerAust.setListener(this);
+        multiSelectSpinnerSudland.setListener(this);
     }
 
     @Override
