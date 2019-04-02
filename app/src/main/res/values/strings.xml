@@ -43,9 +43,18 @@
     <string name="chosen">Valið:</string>
     <string name="chosenItems"></string>
     <string name="choose">Velja</string>
-
-
-
+    <string name="rvk">Reykjavík</string>
+    <string name="kop">Kópavogur</string>
+    <string name="grb">Garðabær</string>
+    <string name="hfj">Hafnarfjörður</string>
+    <string name="mos">Mosfellsbær</string>
+    <string name="sel">Seltjarnarnes</string>
+    <string name="sudnes">Suðurnes</string>
+    <string name="nord">Norðurland</string>
+    <string name="vest">Vestfirðir</string>
+    <string name="vestland">Vesturland</string>
+    <string name="aust">Austurland</string>
+    <string name="sudland">Suðurland</string>
 
 
     <string name="backTitle"></string>
