@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class SortActivity extends ExitNavbarActivity {
     private Button sortCatBtn, sortLocBtn, submitBtn;
     private TextView chosenSort;
+    public static final String ITEM_FILTERS = "WhichFilters";
+    public static final String CHOSEN_ITEMS = "chosenItems";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +32,17 @@ public class SortActivity extends ExitNavbarActivity {
         sortCatBtn = findViewById(R.id.sort_categories);
         sortLocBtn = findViewById(R.id.sort_loc);
         submitBtn = findViewById(R.id.sortItemsButton);
-
-
         chosenSort = findViewById(R.id.chosenSort);
+
+
         final Bundle extras = getIntent().getExtras();
-        //Boolean extras2 = getIntent().hasExtra("extrasCat");
-        //Log.d("ErExtra?", extras2.toString());
 
         if(extras != null) {
-            String filters = extras.getString("chosen_items");
-            filters += extras.getString("chosen_items2");
+            String filters = (String) getIntent().getStringExtra(ITEM_FILTERS);
             if(filters != null) {
-                chosenSort.setText(filters);
+                chosenSort.append(filters);
             }
+            Log.d("activity_from", filters);
         }
 
 
@@ -72,12 +72,9 @@ public class SortActivity extends ExitNavbarActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //ArrayList<String> test =  extras.getStringArrayList("chosen_cat");
-                //Færir frá forsíðu yfir á ný auglýsing skjá
+                //Færir frá sort yfir á aðalskjá
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
-                intent.putExtra("chosenCategories", extras.getStringArrayList("chosen_cat"));
-                //intent.putExtra("chosenLocations", extras.getStringArrayList("chosen_loc"));
+                intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(CHOSEN_ITEMS));
                 startActivity(intent);
             }
         });

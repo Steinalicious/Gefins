@@ -19,6 +19,7 @@ public class CategoryActivity extends BackNavbarActivity {
     private Button choose_button;
     private Intent sortIntent;
     CheckBox furniture, clothing, kids, electronics, tools, commute, food, animals;
+    private static final int REQUEST_CODE_FILTER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +91,8 @@ public class CategoryActivity extends BackNavbarActivity {
 
                 //Færir frá "Flokkar" yfir á "Sort" skjá
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
-                sortIntent.putExtra(Intent.EXTRA_SUBJECT, "extrasCat");
-                sortIntent.putExtra("chosen_items", chosenItems);
-                sortIntent.putExtra("chosen_cat", chosenCategories);
+                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenItems);
+                sortIntent.putExtra(SortActivity.CHOSEN_ITEMS, chosenCategories);
                 startActivity(sortIntent);
             }
         });
