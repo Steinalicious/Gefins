@@ -78,11 +78,7 @@ public class MainActivity extends NavbarActivity {
                     //debug
                     Log.d("JSONADLIST ", response);
                     JSONObject jsonResponse= new JSONObject(response);
-                    Item test = new Item(jsonResponse);
-
-                    final String testId = test.getId();
-                    System.out.println("testId" + testId);
-                    JSONArray items =  jsonResponse.getJSONArray("items");
+                    final JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
 
                     for(int i = 0; i < items.length(); i++){
@@ -90,6 +86,7 @@ public class MainActivity extends NavbarActivity {
                         names[i] = item.getString("name");
                         Log.d("NAME", names[i]);
                     }
+
                     GridView gridView = findViewById(R.id.gridView);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
                     gridView.setAdapter(adapter);
@@ -97,9 +94,11 @@ public class MainActivity extends NavbarActivity {
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
-                            System.out.println(id);
-
+                            Log.d("GRIDVIEW", String.valueOf(position) );
+                            try {
+                                Item item = new Item(items.getJSONObject(position));
+                                Log.d("ITEMID", item.getId());
+                            } catch (Exception e) {
 
 
                             //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
@@ -126,8 +125,7 @@ public class MainActivity extends NavbarActivity {
                 Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
 
 
-              //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
-              //  startActivity(intent);
+
                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
                 startActivity(i);
 
