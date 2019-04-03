@@ -42,6 +42,7 @@ public class UserActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 User user=new User();
                 user.setEmail(emailEdTxt.getText().toString());
                 user.setPassword(passEdTxt.getText().toString());
@@ -50,6 +51,7 @@ public class UserActivity extends AppCompatActivity {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         try {
                             //debug
                             Log.d("JSONLOGIN", response);
@@ -78,8 +80,10 @@ public class UserActivity extends AppCompatActivity {
 
                 // Tengist server
                 UserRequest loginRequest = new UserRequest(user, "login", responseListener);
+
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);
+
             }
         });
 

@@ -97,9 +97,9 @@ public class MainActivity extends NavbarActivity {
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Item item = new Item();
                             Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
                             System.out.println(id);
+
 
 
                             //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);

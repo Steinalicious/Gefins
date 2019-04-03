@@ -1,5 +1,7 @@
 package Requests;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -17,6 +19,7 @@ public class UserRequest extends StringRequest {
     public UserRequest(User user, String request, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL+request, listener, null);
         params = new HashMap<>();
+        Log.d("ASD", "he");
 
         params.put("id", user.getId());
         params.put("mId", user.getmId());
