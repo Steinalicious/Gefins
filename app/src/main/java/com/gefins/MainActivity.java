@@ -5,14 +5,18 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import Entities.Item;
 
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -23,13 +27,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import Requests.ItemRequest;
+import Services.ItemService;
 
 
 public class MainActivity extends NavbarActivity {
-
+    private ItemService itemservice = new ItemService();
+    private Button inQueueButton;
+    private ImageView adImage;
+    private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
 
     @Override
@@ -46,6 +55,16 @@ public class MainActivity extends NavbarActivity {
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
+        adImage = findViewById(R.id.viewad_image);
+        categoryTxtView = findViewById(R.id.category_container);
+        zipTxtView = findViewById(R.id.zip_container);
+        numberInQueueTxtView = findViewById(R.id.number_queue_container);
+        descriptionTxtView = findViewById(R.id.description_container);
+        ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
+        adNameTxtView = findViewById(R.id.ad_name_container);
+
+      //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
+      //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -69,8 +88,23 @@ public class MainActivity extends NavbarActivity {
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
+
             }
         };
+        GridView gridView = findViewById(R.id.gridView);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
+
+             
+
+                Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
+                startActivity(i);
+
+            }
+        });
+
 
         ItemRequest adListRequest = new ItemRequest("items", responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);

@@ -24,7 +24,9 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".MyspaceActivity" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />/>
         <activity android:name=".AdActivity" />
         <activity android:name=".SortActivity" />
         <activity

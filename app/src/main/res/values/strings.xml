@@ -55,6 +55,11 @@
     <string name="category_commute">Farartæki</string>
     <string name="category_food">Húsgögn</string>
     <string name="category_animals">Dýr</string>
+    <string name="viewad_title">Auglýsing</string>
+    <string name="viewad_firstinqueue">Fremstur í röð:</string>
+
+
+
 
     <string-array name="android_dropdown_arrays">
         <item>Flokkur</item>
