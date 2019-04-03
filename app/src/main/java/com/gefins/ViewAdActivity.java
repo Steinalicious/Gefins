@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class ViewAdActivity extends BackNavbarActivity {
     private Button inQueueButton;
     private ImageView adImage;
-    private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView;
+    private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -36,12 +36,20 @@ public class ViewAdActivity extends BackNavbarActivity {
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
+        adNameTxtView = findViewById(R.id.ad_name_container);
 
        // ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
 
-        System.out.println();
+
+        final Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            String newText = extras.getString("chosenItem");
+            System.out.println("NewText" + newText);
+            if(newText != null) {
+            }
+        }
 
 
     }

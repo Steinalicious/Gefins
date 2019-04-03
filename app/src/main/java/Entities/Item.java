@@ -1,4 +1,8 @@
 package Entities;
+import android.util.Log;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 public class Item {
@@ -14,7 +18,8 @@ public class Item {
     private String zipcode;
     private String category;
     private String rated;
-    private List<String> users;
+   // private List<String> users;
+   private  String users;
     private String messenger;
     private String img;
     // Notice the empty constructor, because we need to be able to create an empty PostitNote to add
@@ -38,11 +43,35 @@ public class Item {
         this.category = category;
         this.rated = "0";
         this.acceptedUser = "0";
-        this.users = new ArrayList<>();
+        //this.users = new ArrayList<>();
+        this.users = "";
         this.messenger="";
         this.img="";
 
     }
+    public Item(JSONObject item) {
+        try {
+            this.id = item.getString("id");
+            this.owner =  item.getString("owner");
+            this.description = item.getString("description");
+            this.location =  item.getString("location");
+            this.generalLocation =  item.getString("generalLocation");
+            this.phone =  item.getString("phone");
+            this.name =  item.getString("name");
+            this.email =  item.getString("email");
+            this.zipcode =  item.getString("zipcode");
+            this.category =  item.getString("category");
+            this.rated =  item.getString("rated");
+            this.acceptedUser =  item.getString("acceptedUser");
+            this.users =  item.getString("users");
+            this.messenger =  item.getString("messenger");
+            this.img =  item.getString("img");
+        } catch (Exception e){
+            //Log.d("ERROR", e);
+        }
+    }
+
+
     public Item(String id,
                 String owner,
                 String acceptedUser,
@@ -53,7 +82,8 @@ public class Item {
                 String name,
                 String email,
                 String zipcode,
-                List<String> users,
+                //List<String> users,
+                String users,
                 String category,
                 String rated) {
         this.id = id;
@@ -112,15 +142,18 @@ public class Item {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-    public List<String> getUsers() {
+  /*  public List<String> getUsers() {
         return users;
-    }
-    public void addUsers(String user) {
+    }*/
+  public String getUsers() {
+      return users;
+  }
+    /*public void addUsers(String user) {
         this.users.add(user);
     }
     public void removeUsers(String user) {
         this.users.remove(user);
-    }
+    }*/
     public String getDescription() {
         return description;
     }
