@@ -15,7 +15,7 @@ public class Item {
     private String phone;
     private String name;
     private String email;
-    private String zipcode;
+    private String zip;
     private String category;
     private String rated;
    // private List<String> users;
@@ -39,7 +39,7 @@ public class Item {
         this.phone = phone;
         this.name = name;
         this.email = email;
-        this.zipcode = zipcode;
+        this.zip = zip;
         this.category = category;
         this.rated = "0";
         this.acceptedUser = "0";
@@ -55,11 +55,11 @@ public class Item {
             this.owner =  item.getString("owner");
             this.description = item.getString("description");
             this.location =  item.getString("location");
-            this.generalLocation =  item.getString("generalLocation");
+            this.generalLocation =  item.getString("general_location");
             this.phone =  item.getString("phone");
             this.name =  item.getString("name");
             this.email =  item.getString("email");
-            this.zipcode =  item.getString("zipcode");
+            this.zip =  item.getString("zip");
             this.category =  item.getString("category");
             this.rated =  item.getString("rated");
             this.acceptedUser =  item.getString("acceptedUser");
@@ -81,7 +81,7 @@ public class Item {
                 String phone,
                 String name,
                 String email,
-                String zipcode,
+                String zip,
                 //List<String> users,
                 String users,
                 String category,
@@ -94,7 +94,7 @@ public class Item {
         this.phone = phone;
         this.name = name;
         this.email = email;
-        this.zipcode = zipcode;
+        this.zip = zip;
         this.category = category;
         this.rated = rated;
         this.acceptedUser = acceptedUser;
@@ -191,10 +191,10 @@ public class Item {
         this.email = email;
     }
     public String getZipcode() {
-        return zipcode;
+        return zip;
     }
     public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+        this.zip = zip;
     }
     public String getCategory() {
         return category;

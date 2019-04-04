@@ -98,15 +98,16 @@ public class MainActivity extends NavbarActivity {
                             try {
                                 Item item = new Item(items.getJSONObject(position));
                                 Log.d("ITEMID", item.getId());
+                                Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
+                                i.putExtra("chosenItem", item.getId());
+                                startActivity(i);
                             } catch (Exception e) {
 
 
-                            //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
-                            //  startActivity(intent);
-                            Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
-                            i.putExtra("chosenItem", id);
-                            startActivity(i);
+                                //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
+                                //  startActivity(intent);
 
+                            }
 
                         }
                     });
