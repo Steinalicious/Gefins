@@ -1,17 +1,27 @@
 package com.gefins;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import Entities.MultiSelectSpinner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationActivity extends BackNavbarActivity implements MultiSelectSpinner.OnMultipleItemsSelectedListener {
+    private Button chooseLocBtn;
+    private Intent sortIntent;
+    private String chosenItems2;
+    private ArrayList<String> chosenLocations;
+    private String loc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +138,31 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
         multiSelectSpinnerVestland.setListener(this);
         multiSelectSpinnerAust.setListener(this);
         multiSelectSpinnerSudland.setListener(this);
+
+
+        loc = "";
+
+        chosenItems2 = getString(R.string.chosenItems);
+
+        chosenLocations = new ArrayList<>();
+
+        // Velja takki
+        chooseLocBtn = findViewById(R.id.chooseLocBtn);
+        sortIntent = new Intent(LocationActivity.this, SortActivity.class);
+
+
+        // Virknin á "Velja" takkanum
+        chooseLocBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Færir frá "Staðsetning" yfir á "Sort" skjá
+                sortIntent = new Intent(LocationActivity.this, SortActivity.class);
+                sortIntent.putExtra(Intent.EXTRA_SUBJECT, "extrasLoc");
+                sortIntent.putExtra("chosen_items2", chosenItems2);
+                sortIntent.putExtra("chosen_loc", chosenLocations);
+                startActivity(sortIntent);
+            }
+        });
     }
 
     @Override
@@ -147,11 +182,16 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
 
     @Override
     public void selectedIndices(List<Integer> indices) {
-
     }
 
     @Override
     public void selectedStrings(List<String> strings) {
-        Toast.makeText(this.getApplicationContext(),"Selected Companies" + strings,Toast.LENGTH_LONG).show();
+        chosenItems2 += "Valdar staðsetningar:";
+        for(int i=0; i<strings.size(); i++) {
+            loc += strings.get(i);
+            chosenItems2 += "\n"+strings.get(i).substring(0, 3);
+            chosenLocations.add(strings.get(i).substring(0,3));
+        }
+        Toast.makeText(this.getApplicationContext(),"Valdar staðsetningar " + strings,Toast.LENGTH_LONG).show();
     }
 }
