@@ -85,6 +85,7 @@ public class AdActivity extends ExitNavbarActivity {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("JSONADMAKER", "hei");
                         try {
                             //debug
                             Log.d("JSONADMAKER", response);
@@ -109,6 +110,7 @@ public class AdActivity extends ExitNavbarActivity {
                         }
                     }
                 };
+                Log.d("JSONADMAKER", "HEI");
                 ItemRequest itemRequest = new ItemRequest(item, "admaker", responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AdActivity.this);
                 queue.add(itemRequest);

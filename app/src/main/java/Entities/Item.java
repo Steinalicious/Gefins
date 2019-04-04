@@ -46,9 +46,9 @@ public class Item {
         this.rated = "0";
         this.acceptedUser = "0";
         //this.users = new ArrayList<>();
-        this.users = "";
-        this.messenger="";
-        this.img="";
+        this.users = "0";
+        this.messenger="0";
+        this.img="0";
 
     }
     public Item(JSONObject item) {

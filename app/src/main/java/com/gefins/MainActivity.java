@@ -28,9 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -145,7 +143,6 @@ public class MainActivity extends NavbarActivity {
         });
 */
 
-
         Bundle extras = getIntent().getExtras();
         if(extras.get("chosenCategories") != null){
 
@@ -201,7 +198,7 @@ public class MainActivity extends NavbarActivity {
                 if(i+1 != list.size()){
                     request += "&";
                 }
-            } else {
+            } else if(!(list.get(i).matches(".*[0123456789].*"))) {
                 request += "category=" + list.get(i);
                 if(i+1 != list.size()){
                     request += "&";
