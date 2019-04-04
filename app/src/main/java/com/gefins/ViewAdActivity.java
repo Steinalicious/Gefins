@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import Entities.User;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -32,6 +34,7 @@ import Requests.ItemRequest;
 public class ViewAdActivity extends BackNavbarActivity {
     private Button inQueueButton;
     private ImageView adImage;
+    private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView;
 
     @Override
@@ -46,6 +49,9 @@ public class ViewAdActivity extends BackNavbarActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
         mTitle.setText(R.string.viewad_title);
 
+        //set currentUser
+        currentUser = (User) getIntent().getSerializableExtra("user");
+
 
         adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
@@ -55,7 +61,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
-        firstQueueTxtView = findViewById(R.id.first_in_queue_container);
+       // firstQueueTxtView = findViewById(R.id.first_in_queue_container);
 
         ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());

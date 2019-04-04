@@ -60,10 +60,14 @@ public class UserActivity extends AppCompatActivity {
 
                             if(!jsonResponse.isNull("user")) {
                             //if(success) {
-                                User currentuser = new User(jsonResponse);
+                                User currentuser = new User(jsonResponse.getJSONObject("user"));
+                                Log.d("user1",currentuser.toString());
+
                                 // Færir frá Login skjá á forsíðu
-                                Intent intent = new Intent( UserActivity.this, MainActivity.class);
-                                UserActivity.this.startActivity(intent);
+                                Intent intent = new Intent(UserActivity.this, MainActivity.class);
+                                intent.putExtra("user", currentuser);
+                                startActivity(intent);
+
                             } else{
                                 // Lætur vita ef innskráning mistókst
                                 AlertDialog.Builder builder = new AlertDialog.Builder( UserActivity.this);

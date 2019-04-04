@@ -1,11 +1,15 @@
 package com.gefins;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -25,12 +29,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import Entities.Item;
+import Entities.User;
 import Requests.ItemRequest;
 
 public class AdActivity extends ExitNavbarActivity {
+    private static final String CURRENT_USER = null;
     private Spinner spinner1;
     private Button button, submitBtn;
     private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt,category;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,8 @@ public class AdActivity extends ExitNavbarActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.exit_title);
         mTitle.setText(R.string.new_ad);
 
-
+        currentUser = (User) getIntent().getSerializableExtra("user");
+        Log.d("ble1",currentUser.toString());
         spinner1 = findViewById(R.id.spinner);
         spinner1.setOnItemSelectedListener(new ItemSelectedListener());
         button = findViewById(R.id.btn_picker);
@@ -55,6 +63,7 @@ public class AdActivity extends ExitNavbarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
+                intent.putExtra("user", currentUser);
                 startActivityForResult(intent, 7);
             }
         });
@@ -68,9 +77,9 @@ public class AdActivity extends ExitNavbarActivity {
                 locEdTxt = findViewById(R.id.itemLoc_input);
                 phoneEdTxt = findViewById(R.id.phone_input);
 
-                Item item =new Item("maggi",descEdTxt.getText().toString(),locEdTxt.getText().toString(),
+                Item item =new Item(currentUser.getUserName(),descEdTxt.getText().toString(),locEdTxt.getText().toString(),
                         phoneEdTxt.getText().toString(),titleEdTxt.getText().toString(),
-                        "maggi@hi.is",zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
+                        currentUser.getEmail(),zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -85,6 +94,7 @@ public class AdActivity extends ExitNavbarActivity {
                             if(success) {
                                 // Færir frá Login skjá á forsíðu
                                 Intent intent = new Intent( AdActivity.this, MainActivity.class);
+                                intent.putExtra("user", currentUser);
                                 AdActivity.this.startActivity(intent);
                             } else{
                                 // Lætur vita ef innskráning mistókst
@@ -141,6 +151,19 @@ public class AdActivity extends ExitNavbarActivity {
                 break;
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent( this, MainActivity.class);
+        intent.putExtra("user", currentUser);
+        Log.d("aaaa","aslæfkjaælfdkjaældfkjaælkj");
+        AdActivity.this.startActivity(intent);
+        return true;
+    }
+
+
+
+
 
 }
 

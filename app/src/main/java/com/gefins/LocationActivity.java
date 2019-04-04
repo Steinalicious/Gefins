@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import Entities.MultiSelectSpinner;
-
+import Entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +22,15 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
     private ArrayList<String> chosenLocations;
     private String loc;
 
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_location, contentFrameLayout);
+
+        //set curentUser
+        currentUser = (User) getIntent().getSerializableExtra("user");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
@@ -156,6 +160,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
                 sortIntent = new Intent(LocationActivity.this, SortActivity.class);
                 sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenItems2);
                 sortIntent.putExtra(SortActivity.CHOSEN_ITEMS, chosenLocations);
+                sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);
             }
         });
