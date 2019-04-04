@@ -5,6 +5,7 @@ import android.util.Log;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,21 @@ public class ItemRequest extends StringRequest {
 //admaker
     private static final String ADMAKER_REQUEST_URL = "https://gefins-server.herokuapp.com/";
     private Map<String, String> params;
+
+    // 1 skrá sig í rod
+    // 2 skrá sig úr rod
+    // 3 eida efsta
+    // 4 velja efsta
+    // 5 rate þigjanda
+    // 6 rate owner
+    public ItemRequest(String request,String adferd,String itemID,String userID, Response.Listener<String> listener){
+        super(Method.PATCH, ADMAKER_REQUEST_URL+request, listener, null);
+        params = new HashMap<>();
+        params.put("adferd",adferd);
+        params.put("itemID",itemID);
+        params.put("userID",userID);
+
+    }
 
     public ItemRequest(String request, Response.Listener<String> listener){
         super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
