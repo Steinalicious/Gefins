@@ -16,6 +16,17 @@ public class UserRequest extends StringRequest {
     private static final String REGISTER_REQUEST_URL = "https://gefins-server.herokuapp.com/";
     private Map<String, String> params;
 
+
+    public UserRequest(User user,String userID, String request, Response.Listener<String> listener) {
+        super(Method.PATCH, REGISTER_REQUEST_URL + request, listener, null);
+        params = new HashMap<>();
+        params.put("userID",userID);
+        params.put("usernameUpdated", user.getUserName());
+        params.put("passwordUpdated", user.getPassword());
+        params.put("emailUpdated", user.getEmail());
+    }
+
+
     public UserRequest(User user, String request, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL+request, listener, null);
         params = new HashMap<>();

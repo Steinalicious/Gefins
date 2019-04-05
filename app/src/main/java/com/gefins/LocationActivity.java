@@ -3,7 +3,7 @@ package com.gefins;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -21,6 +21,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
     private String chosenItems2;
     private ArrayList<String> chosenLocations;
     private String loc;
+    public static final String FILTERS = "item_filter";
 
     private User currentUser;
     @Override
@@ -151,6 +152,16 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
         chooseLocBtn = findViewById(R.id.chooseLocBtn);
         sortIntent = new Intent(LocationActivity.this, SortActivity.class);
 
+        // GET extras úr SortActivity og PUT-a þau aftur
+        Bundle extras = getIntent().getExtras();
+        Intent filterIntent = getIntent();
+
+        final String allFilters = filterIntent.getStringExtra(FILTERS);
+        if (allFilters != null) {
+            chosenItems2 += allFilters + "\n" + "\n";
+            //chosenLocations.add(allFilters);
+        }
+
 
         // Virknin á "Velja" takkanum
         chooseLocBtn.setOnClickListener(new View.OnClickListener() {
@@ -158,8 +169,8 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
             public void onClick(View v) {
                 //Færir frá "Staðsetning" yfir á "Sort" skjá
                 sortIntent = new Intent(LocationActivity.this, SortActivity.class);
-                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenItems2);
-                sortIntent.putExtra(SortActivity.CHOSEN_ITEMS, chosenLocations);
+                sortIntent.putExtra(SortActivity.ITEM_FILTERS_TXT, chosenItems2);
+                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenLocations);
                 sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);
             }

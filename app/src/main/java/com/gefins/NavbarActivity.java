@@ -13,16 +13,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.app.ActionBar;
 
+import Entities.User;
 
 
 public class NavbarActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navbar);
+
+        currentUser = (User) getIntent().getSerializableExtra("user");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -45,12 +49,15 @@ public class NavbarActivity extends AppCompatActivity {
 
                         if (id == R.id.nav_myspace) {
                             Intent intent = new Intent(NavbarActivity.this, MyspaceActivity.class);
+                            intent.putExtra("user", currentUser);
                             startActivity(intent);
                         } else if (id == R.id.nav_settings) {
                             Intent intent = new Intent(NavbarActivity.this, SettingsActivity.class);
+                            intent.putExtra("user", currentUser);
                             startActivity(intent);
                         } else if (id == R.id.nav_logout) {
                             Intent intent = new Intent(NavbarActivity.this, MyspaceActivity.class);
+                            intent.putExtra("user", currentUser);
                             startActivity(intent);
                         }
 

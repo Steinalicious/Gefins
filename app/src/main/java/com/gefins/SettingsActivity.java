@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +41,11 @@ public class SettingsActivity extends NavbarActivity {
 
         // set currentUser
         currentUser = (User) getIntent().getSerializableExtra("user");
+
+        if(currentUser==null){
+            Log.d("ble","USERINN ER HORFINN!!!!!!");}
+    }
+}
 
         if(currentUser==null){
             Log.d("ble","USERINN ER HORFINN!!!!!!");}

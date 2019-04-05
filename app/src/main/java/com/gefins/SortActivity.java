@@ -12,14 +12,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
 import Entities.User;
 
 public class SortActivity extends ExitNavbarActivity {
     private Button sortCatBtn, sortLocBtn, submitBtn;
     private TextView chosenSort;
+    public static final String ITEM_FILTERS_TXT = "WhichFilters";
+    public static final String ITEM_FILTERS = "chosenItems";
+    public ArrayList<String> Listi;
     private User currentuser;
-    public static final String ITEM_FILTERS = "WhichFilters";
-    public static final String CHOSEN_ITEMS = "chosenItems";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,13 @@ public class SortActivity extends ExitNavbarActivity {
         submitBtn = findViewById(R.id.sortItemsButton);
         chosenSort = findViewById(R.id.chosenSort);
 
+        Listi = (ArrayList<String>) getIntent().getStringArrayListExtra("LISTI");
+
 
         final Bundle extras = getIntent().getExtras();
 
         if(extras.get(ITEM_FILTERS)!= null) {
-            String filters = (String) getIntent().getStringExtra(ITEM_FILTERS);
+            String filters = (String) getIntent().getStringExtra(ITEM_FILTERS_TXT);
             if(filters != null) {
                 chosenSort.append(filters);
             }
@@ -59,6 +63,8 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, CategoryActivity.class);
+                intent.putExtra(CategoryActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
+                //intent.putStringArrayListExtra("LISTI", Listi);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
 
@@ -72,6 +78,7 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, LocationActivity.class);
+                intent.putExtra(LocationActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
             }
@@ -83,9 +90,9 @@ public class SortActivity extends ExitNavbarActivity {
             public void onClick(View v) {
                 //Færir frá sort yfir á aðalskjá
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
+                intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(ITEM_FILTERS));
                 intent.putExtra("user", currentuser);
                 //intent.putExtra("chosenCategories", extras.getStringArrayList("chosen_cat"));
-                intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(CHOSEN_ITEMS));
                 startActivity(intent);
             }
         });
