@@ -41,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
         confirmEdTxt = findViewById(R.id.registerPassConfEditText);
         registerBtn = findViewById(R.id.registerButton);
 
-        userIntent = new Intent(RegisterActivity.this, SettingsActivity.class);
         // Virkni á RegisterTakkanum
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override

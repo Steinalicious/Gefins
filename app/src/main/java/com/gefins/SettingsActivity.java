@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import Entities.User;
 
@@ -25,10 +27,9 @@ import Requests.UserRequest;
 public class SettingsActivity extends NavbarActivity {
 
     private User currentUser;
-
     private Button settingsBtn;
-
     private EditText nameSettingsEdTxt, emailSettingsEdTxt, passSettingsEdTxt, confirmSettingsEdTxt;
+    private TextView usernameContainer, emailContainer, passwordContainer;
 
 
     @Override
@@ -39,16 +40,11 @@ public class SettingsActivity extends NavbarActivity {
 
         // set currentUser
         currentUser = (User) getIntent().getSerializableExtra("user");
-    }
-}
 
-        final Bundle extras = getIntent().getExtras();
+        if(currentUser==null){
+            Log.d("ble","USERINN ER HORFINN!!!!!!");}
 
-        if(extras != null) {
-            String id = (String) getIntent().getStringExtra("userInfo");
-            System.out.println("id");
-            System.out.println(id);
-        }
+        System.out.println("Curr id");
 
 
         nameSettingsEdTxt = findViewById(R.id.usernameEditText);
@@ -56,7 +52,6 @@ public class SettingsActivity extends NavbarActivity {
         passSettingsEdTxt = findViewById(R.id.registerPassEditText);
         confirmSettingsEdTxt = findViewById(R.id.registerPassConfEditText);
         settingsBtn = findViewById(R.id.registerButton);
-
 
 
         // Virkni á settingsBtn
@@ -68,8 +63,7 @@ public class SettingsActivity extends NavbarActivity {
                    aka notandanafn, tölvupóstinn, lykilorðið og endurtekninguna
                 */
                 User user=new User("0", nameSettingsEdTxt.getText().toString(),
-                        passSettingsEdTxt.getText().toString(), "phone", emailSettingsEdTxt.getText().toString(),
-                        "location", "zipcode", "0", "0");
+                        passSettingsEdTxt.getText().toString(), emailSettingsEdTxt.getText().toString(), "0", "0");
 
                 String passwordConfirm = confirmSettingsEdTxt.getText().toString();
 

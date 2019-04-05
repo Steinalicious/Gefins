@@ -56,6 +56,9 @@
     <string name="vestland">Vesturland</string>
     <string name="aust">Austurland</string>
     <string name="sudland">Suðurland</string>
+    <string name="userInfo_edit">Breyta</string>
+
+    userInfo_edit
 
 
     <string name="backTitle"></string>
