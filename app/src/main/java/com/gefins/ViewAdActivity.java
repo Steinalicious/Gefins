@@ -32,10 +32,12 @@ import Requests.ItemRequest;
 /* Eftir að klára allt varðandi ViewAd */
 
 public class ViewAdActivity extends BackNavbarActivity {
-    private Button inQueueButton;
+    private Button inQueueButton,enterQueueBtn;
     private ImageView adImage;
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView;
+    private Item item;
+    private String itemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -50,8 +52,11 @@ public class ViewAdActivity extends BackNavbarActivity {
         mTitle.setText(R.string.viewad_title);
 
         //set currentUser
+
         currentUser = (User) getIntent().getSerializableExtra("user");
 
+        final Bundle extras = getIntent().getExtras();
+        itemID = extras.getString("chosenItem");
 
         adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
@@ -61,6 +66,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
+        enterQueueBtn = findViewById(R.id.enter_queue);
        // firstQueueTxtView = findViewById(R.id.first_in_queue_container);
 
         ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
@@ -69,7 +75,7 @@ public class ViewAdActivity extends BackNavbarActivity {
 
 
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+        final Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -77,7 +83,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                     Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     JSONArray items = jsonResponse.getJSONArray("item");
-                    Item item = new Item(items.getJSONObject(0));
+                    item = new Item(items.getJSONObject(0));
 
                     System.out.println(jsonResponse);
                     System.out.println("Item:");
@@ -102,17 +108,48 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
+        getitem(responseListener);
 
 
+        final Response.Listener<String> responseListener2 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //debug
+                    Log.d("JSONAD ", response);
+                    JSONObject jsonResponse= new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if(success)
+                        getitem(responseListener);
 
-        final Bundle extras = getIntent().getExtras();
-            String id = extras.getString("chosenItem");
-            String request = "items/" + id;
-            ItemRequest sortRequest = new ItemRequest(request, responseListener);
-            RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
-            queue.add(sortRequest);
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        enterQueueBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
 
 
+               ItemRequest sortRequest = new ItemRequest("/Items/queue","1",itemID,currentUser.getId(),responseListener2);
+                RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+                queue.add(sortRequest);
+            }
 
+        });
     }
+
+    public void getitem(Response.Listener<String> responseListener) {
+
+
+        String request = "items/" + itemID;
+        ItemRequest sortRequest = new ItemRequest(request, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+        queue.add(sortRequest);
+    }
+
 }
