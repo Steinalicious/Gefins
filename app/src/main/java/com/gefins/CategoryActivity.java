@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -15,10 +16,17 @@ import android.widget.Button;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import Entities.User;
+
 public class CategoryActivity extends BackNavbarActivity {
     private Button choose_button;
     private Intent sortIntent;
     CheckBox furniture, clothing, kids, electronics, tools, commute, food, animals;
+    private User currentUser;
+    public static final String FILTERS = "item_filter";
+    private String chosenItems;
+    private ArrayList<String> chosenCategories;
+    private ArrayList<String> LIST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,8 @@ public class CategoryActivity extends BackNavbarActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
         mTitle.setText(R.string.categories);
+
+        currentUser = (User) getIntent().getSerializableExtra("user");
 
         // Sækja checkbox flokka
         furniture = (CheckBox)findViewById(R.id.checkbox_furniture);
@@ -48,12 +58,25 @@ public class CategoryActivity extends BackNavbarActivity {
 
         sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
 
+        chosenItems = getString(R.string.chosenItems);
+        chosenCategories = new ArrayList<>();
+        LIST =  new ArrayList<>();
+
+        // GET extras úr SortActivity og PUT-a þau aftur
+        Bundle extras = getIntent().getExtras();
+        Intent filterIntent = getIntent();
+
+        final String allFilters = filterIntent.getStringExtra(FILTERS);
+        if (allFilters != null) {
+            chosenItems += allFilters + "\n" + "\n";
+            //schosenCategories.add(allFilters);
+            //LIST.add("Húsgögn");
+        }
+
         // Virknin á "Velja" takkanum
         choose_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String chosenItems = getString(R.string.chosenItems);
-                ArrayList<String> chosenCategories = new ArrayList<>();
                 chosenItems += "Valdir flokkar:";
                 if(furniture.isChecked()) {
                     chosenItems += "\nHúsgögn";
@@ -90,9 +113,10 @@ public class CategoryActivity extends BackNavbarActivity {
 
                 //Færir frá "Flokkar" yfir á "Sort" skjá
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
-                sortIntent.putExtra(Intent.EXTRA_SUBJECT, "extrasCat");
-                sortIntent.putExtra("chosen_items", chosenItems);
-                sortIntent.putExtra("chosen_cat", chosenCategories);
+                sortIntent.putExtra(SortActivity.ITEM_FILTERS_TXT, chosenItems);
+                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenCategories);
+                //sortIntent.putExtra("LISTI", LIST);
+                sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);
             }
         });
@@ -102,31 +126,5 @@ public class CategoryActivity extends BackNavbarActivity {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
         String str = "";
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkbox_furniture:
-                /*
-                if (checked) {
-                    sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
-                    sortIntent.putExtra("chosen_items", "Húsgögn");
-                }
-                else {
-                    break;
-                }
-                */
-
-            case R.id.checkbox_clothing:
-                /*
-                if (checked) {
-                    sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
-                    sortIntent.putExtra("chosen_items", "Fatnaður");
-                }
-                else {
-                // I'm lactose intoleran
-                    break;
-                }
-                */
-        }
     }
 }

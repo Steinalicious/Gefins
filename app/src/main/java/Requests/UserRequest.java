@@ -1,5 +1,7 @@
 package Requests;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -14,14 +16,24 @@ public class UserRequest extends StringRequest {
     private static final String REGISTER_REQUEST_URL = "https://gefins-server.herokuapp.com/";
     private Map<String, String> params;
 
+
+    public UserRequest(User user,String userID, String request, Response.Listener<String> listener) {
+        super(Method.PATCH, REGISTER_REQUEST_URL + request, listener, null);
+        params = new HashMap<>();
+        params.put("userID",userID);
+        params.put("usernameUpdated", user.getUserName());
+        params.put("passwordUpdated", user.getPassword());
+        params.put("emailUpdated", user.getEmail());
+    }
+
+
     public UserRequest(User user, String request, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL+request, listener, null);
         params = new HashMap<>();
+        Log.d("ASD", "he");
 
         params.put("id", user.getId());
         params.put("mId", user.getmId());
-        params.put("phone", user.getPhone());
-        params.put("location", user.getLocation());
         params.put("stars", user.getStars());
         params.put("starNumber", user.getStarsNumber());
         params.put("username", user.getUserName());

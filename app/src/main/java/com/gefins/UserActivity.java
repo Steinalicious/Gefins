@@ -42,6 +42,7 @@ public class UserActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 User user=new User();
                 user.setEmail(emailEdTxt.getText().toString());
                 user.setPassword(passEdTxt.getText().toString());
@@ -50,6 +51,7 @@ public class UserActivity extends AppCompatActivity {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         try {
                             //debug
                             Log.d("JSONLOGIN", response);
@@ -58,10 +60,14 @@ public class UserActivity extends AppCompatActivity {
 
                             if(!jsonResponse.isNull("user")) {
                             //if(success) {
-                                User currentuser = new User(jsonResponse);
+                                User currentuser = new User(jsonResponse.getJSONObject("user"));
+                                Log.d("user1",currentuser.toString());
+
                                 // Færir frá Login skjá á forsíðu
-                                Intent intent = new Intent( UserActivity.this, MainActivity.class);
-                                UserActivity.this.startActivity(intent);
+                                Intent intent = new Intent(UserActivity.this, MainActivity.class);
+                                intent.putExtra("user", currentuser);
+                                startActivity(intent);
+
                             } else{
                                 // Lætur vita ef innskráning mistókst
                                 AlertDialog.Builder builder = new AlertDialog.Builder( UserActivity.this);
@@ -78,8 +84,10 @@ public class UserActivity extends AppCompatActivity {
 
                 // Tengist server
                 UserRequest loginRequest = new UserRequest(user, "login", responseListener);
+
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);
+
             }
         });
 

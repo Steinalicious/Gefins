@@ -1,7 +1,8 @@
 package Entities;
+import org.json.JSONObject;
+
 import android.util.Log;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 public class Item {
     private String id;
     private String owner;
+    private String ownerID;
     private String acceptedUser;
     private String description;
     private String location;
@@ -16,7 +18,7 @@ public class Item {
     private String phone;
     private String name;
     private String email;
-    private String zipcode;
+    private String zip;
     private String category;
     private String rated;
    // private List<String> users;
@@ -28,30 +30,30 @@ public class Item {
     public Item() {
 
     }
-    public Item(String owner, String description,
+    public Item(String owner,String ownerID, String description,
                 String location, String phone, String name,
-                String email, String zipcode, String category){
+                String email, String zip, String category){
 
         this.id = "0";
         this.owner=owner;
+        this.ownerID=ownerID;
         this.description = description;
         this.location = location;
         this.generalLocation = "general Location";
         this.phone = phone;
         this.name = name;
         this.email = email;
-        this.zipcode = zipcode;
+        this.zip = zip;
         this.category = category;
         this.rated = "0";
         this.acceptedUser = "0";
         //this.users = new ArrayList<>();
-        this.users = "";
-        this.messenger="";
+        this.users = "0";
+        this.messenger="0";
         this.img="0";
 
     }
     public Item(JSONObject item) {
-
         try {
             this.id = item.getString("id");
             this.owner =  item.getString("owner");
@@ -61,20 +63,21 @@ public class Item {
             this.phone =  item.getString("phone");
             this.name =  item.getString("name");
             this.email =  item.getString("email");
-            this.zipcode =  item.getString("zip");
+            this.zip =  item.getString("zip");
             this.category =  item.getString("category");
             this.rated =  item.getString("rated");
             this.acceptedUser =  item.getString("acceptedUser");
             this.users =  item.getString("users");
             this.messenger =  item.getString("messenger");
             this.img =  item.getString("img");
-        } catch (JSONException e){
-            e.printStackTrace();
+            this.ownerID=item.getString("ownerID");
+        } catch (Exception e){
+            //Log.d("ERROR", e);
         }
     }
 
 
-    public Item(String id,
+   /* public Item(String id,
                 String owner,
                 String acceptedUser,
                 String description,
@@ -83,7 +86,7 @@ public class Item {
                 String phone,
                 String name,
                 String email,
-                String zipcode,
+                String zip,
                 //List<String> users,
                 String users,
                 String category,
@@ -96,7 +99,7 @@ public class Item {
         this.phone = phone;
         this.name = name;
         this.email = email;
-        this.zipcode = zipcode;
+        this.zip = zip;
         this.category = category;
         this.rated = rated;
         this.acceptedUser = acceptedUser;
@@ -105,7 +108,15 @@ public class Item {
         this.img=img;
     }
 
+*/
 
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
 
     public String getImg() {
         return img;
@@ -144,9 +155,18 @@ public class Item {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-    public String getUsers() {
+  /*  public List<String> getUsers() {
+        return users;
+    }*/
+  public String getUsers() {
       return users;
+  }
+    /*public void addUsers(String user) {
+        this.users.add(user);
     }
+    public void removeUsers(String user) {
+        this.users.remove(user);
+    }*/
     public String getDescription() {
         return description;
     }
@@ -184,10 +204,10 @@ public class Item {
         this.email = email;
     }
     public String getZipcode() {
-        return zipcode;
+        return zip;
     }
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setZipcode(String zip) {
+        this.zip = zip;
     }
     public String getCategory() {
         return category;
@@ -214,10 +234,10 @@ public class Item {
                 ", phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", zipcode='" + zipcode + '\'' +
+                ", zipcode='" + zip + '\'' +
                 ", category='" + category + '\'' +
                 ", rated='" + rated + '\'' +
-                ", users='" + users + '\'' +
+                ", users=" + users +
                 ", messenger='" + messenger + '\'' +
                 ", img='" + img + '\'' +
                 '}';

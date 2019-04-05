@@ -1,8 +1,7 @@
 package com.gefins;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -29,13 +28,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
+import Entities.User;
 import Requests.ItemRequest;
 import Services.ItemService;
 
@@ -46,6 +43,9 @@ public class MainActivity extends NavbarActivity {
     private ImageView adImage;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
+    private User currentUser;
+
+    public static final String ITEM_REQUESTS = "item_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -59,16 +59,21 @@ public class MainActivity extends NavbarActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
         mTitle.setText(R.string.app_name);
 
+        currentUser = (User) getIntent().getSerializableExtra("user");
+
+        if(currentUser==null){
+        Log.d("ble","USERINN ER HORFINN!!!!!!");}
+
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
-        adImage = findViewById(R.id.viewad_image);
+        /*adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
         adNameTxtView = findViewById(R.id.ad_name_container);
-
+*/
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -83,26 +88,14 @@ public class MainActivity extends NavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     final JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
-                    String imgs[] = new String[items.length()];
 
                     for(int i = 0; i < items.length(); i++){
                         JSONObject item = items.getJSONObject(i);
                         names[i] = item.getString("name");
-                        imgs[i] = "https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg";
-                        Log.d("NAME[]", names[i]);
-                        Log.d("IMG[]", imgs[i]);
+                        Log.d("NAME", names[i]);
                     }
-                    GridView gridView = findViewById(R.id.gridView);
-                    CustomGridViewActivity adapterViewAndroid = new CustomGridViewActivity(MainActivity.this, names, imgs);
-                    gridView.setAdapter(adapterViewAndroid);
 
-/*
-                    ImageView image = findViewById(R.id.Img_item);
-                    JSONObject item = items.getJSONObject(31);
-                    Log.d("IMG", item.getString("img"));
-                    String url = item.getString("img");
-                    new DownloadImg(image).execute(url);
-*/
+                    GridView gridView = findViewById(R.id.gridView);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
                     gridView.setAdapter(adapter);
 
@@ -112,17 +105,21 @@ public class MainActivity extends NavbarActivity {
                             Log.d("GRIDVIEW", String.valueOf(position) );
                             try {
                                 Item item = new Item(items.getJSONObject(position));
-                                System.out.print("TEST: ");
-                                System.out.println(items.getJSONObject(position));
-
-                                Intent viewIntent = new Intent(MainActivity.this, ViewAdActivity.class);
-                                viewIntent.putExtra("chosenItem", item.getId());
-                                startActivity(viewIntent);
+                                Log.d("ITEMID", item.getId());
+                                Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
+                                i.putExtra("chosenItem", item.getId());
+                                startActivity(i);
                             } catch (Exception e) {
-                                e.printStackTrace();
+
+
+                                //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
+                                //  startActivity(intent);
+
                             }
+
                         }
                     });
+
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -130,25 +127,32 @@ public class MainActivity extends NavbarActivity {
 
             }
         };
+       /* GridView gridView = findViewById(R.id.gridView);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
 
+
+
+                Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
+                startActivity(i);
+
+
+            }
+        });
+*/
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
+        if(extras.get("chosenCategories") != null){
+
             String request = ArrayStringListToRequest(extras.getStringArrayList("chosenCategories"));
-            //String request2 = ArrayStringListToRequest2(extras.getStringArrayList("chosenLocations"));
 
             Log.d("REMOLAÐI", request);
-            //Log.d("REMOLAÐI2", request2);
-
 
             ItemRequest sortRequest = new ItemRequest(request, responseListener);
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
             queue.add(sortRequest);
-            /*
-            ItemRequest sortRequest2 = new ItemRequest(request2, responseListener);
-            RequestQueue queue2 = Volley.newRequestQueue(MainActivity.this);
-            queue2.add(sortRequest2);
-            */
 
         } else {
             ItemRequest adListRequest = new ItemRequest("items", responseListener);
@@ -165,6 +169,7 @@ public class MainActivity extends NavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(MainActivity.this, AdActivity.class);
+                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
@@ -176,6 +181,7 @@ public class MainActivity extends NavbarActivity {
 
                 //Færir frá forsíðu yfir á síu skjá
                 Intent intent = new Intent(MainActivity.this, SortActivity.class);
+                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
@@ -184,24 +190,19 @@ public class MainActivity extends NavbarActivity {
         gd1.setCornerRadius(5);
 
     }
-
     public String ArrayStringListToRequest(ArrayList<String> list) {
         String request = "items?";
         for(int i = 0; i < list.size(); i++){
-            request += "category=" + list.get(i);
-            if(i+1 != list.size()){
-                request += "&";
-            }
-        }
-
-        return request;
-    }
-    public String ArrayStringListToRequest2(ArrayList<String> list) {
-        String request = "items?";
-        for(int i = 0; i < list.size(); i++){
-            request += "zip=" + list.get(i);
-            if(i+1 != list.size()){
-                request += "&";
+            if(list.get(i).matches(".*[0123456789].*")) {
+                request += "zip=" + list.get(i);
+                if(i+1 != list.size()){
+                    request += "&";
+                }
+            } else if(!(list.get(i).matches(".*[0123456789].*"))) {
+                request += "category=" + list.get(i);
+                if(i+1 != list.size()){
+                    request += "&";
+                }
             }
         }
 
