@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -22,19 +24,19 @@
         <Button
             android:id="@+id/myAdsButton"
             android:layout_width="match_parent"
-            android:layout_height="361dp"
-            android:backgroundTint="@color/colorAccent"
+            android:layout_height="295dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/myAds"
             android:textColor="@color/white"
-            android:textSize="17sp"
-            android:text="@string/myAds" />
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/inQueueForButton"
             android:layout_width="match_parent"
-            android:layout_height="361dp"
+            android:layout_height="295dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/inQueueFor"
             android:textColor="@color/white"
-            android:textSize="17sp"
-            android:backgroundTint="@android:color/holo_red_light"
-            android:text="@string/inQueueFor" />
+            android:textSize="17sp" />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
