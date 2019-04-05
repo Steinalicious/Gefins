@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Skilgreiningar
     private Button registerBtn;
-
+    private Intent userIntent;
     private EditText nameEdTxt, emailEdTxt, passEdTxt, confirmEdTxt;
 
     @Override
@@ -41,18 +41,21 @@ public class RegisterActivity extends AppCompatActivity {
         confirmEdTxt = findViewById(R.id.registerPassConfEditText);
         registerBtn = findViewById(R.id.registerButton);
 
+        userIntent = new Intent(RegisterActivity.this, SettingsActivity.class);
         // Virkni á RegisterTakkanum
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
 
-                /* Nær í textan frá input field sem eru á register skjá
-                   aka notandanafn, tölvupóstinn, lykillorðið og endurtekninguna
+                /* Nær í textann frá input field sem eru á register skjá
+                   aka notandanafn, tölvupóstinn, lykilorðið og endurtekninguna
                 */
-                //***********vantar phone, location og zipcode!!!**********************************
+
                 User user=new User("0", nameEdTxt.getText().toString(),
                         passEdTxt.getText().toString(), "phone", emailEdTxt.getText().toString(),
                         "location", "zipcode", "0", "0");
+                userIntent.putExtra("userInfo", user.getId());
+                System.out.println("idregister" + user.getId());
 
                 String passwordConfirm = confirmEdTxt.getText().toString();
 
