@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                         passEdTxt.getText().toString(), emailEdTxt.getText().toString(),
                         "0", "0");
 
+
                 String passwordConfirm = confirmEdTxt.getText().toString();
 
                 //Meðhöndlun á svari frá server

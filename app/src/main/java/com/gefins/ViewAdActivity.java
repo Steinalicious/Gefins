@@ -76,8 +76,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                     //debug
                     Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
-                    JSONArray items = jsonResponse.getJSONArray("item");
-                    Item item = new Item(items.getJSONObject(0));
+                    Item item = new Item(jsonResponse.getJSONObject("item"));
 
                     System.out.println(jsonResponse);
                     System.out.println("Item:");

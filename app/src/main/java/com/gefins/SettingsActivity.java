@@ -43,14 +43,10 @@ public class SettingsActivity extends NavbarActivity {
         currentUser = (User) getIntent().getSerializableExtra("user");
 
         if(currentUser==null){
-            Log.d("ble","USERINN ER HORFINN!!!!!!");}
-    }
-}
+            Log.d("ble","USERINN ER HORFINN!!!!!!");
+        }
+        System.out.println(currentUser.getUserName());
 
-        if(currentUser==null){
-            Log.d("ble","USERINN ER HORFINN!!!!!!");}
-
-        System.out.println("Curr id");
 
 
         nameSettingsEdTxt = findViewById(R.id.usernameEditText);
@@ -59,17 +55,18 @@ public class SettingsActivity extends NavbarActivity {
         confirmSettingsEdTxt = findViewById(R.id.registerPassConfEditText);
         settingsBtn = findViewById(R.id.registerButton);
 
+        nameSettingsEdTxt.setText(currentUser.getUserName());
+        emailSettingsEdTxt.setText(currentUser.getEmail());
+        passSettingsEdTxt.setText(currentUser.getPassword());
 
-        // Virkni á settingsBtn
+        // Virkni á RegisterTakkanum
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
 
-                /* Nær í textann frá input field sem eru á settings skjá
-                   aka notandanafn, tölvupóstinn, lykilorðið og endurtekninguna
-                */
                 User user=new User("0", nameSettingsEdTxt.getText().toString(),
-                        passSettingsEdTxt.getText().toString(), emailSettingsEdTxt.getText().toString(), "0", "0");
+                        passSettingsEdTxt.getText().toString(), emailSettingsEdTxt.getText().toString(),
+                        "0", "0");
 
                 String passwordConfirm = confirmSettingsEdTxt.getText().toString();
 
@@ -85,13 +82,13 @@ public class SettingsActivity extends NavbarActivity {
                             if (success) {
 
                                 //Fer frá register skjá á Login skjá
-                                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                                Intent intent = new Intent(SettingsActivity.this, UserActivity.class);
                                 SettingsActivity.this.startActivity(intent);
                             } else {
 
                                 //Gefur upp glugga um að skráning mistókst
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
-                                builder.setMessage("Ekki tókst að breyta stillingum")
+                                builder.setMessage("Skráning mistókst")
                                         .setNegativeButton("Reyna aftur",null)
                                         .create()
                                         .show();
@@ -120,5 +117,6 @@ public class SettingsActivity extends NavbarActivity {
                 }
             }
         });
+
     }
 }
