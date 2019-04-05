@@ -37,6 +37,13 @@ public class ItemRequest extends StringRequest {
         super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
     }
 
+    //request = "/user/queued"
+    public ItemRequest(String request,String userID, Response.Listener<String> listener){
+        super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
+        params= new HashMap<>();
+        params.put("userID",userID);
+    }
+
     public ItemRequest(Item item, String request, Response.Listener<String> listener){
         super(Method.POST, ADMAKER_REQUEST_URL+request, listener, null);
         params = new HashMap<>();
@@ -51,7 +58,7 @@ public class ItemRequest extends StringRequest {
         params.put("owner", item.getOwner());
         params.put("email", item.getEmail());
         params.put("img", item.getImg());
-        params.put("users", item.getUsers().toString());
+        params.put("users", item.getUsers());
         params.put("description", item.getDescription());
         params.put("zip", item.getZipcode());
         params.put("location", item.getLocation());
