@@ -1,5 +1,6 @@
 package com.gefins;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Entities.User;
 import Requests.ItemRequest;
 import Services.ItemService;
 
@@ -43,6 +45,9 @@ public class MainActivity extends NavbarActivity {
     private ImageView adImage;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
+    private User currentUser;
+
+    public static final String ITEM_REQUESTS = "item_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -56,16 +61,21 @@ public class MainActivity extends NavbarActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
         mTitle.setText(R.string.app_name);
 
+        currentUser = (User) getIntent().getSerializableExtra("user");
+
+        if(currentUser==null){
+        Log.d("ble","USERINN ER HORFINN!!!!!!");}
+
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
-        adImage = findViewById(R.id.viewad_image);
+        /*adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
         adNameTxtView = findViewById(R.id.ad_name_container);
-
+*/
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -137,22 +147,15 @@ public class MainActivity extends NavbarActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
+        if(extras.get("chosenCategories") != null){
+
             String request = ArrayStringListToRequest(extras.getStringArrayList("chosenCategories"));
-            //String request2 = ArrayStringListToRequest2(extras.getStringArrayList("chosenLocations"));
 
             Log.d("REMOLAÐI", request);
-            //Log.d("REMOLAÐI2", request2);
-
 
             ItemRequest sortRequest = new ItemRequest(request, responseListener);
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
             queue.add(sortRequest);
-            /*
-            ItemRequest sortRequest2 = new ItemRequest(request2, responseListener);
-            RequestQueue queue2 = Volley.newRequestQueue(MainActivity.this);
-            queue2.add(sortRequest2);
-            */
 
         } else {
             ItemRequest adListRequest = new ItemRequest("items", responseListener);
@@ -169,6 +172,7 @@ public class MainActivity extends NavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(MainActivity.this, AdActivity.class);
+                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
@@ -180,6 +184,7 @@ public class MainActivity extends NavbarActivity {
 
                 //Færir frá forsíðu yfir á síu skjá
                 Intent intent = new Intent(MainActivity.this, SortActivity.class);
+                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
@@ -188,24 +193,19 @@ public class MainActivity extends NavbarActivity {
         gd1.setCornerRadius(5);
 
     }
-
     public String ArrayStringListToRequest(ArrayList<String> list) {
         String request = "items?";
         for(int i = 0; i < list.size(); i++){
-            request += "category=" + list.get(i);
-            if(i+1 != list.size()){
-                request += "&";
-            }
-        }
-
-        return request;
-    }
-    public String ArrayStringListToRequest2(ArrayList<String> list) {
-        String request = "items?";
-        for(int i = 0; i < list.size(); i++){
-            request += "zip=" + list.get(i);
-            if(i+1 != list.size()){
-                request += "&";
+            if(list.get(i).matches(".*[0123456789].*")) {
+                request += "zip=" + list.get(i);
+                if(i+1 != list.size()){
+                    request += "&";
+                }
+            } else {
+                request += "category=" + list.get(i);
+                if(i+1 != list.size()){
+                    request += "&";
+                }
             }
         }
 

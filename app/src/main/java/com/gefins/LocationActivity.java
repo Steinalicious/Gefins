@@ -3,7 +3,6 @@ package com.gefins;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import Entities.MultiSelectSpinner;
-
+import Entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +22,15 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
     private ArrayList<String> chosenLocations;
     private String loc;
 
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_location, contentFrameLayout);
+
+        //set curentUser
+        currentUser = (User) getIntent().getSerializableExtra("user");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
@@ -141,9 +144,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
 
 
         loc = "";
-
         chosenItems2 = getString(R.string.chosenItems);
-
         chosenLocations = new ArrayList<>();
 
         // Velja takki
@@ -157,27 +158,12 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
             public void onClick(View v) {
                 //Færir frá "Staðsetning" yfir á "Sort" skjá
                 sortIntent = new Intent(LocationActivity.this, SortActivity.class);
-                sortIntent.putExtra(Intent.EXTRA_SUBJECT, "extrasLoc");
-                sortIntent.putExtra("chosen_items2", chosenItems2);
-                sortIntent.putExtra("chosen_loc", chosenLocations);
+                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenItems2);
+                sortIntent.putExtra(SortActivity.CHOSEN_ITEMS, chosenLocations);
+                sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        //if (id == R.id.action_settings) {
-        //    return true;
-        //}
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

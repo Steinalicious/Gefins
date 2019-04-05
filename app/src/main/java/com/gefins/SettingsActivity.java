@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import Entities.User;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -21,6 +23,9 @@ import Entities.User;
 import Requests.UserRequest;
 
 public class SettingsActivity extends NavbarActivity {
+
+    private User currentUser;
+
     private Button settingsBtn;
 
     private EditText nameSettingsEdTxt, emailSettingsEdTxt, passSettingsEdTxt, confirmSettingsEdTxt;
@@ -31,6 +36,11 @@ public class SettingsActivity extends NavbarActivity {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_settings, contentFrameLayout);
+
+        // set currentUser
+        currentUser = (User) getIntent().getSerializableExtra("user");
+    }
+}
 
         final Bundle extras = getIntent().getExtras();
 

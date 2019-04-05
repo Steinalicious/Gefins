@@ -23,8 +23,6 @@ public class UserRequest extends StringRequest {
 
         params.put("id", user.getId());
         params.put("mId", user.getmId());
-        params.put("phone", user.getPhone());
-        params.put("location", user.getLocation());
         params.put("stars", user.getStars());
         params.put("starNumber", user.getStarsNumber());
         params.put("username", user.getUserName());

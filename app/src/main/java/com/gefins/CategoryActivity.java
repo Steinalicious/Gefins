@@ -15,10 +15,13 @@ import android.widget.Button;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import Entities.User;
+
 public class CategoryActivity extends BackNavbarActivity {
     private Button choose_button;
     private Intent sortIntent;
     CheckBox furniture, clothing, kids, electronics, tools, commute, food, animals;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class CategoryActivity extends BackNavbarActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
         mTitle.setText(R.string.categories);
+
+        currentUser = (User) getIntent().getSerializableExtra("user");
 
         // Sækja checkbox flokka
         furniture = (CheckBox)findViewById(R.id.checkbox_furniture);
@@ -90,9 +95,9 @@ public class CategoryActivity extends BackNavbarActivity {
 
                 //Færir frá "Flokkar" yfir á "Sort" skjá
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
-                sortIntent.putExtra(Intent.EXTRA_SUBJECT, "extrasCat");
-                sortIntent.putExtra("chosen_items", chosenItems);
-                sortIntent.putExtra("chosen_cat", chosenCategories);
+                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenItems);
+                sortIntent.putExtra(SortActivity.CHOSEN_ITEMS, chosenCategories);
+                sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);
             }
         });

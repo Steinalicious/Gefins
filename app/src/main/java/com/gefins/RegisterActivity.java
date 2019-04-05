@@ -47,15 +47,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick (View v) {
 
-                /* Nær í textann frá input field sem eru á register skjá
-                   aka notandanafn, tölvupóstinn, lykilorðið og endurtekninguna
-                */
-
                 User user=new User("0", nameEdTxt.getText().toString(),
-                        passEdTxt.getText().toString(), "phone", emailEdTxt.getText().toString(),
-                        "location", "zipcode", "0", "0");
-                userIntent.putExtra("userInfo", user.getId());
-                System.out.println("idregister" + user.getId());
+                        passEdTxt.getText().toString(), emailEdTxt.getText().toString(),
+                        "0", "0");
 
                 String passwordConfirm = confirmEdTxt.getText().toString();
 

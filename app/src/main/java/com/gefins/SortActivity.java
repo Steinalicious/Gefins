@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -11,9 +12,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import Entities.User;
+
 public class SortActivity extends ExitNavbarActivity {
     private Button sortCatBtn, sortLocBtn, submitBtn;
     private TextView chosenSort;
+    private User currentuser;
+    public static final String ITEM_FILTERS = "WhichFilters";
+    public static final String CHOSEN_ITEMS = "chosenItems";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,22 +33,22 @@ public class SortActivity extends ExitNavbarActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.exit_title);
         mTitle.setText(R.string.filter);
 
+        currentuser = (User) getIntent().getSerializableExtra("user");
+
         sortCatBtn = findViewById(R.id.sort_categories);
         sortLocBtn = findViewById(R.id.sort_loc);
         submitBtn = findViewById(R.id.sortItemsButton);
-
-
         chosenSort = findViewById(R.id.chosenSort);
-        final Bundle extras = getIntent().getExtras();
-        //Boolean extras2 = getIntent().hasExtra("extrasCat");
-        //Log.d("ErExtra?", extras2.toString());
 
-        if(extras != null) {
-            String filters = extras.getString("chosen_items");
-            filters += extras.getString("chosen_items2");
+
+        final Bundle extras = getIntent().getExtras();
+
+        if(extras.get(ITEM_FILTERS)!= null) {
+            String filters = (String) getIntent().getStringExtra(ITEM_FILTERS);
             if(filters != null) {
-                chosenSort.setText(filters);
+                chosenSort.append(filters);
             }
+            Log.d("activity_from", filters);
         }
 
 
@@ -53,7 +59,9 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, CategoryActivity.class);
-                startActivityForResult(intent, 5);
+                intent.putExtra("user", currentuser);
+                startActivity(intent);
+
             }
         });
 
@@ -64,7 +72,8 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, LocationActivity.class);
-                startActivityForResult(intent, 5);
+                intent.putExtra("user", currentuser);
+                startActivity(intent);
             }
         });
 
@@ -72,14 +81,22 @@ public class SortActivity extends ExitNavbarActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //ArrayList<String> test =  extras.getStringArrayList("chosen_cat");
-                //Færir frá forsíðu yfir á ný auglýsing skjá
+                //Færir frá sort yfir á aðalskjá
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
-                intent.putExtra("chosenCategories", extras.getStringArrayList("chosen_cat"));
-                //intent.putExtra("chosenLocations", extras.getStringArrayList("chosen_loc"));
+                intent.putExtra("user", currentuser);
+                //intent.putExtra("chosenCategories", extras.getStringArrayList("chosen_cat"));
+                intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(CHOSEN_ITEMS));
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent( this, MainActivity.class);
+        intent.putExtra("user", currentuser);
+        Log.d("aaaa","aslæfkjaælfdkjaældfkjaælkj");
+        SortActivity.this.startActivity(intent);
+        return true;
     }
 }

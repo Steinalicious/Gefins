@@ -1,4 +1,6 @@
 package Entities;
+import org.json.JSONObject;
+
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -29,7 +31,7 @@ public class Item {
     }
     public Item(String owner, String description,
                 String location, String phone, String name,
-                String email, String zipcode, String category){
+                String email, String zip, String category){
 
         this.id = "0";
         this.owner=owner;
@@ -193,7 +195,7 @@ public class Item {
     public String getZipcode() {
         return zip;
     }
-    public void setZipcode(String zipcode) {
+    public void setZipcode(String zip) {
         this.zip = zip;
     }
     public String getCategory() {
@@ -207,5 +209,26 @@ public class Item {
     }
     public void setRated(String rated) {
         this.rated = rated;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", owner='" + owner + '\'' +
+                ", acceptedUser='" + acceptedUser + '\'' +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", generalLocation='" + generalLocation + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", zipcode='" + zip + '\'' +
+                ", category='" + category + '\'' +
+                ", rated='" + rated + '\'' +
+                ", users=" + users +
+                ", messenger='" + messenger + '\'' +
+                ", img='" + img + '\'' +
+                '}';
     }
 }
