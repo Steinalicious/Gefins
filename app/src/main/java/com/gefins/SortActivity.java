@@ -102,7 +102,6 @@ public class SortActivity extends ExitNavbarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = new Intent( this, MainActivity.class);
         intent.putExtra("user", currentuser);
-        Log.d("aaaa","aslæfkjaælfdkjaældfkjaælkj");
         SortActivity.this.startActivity(intent);
         return true;
     }

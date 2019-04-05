@@ -102,6 +102,9 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
+
+
+
         final Bundle extras = getIntent().getExtras();
             String id = extras.getString("chosenItem");
             String request = "items/" + id;

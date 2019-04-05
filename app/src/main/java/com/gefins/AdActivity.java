@@ -77,7 +77,7 @@ public class AdActivity extends ExitNavbarActivity {
                 locEdTxt = findViewById(R.id.itemLoc_input);
                 phoneEdTxt = findViewById(R.id.phone_input);
 
-                Item item =new Item(currentUser.getUserName(),descEdTxt.getText().toString(),locEdTxt.getText().toString(),
+                Item item =new Item(currentUser.getUserName(),currentUser.getId(),descEdTxt.getText().toString(),locEdTxt.getText().toString(),
                         phoneEdTxt.getText().toString(),titleEdTxt.getText().toString(),
                         currentUser.getEmail(),zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
 

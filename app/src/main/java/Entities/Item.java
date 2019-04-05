@@ -10,6 +10,7 @@ import java.util.List;
 public class Item {
     private String id;
     private String owner;
+    private String ownerID;
     private String acceptedUser;
     private String description;
     private String location;
@@ -29,12 +30,13 @@ public class Item {
     public Item() {
 
     }
-    public Item(String owner, String description,
+    public Item(String owner,String ownerID, String description,
                 String location, String phone, String name,
                 String email, String zip, String category){
 
         this.id = "0";
         this.owner=owner;
+        this.ownerID=ownerID;
         this.description = description;
         this.location = location;
         this.generalLocation = "general Location";
@@ -68,13 +70,14 @@ public class Item {
             this.users =  item.getString("users");
             this.messenger =  item.getString("messenger");
             this.img =  item.getString("img");
+            this.ownerID=item.getString("ownerID");
         } catch (Exception e){
             //Log.d("ERROR", e);
         }
     }
 
 
-    public Item(String id,
+   /* public Item(String id,
                 String owner,
                 String acceptedUser,
                 String description,
@@ -105,7 +108,15 @@ public class Item {
         this.img=img;
     }
 
+*/
 
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
 
     public String getImg() {
         return img;
