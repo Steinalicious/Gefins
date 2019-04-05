@@ -1,6 +1,8 @@
 package com.gefins;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +33,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import Requests.ItemRequest;
@@ -80,14 +83,26 @@ public class MainActivity extends NavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     final JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
+                    String imgs[] = new String[items.length()];
 
                     for(int i = 0; i < items.length(); i++){
                         JSONObject item = items.getJSONObject(i);
                         names[i] = item.getString("name");
-                        Log.d("NAME", names[i]);
+                        imgs[i] = "https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg";
+                        Log.d("NAME[]", names[i]);
+                        Log.d("IMG[]", imgs[i]);
                     }
-
                     GridView gridView = findViewById(R.id.gridView);
+                    CustomGridViewActivity adapterViewAndroid = new CustomGridViewActivity(MainActivity.this, names, imgs);
+                    gridView.setAdapter(adapterViewAndroid);
+
+/*
+                    ImageView image = findViewById(R.id.Img_item);
+                    JSONObject item = items.getJSONObject(31);
+                    Log.d("IMG", item.getString("img"));
+                    String url = item.getString("img");
+                    new DownloadImg(image).execute(url);
+*/
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
                     gridView.setAdapter(adapter);
 
@@ -97,13 +112,17 @@ public class MainActivity extends NavbarActivity {
                             Log.d("GRIDVIEW", String.valueOf(position) );
                             try {
                                 Item item = new Item(items.getJSONObject(position));
-                                Log.d("ITEMID", item.getId());
-                            } catch (Exception e) {
+                                System.out.print("TEST: ");
+                                System.out.println(items.getJSONObject(position));
 
+                                Intent viewIntent = new Intent(MainActivity.this, ViewAdActivity.class);
+                                viewIntent.putExtra("chosenItem", item.getId());
+                                startActivity(viewIntent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                     });
-
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -111,21 +130,6 @@ public class MainActivity extends NavbarActivity {
 
             }
         };
-       /* GridView gridView = findViewById(R.id.gridView);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
-
-             
-
-                Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
-                startActivity(i);
-
-
-            }
-        });
-*/
 
 
         Bundle extras = getIntent().getExtras();

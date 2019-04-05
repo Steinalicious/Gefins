@@ -1,6 +1,7 @@
 package Entities;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -46,28 +47,29 @@ public class Item {
         //this.users = new ArrayList<>();
         this.users = "";
         this.messenger="";
-        this.img="";
+        this.img="0";
 
     }
     public Item(JSONObject item) {
+
         try {
             this.id = item.getString("id");
             this.owner =  item.getString("owner");
             this.description = item.getString("description");
             this.location =  item.getString("location");
-            this.generalLocation =  item.getString("generalLocation");
+            this.generalLocation =  item.getString("general_location");
             this.phone =  item.getString("phone");
             this.name =  item.getString("name");
             this.email =  item.getString("email");
-            this.zipcode =  item.getString("zipcode");
+            this.zipcode =  item.getString("zip");
             this.category =  item.getString("category");
             this.rated =  item.getString("rated");
             this.acceptedUser =  item.getString("acceptedUser");
             this.users =  item.getString("users");
             this.messenger =  item.getString("messenger");
             this.img =  item.getString("img");
-        } catch (Exception e){
-            //Log.d("ERROR", e);
+        } catch (JSONException e){
+            e.printStackTrace();
         }
     }
 
@@ -142,18 +144,9 @@ public class Item {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-  /*  public List<String> getUsers() {
-        return users;
-    }*/
-  public String getUsers() {
+    public String getUsers() {
       return users;
-  }
-    /*public void addUsers(String user) {
-        this.users.add(user);
     }
-    public void removeUsers(String user) {
-        this.users.remove(user);
-    }*/
     public String getDescription() {
         return description;
     }
@@ -207,5 +200,26 @@ public class Item {
     }
     public void setRated(String rated) {
         this.rated = rated;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", owner='" + owner + '\'' +
+                ", acceptedUser='" + acceptedUser + '\'' +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", generalLocation='" + generalLocation + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", category='" + category + '\'' +
+                ", rated='" + rated + '\'' +
+                ", users='" + users + '\'' +
+                ", messenger='" + messenger + '\'' +
+                ", img='" + img + '\'' +
+                '}';
     }
 }
