@@ -38,8 +38,8 @@ public class User implements Serializable{
             this.userName = json.getString("username");
             this.password = json.getString("password");
             this.email = json.getString("email");
-          //  this.stars = json.getString("stars");
-           // this.starsNumber = json.getString("starsNumber");
+            this.stars = json.getString("stars");
+            this.starsNumber = json.getString("starsNumber");
         } catch (Exception e){
 
         }

@@ -66,14 +66,14 @@ public class MainActivity extends NavbarActivity {
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
-        /*adImage = findViewById(R.id.viewad_image);
+        adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
         adNameTxtView = findViewById(R.id.ad_name_container);
-*/
+
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -108,6 +108,7 @@ public class MainActivity extends NavbarActivity {
                                 Log.d("ITEMID", item.getId());
                                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
                                 i.putExtra("chosenItem", item.getId());
+                                i.putExtra("user", currentUser);
                                 startActivity(i);
                             } catch (Exception e) {
 
