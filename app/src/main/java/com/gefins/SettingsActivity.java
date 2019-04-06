@@ -48,7 +48,6 @@ public class SettingsActivity extends NavbarActivity {
         System.out.println(currentUser.getUserName());
 
 
-
         nameSettingsEdTxt = findViewById(R.id.usernameEditText);
         emailSettingsEdTxt = findViewById(R.id.registerEmailEditText);
         passSettingsEdTxt = findViewById(R.id.registerPassEditText);
@@ -58,13 +57,14 @@ public class SettingsActivity extends NavbarActivity {
         nameSettingsEdTxt.setText(currentUser.getUserName());
         emailSettingsEdTxt.setText(currentUser.getEmail());
         passSettingsEdTxt.setText(currentUser.getPassword());
+        confirmSettingsEdTxt.setText(currentUser.getPassword());
 
         // Virkni á RegisterTakkanum
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
 
-                User user=new User("0", nameSettingsEdTxt.getText().toString(),
+                User user=new User(currentUser.getId(), nameSettingsEdTxt.getText().toString(),
                         passSettingsEdTxt.getText().toString(), emailSettingsEdTxt.getText().toString(),
                         "0", "0");
 
@@ -75,20 +75,15 @@ public class SettingsActivity extends NavbarActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.d("JSONREGITER", response);
+                            Log.d("JSONSETTINGS", response);
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
 
-                            if (success) {
-
-                                //Fer frá register skjá á Login skjá
-                                Intent intent = new Intent(SettingsActivity.this, UserActivity.class);
-                                SettingsActivity.this.startActivity(intent);
-                            } else {
+                            if (!success) {
 
                                 //Gefur upp glugga um að skráning mistókst
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
-                                builder.setMessage("Skráning mistókst")
+                                builder.setMessage("Það mistókst að breyta notendaupplýsingum")
                                         .setNegativeButton("Reyna aftur",null)
                                         .create()
                                         .show();
@@ -103,9 +98,9 @@ public class SettingsActivity extends NavbarActivity {
                 if (user.getPassword().equals(passwordConfirm)) {
 
                     //Tengist server
-                    UserRequest registerRequest = new UserRequest(user,"register", responseListener);
+                    UserRequest settingsRequest = new UserRequest(user, currentUser.getId(), "settings", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(SettingsActivity.this);
-                    queue.add(registerRequest);
+                    queue.add(settingsRequest);
                 } else {
 
                     //Varar við að Lykilorð eru mismunandi

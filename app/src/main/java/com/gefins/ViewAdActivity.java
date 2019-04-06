@@ -61,10 +61,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
-       // firstQueueTxtView = findViewById(R.id.first_in_queue_container);
-
-        ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
-      //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
+        descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -72,6 +69,9 @@ public class ViewAdActivity extends BackNavbarActivity {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+        firstQueueTxtView = findViewById(R.id.first_in_queue_container);
+
+        ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
                 try {
                     //debug
                     Log.d("JSONAD ", response);
