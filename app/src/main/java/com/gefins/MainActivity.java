@@ -71,7 +71,7 @@ public class MainActivity extends NavbarActivity {
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
-        ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
+        ownerInfoTxtView = findViewById(R.id.owner_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
 
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());

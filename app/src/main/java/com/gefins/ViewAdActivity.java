@@ -160,8 +160,8 @@ public class ViewAdActivity extends BackNavbarActivity {
         zipTxtView.setText(zip);
         String owner = item.getOwner();
         ownerInfoTxtView.setText(owner);
-        String stars = String.valueOf(currentUser.getratings());
-        userStarsTxtView.setText(stars);
+      //  String stars = String.valueOf(currentUser.getratings());
+       // userStarsTxtView.setText(stars);
 
     }
 
