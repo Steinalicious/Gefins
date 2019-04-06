@@ -108,6 +108,7 @@ public class MainActivity extends NavbarActivity {
                                 Log.d("ITEMID", item.getId());
                                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
                                 i.putExtra("chosenItem", item.getId());
+                                i.putExtra("itemOwner", item.getOwner());
                                 i.putExtra("user", currentUser);
                                 startActivity(i);
                             } catch (Exception e) {

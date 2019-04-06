@@ -35,15 +35,25 @@ public class ViewAdActivity extends BackNavbarActivity {
     private Button inQueueButton,enterQueueBtn;
     private ImageView adImage;
     private User currentUser;
-    private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView;
+    private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, userStarsTxtView;
     private Item item;
     private String itemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
-        getLayoutInflater().inflate(R.layout.activity_viewad, contentFrameLayout);
+        final Bundle extras = getIntent().getExtras();
+        String itemOwner = extras.getString("itemOwner");
+        currentUser = (User) getIntent().getSerializableExtra("user");
+        if (currentUser.getUserName().equals(itemOwner)) {
+            Log.d("Fyrsta", itemOwner );
+            FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+            getLayoutInflater().inflate(R.layout.activity_viewadowner, contentFrameLayout);
+        } else {
+            FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+            getLayoutInflater().inflate(R.layout.activity_viewad, contentFrameLayout);
+        }
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
@@ -52,9 +62,8 @@ public class ViewAdActivity extends BackNavbarActivity {
         mTitle.setText(R.string.viewad_title);
 
         //set currentUser
-        currentUser = (User) getIntent().getSerializableExtra("user");
 
-        final Bundle extras = getIntent().getExtras();
+
         itemID = extras.getString("chosenItem");
 
         adImage = findViewById(R.id.viewad_image);
@@ -62,15 +71,18 @@ public class ViewAdActivity extends BackNavbarActivity {
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
-        ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
+        ownerInfoTxtView = findViewById(R.id.ownerinfo_container);
+        userStarsTxtView = findViewById(R.id.userStars_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
         enterQueueBtn = findViewById(R.id.enter_queue);
-       // firstQueueTxtView = findViewById(R.id.first_in_queue_container);
+        firstQueueTxtView = findViewById(R.id.first_in_queue_container);
 
-        ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
-      //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
+        //ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
+
+       // ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
+       // descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -78,29 +90,20 @@ public class ViewAdActivity extends BackNavbarActivity {
         final Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-        firstQueueTxtView = findViewById(R.id.first_in_queue_container);
 
-        ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
                 try {
                     //debug
                     Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
-                    Item item = new Item(jsonResponse.getJSONObject("item"));
+                    item = new Item(jsonResponse.getJSONObject("item"));
 
-                    System.out.println(jsonResponse);
-                    System.out.println("Item:");
-                    System.out.println(item);
+                    if (currentUser.getUserName().equals(item.getOwner())) {
+                        System.out.println("innri loopa");
+                        viewadOwner();
+                    } else {
+                        viewad();
+                    }
 
-                    String name = item.getItemName();
-                    adNameTxtView.setText(item.getItemName());
-                    String description = item.getDescription();
-                    descriptionTxtView.setText(description);
-                    String category = item.getCategory();
-                    categoryTxtView.setText(category);
-                    String zip = item.getZipcode();
-                    zipTxtView.setText(zip);
-                    String owner = item.getOwner();
-                    ownerInfoTxtView.setText(owner);
 
 
                 } catch (JSONException e){
@@ -110,7 +113,9 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
+
         getitem(responseListener);
+
 
 
         final Response.Listener<String> responseListener2 = new Response.Listener<String>() {
@@ -132,7 +137,7 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
-        enterQueueBtn.setOnClickListener(new View.OnClickListener(){
+     /*   enterQueueBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
@@ -142,8 +147,48 @@ public class ViewAdActivity extends BackNavbarActivity {
                 queue.add(sortRequest);
             }
 
-        });
+        });*/
     }
+
+    public void viewad() {
+        String name = item.getItemName();
+        adNameTxtView.setText(item.getItemName());
+        String description = item.getDescription();
+        descriptionTxtView.setText(description);
+        String category = item.getCategory();
+        categoryTxtView.setText(category);
+        String zip = item.getZipcode();
+        zipTxtView.setText(zip);
+        String owner = item.getOwner();
+        ownerInfoTxtView.setText(owner);
+        String stars = String.valueOf(currentUser.getratings());
+        userStarsTxtView.setText(stars);
+
+    }
+
+    public void viewadOwner() {
+        String name = item.getItemName();
+        adNameTxtView.setText(item.getItemName());
+        String description = item.getDescription();
+        descriptionTxtView.setText(description);
+        String category = item.getCategory();
+        categoryTxtView.setText(category);
+        String zip = item.getZipcode();
+        zipTxtView.setText(zip);
+    }
+/*
+    public void viewadAccepted() {
+        String name = item.getItemName();
+        adNameTxtView.setText(item.getItemName());
+        String description = item.getDescription();
+        descriptionTxtView.setText(description);
+        String category = item.getCategory();
+        categoryTxtView.setText(category);
+        String zip = item.getZipcode();
+        zipTxtView.setText(zip);
+        String owner = item.getOwner();
+        ownerInfoTxtView.setText(owner);
+    }*/
 
     public void getitem(Response.Listener<String> responseListener) {
 
