@@ -71,7 +71,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
-        ownerInfoTxtView = findViewById(R.id.ownerinfo_container);
+        ownerInfoTxtView = findViewById(R.id.owner_container);
         userStarsTxtView = findViewById(R.id.userStars_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
