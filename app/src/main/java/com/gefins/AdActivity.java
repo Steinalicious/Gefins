@@ -127,9 +127,6 @@ public class AdActivity extends ExitNavbarActivity {
             if (firstItem.equals(String.valueOf(spinner1.getSelectedItem()))) {
                 // ToDo when first item is selected
             } else {
-                Toast.makeText(parent.getContext(),
-                        "You have selected : " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_LONG).show();
                 // Todo when item is selected by the user
             }
         }

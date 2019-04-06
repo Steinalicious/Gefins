@@ -42,6 +42,7 @@ public class NavbarActivity extends AppCompatActivity {
 
         /* Virkni á menu items */
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override

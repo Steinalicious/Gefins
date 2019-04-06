@@ -146,9 +146,9 @@ public class MainActivity extends NavbarActivity {
 */
 
         Bundle extras = getIntent().getExtras();
-        if(extras.get("chosenCategories") != null){
+        if(extras.get(ITEM_REQUESTS) != null){
 
-            String request = ArrayStringListToRequest(extras.getStringArrayList("chosenCategories"));
+            String request = ArrayStringListToRequest(extras.getStringArrayList(ITEM_REQUESTS));
 
             Log.d("REMOLAÐI", request);
 

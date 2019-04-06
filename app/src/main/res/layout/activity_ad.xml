@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_red_light"
+            android:backgroundTint="@color/colorAccent"
             android:dropDownWidth="match_parent"
             android:entries="@array/android_dropdown_arrays"
             android:padding="5dp"
@@ -172,6 +172,9 @@
 
         <Button
             android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/btn_picker"
@@ -187,6 +190,9 @@
 
         <Button
             android:id="@+id/submitAdButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/submitAd" />

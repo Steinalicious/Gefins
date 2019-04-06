@@ -50,6 +50,17 @@ public class MyspaceActivity extends ExitNavbarActivity {
                 startActivity(intent);
             }
         });
+
+        inQueueForButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Færir frá forsíðu yfir á ný auglýsing skjá
+                Intent intent = new Intent(MyspaceActivity.this, InQueueActivity.class);
+                intent.putExtra("user", currentUser);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

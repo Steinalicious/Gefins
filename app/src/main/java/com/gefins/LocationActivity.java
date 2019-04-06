@@ -189,6 +189,5 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
             chosenItems2 += "\n"+strings.get(i).substring(0, 3);
             chosenLocations.add(strings.get(i).substring(0,3));
         }
-        Toast.makeText(this.getApplicationContext(),"Valdar staðsetningar " + strings,Toast.LENGTH_LONG).show();
     }
 }

@@ -64,7 +64,6 @@ public class SortActivity extends ExitNavbarActivity {
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, CategoryActivity.class);
                 intent.putExtra(CategoryActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
-                //intent.putStringArrayListExtra("LISTI", Listi);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
 
@@ -92,7 +91,6 @@ public class SortActivity extends ExitNavbarActivity {
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
                 intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(ITEM_FILTERS));
                 intent.putExtra("user", currentuser);
-                //intent.putExtra("chosenCategories", extras.getStringArrayList("chosen_cat"));
                 startActivity(intent);
             }
         });
