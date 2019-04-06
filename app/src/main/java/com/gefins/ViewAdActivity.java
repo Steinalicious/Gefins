@@ -129,7 +129,6 @@ public class ViewAdActivity extends BackNavbarActivity {
                     if(success)
                         getitem(responseListener);
 
-
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -191,7 +190,6 @@ public class ViewAdActivity extends BackNavbarActivity {
     }*/
 
     public void getitem(Response.Listener<String> responseListener) {
-
 
         String request = "items/" + itemID;
         ItemRequest sortRequest = new ItemRequest(request, responseListener);

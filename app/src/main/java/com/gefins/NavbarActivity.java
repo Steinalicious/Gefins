@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.support.v7.app.ActionBar;
 
 import Entities.User;
+import Entities.Item;
 
 
 public class NavbarActivity extends AppCompatActivity {
@@ -35,6 +36,9 @@ public class NavbarActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.baseline_menu_white2_18dp);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        Item item = new Item();
+        item.getOwner();
 
         /* Virkni á menu items */
         NavigationView navigationView = findViewById(R.id.nav_view);
