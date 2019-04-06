@@ -29,7 +29,7 @@ public class NavbarActivity extends AppCompatActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.drawer_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -61,8 +61,8 @@ public class NavbarActivity extends AppCompatActivity {
                             intent.putExtra("user", currentUser);
                             startActivity(intent);
                         } else if (id == R.id.nav_logout) {
-                            Intent intent = new Intent(NavbarActivity.this, MyspaceActivity.class);
-                            intent.putExtra("user", currentUser);
+                            Intent intent = new Intent(NavbarActivity.this, WelcomeActivity.class);
+                            finish();
                             startActivity(intent);
                         }
 
