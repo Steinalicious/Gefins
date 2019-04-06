@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom"
+    android:gravity="bottom|center"
     android:orientation="vertical"
     tools:context=".LocationActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="530dp">
+        android:layout_height="514dp">
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -331,9 +331,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="325dp"
+        android:layout_height="66dp"
         android:layout_marginBottom="8dp"
+        android:gravity="bottom"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -342,10 +343,12 @@
 
         <Button
             android:id="@+id/chooseLocBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_border"
-            android:text="@string/choose" />
+            android:backgroundTint="@color/blue"
+            android:text="@string/choose"
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>

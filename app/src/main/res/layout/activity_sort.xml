@@ -2,25 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center|center_horizontal"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="vertical"></LinearLayout>
 
     <LinearLayout
         android:layout_width="371dp"
         android:layout_height="60dp"
+        android:gravity="bottom"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/sort_categories"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_border"
+            android:backgroundTint="@color/black"
             android:text="@string/categories"
+            android:textColor="@color/white"
             android:textSize="17sp" />
 
     </LinearLayout>
@@ -28,35 +26,40 @@
     <LinearLayout
         android:layout_width="371dp"
         android:layout_height="60dp"
+        android:gravity="bottom"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/sort_loc"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_border"
+            android:backgroundTint="@color/black"
             android:text="@string/location"
+            android:textColor="@color/white"
             android:textSize="17sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="371dp"
-        android:layout_height="400dp"
+        android:layout_height="345dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/chosenSort"
             android:layout_width="match_parent"
             android:layout_height="373dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/sortItemsButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/white"
         android:layout_width="371dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
         android:text="@string/viewSortedItems"
         android:textSize="17sp" />
 

@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Skilgreiningar
     private Button registerBtn;
-
+    private Intent userIntent;
     private EditText nameEdTxt, emailEdTxt, passEdTxt, confirmEdTxt;
 
     @Override
@@ -49,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
                 User user=new User("0", nameEdTxt.getText().toString(),
                         passEdTxt.getText().toString(), emailEdTxt.getText().toString(),
                         "0", "0");
+
 
                 String passwordConfirm = confirmEdTxt.getText().toString();
 

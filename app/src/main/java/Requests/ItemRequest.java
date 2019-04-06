@@ -17,16 +17,17 @@ public class ItemRequest extends StringRequest {
     private static final String ADMAKER_REQUEST_URL = "https://gefins-server.herokuapp.com/";
     private Map<String, String> params;
 
+
     // 1 skrá sig í rod
     // 2 skrá sig úr rod
     // 3 eida efsta
     // 4 velja efsta
     // 5 rate þigjanda
     // 6 rate owner
-    public ItemRequest(String request,String adferd,String itemID,String userID, Response.Listener<String> listener){
+    public ItemRequest(String request,String option,String itemID,String userID, Response.Listener<String> listener){
         super(Method.PATCH, ADMAKER_REQUEST_URL+request, listener, null);
         params = new HashMap<>();
-        params.put("adferd",adferd);
+        params.put("option",option);
         params.put("itemID",itemID);
         params.put("userID",userID);
 
@@ -34,6 +35,13 @@ public class ItemRequest extends StringRequest {
 
     public ItemRequest(String request, Response.Listener<String> listener){
         super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
+    }
+
+    //request = "/user/queued"
+    public ItemRequest(String request,String userID, Response.Listener<String> listener){
+        super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
+        params= new HashMap<>();
+        params.put("userID",userID);
     }
 
     public ItemRequest(Item item, String request, Response.Listener<String> listener){
@@ -46,10 +54,11 @@ public class ItemRequest extends StringRequest {
         params.put("accepteduser", item.getAcceptedUser());
         params.put("rated", item.getRated());
         params.put("messenger", item.getMessenger());
+        params.put("ownerID", item.getOwnerID());
         params.put("owner", item.getOwner());
         params.put("email", item.getEmail());
         params.put("img", item.getImg());
-        params.put("users", item.getUsers().toString());
+        params.put("users", item.getUsers());
         params.put("description", item.getDescription());
         params.put("zip", item.getZipcode());
         params.put("location", item.getLocation());

@@ -66,14 +66,14 @@ public class MainActivity extends NavbarActivity {
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
-        /*adImage = findViewById(R.id.viewad_image);
+        adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
-        ownerInfoTxtView = findViewById(R.id.ownerinfoContainer);
+        ownerInfoTxtView = findViewById(R.id.owner_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
-*/
+
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -108,6 +108,8 @@ public class MainActivity extends NavbarActivity {
                                 Log.d("ITEMID", item.getId());
                                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
                                 i.putExtra("chosenItem", item.getId());
+                                i.putExtra("itemOwner", item.getOwner());
+                                i.putExtra("user", currentUser);
                                 startActivity(i);
                             } catch (Exception e) {
 
@@ -144,9 +146,9 @@ public class MainActivity extends NavbarActivity {
 */
 
         Bundle extras = getIntent().getExtras();
-        if(extras.get("chosenCategories") != null){
+        if(extras.get(ITEM_REQUESTS) != null){
 
-            String request = ArrayStringListToRequest(extras.getStringArrayList("chosenCategories"));
+            String request = ArrayStringListToRequest(extras.getStringArrayList(ITEM_REQUESTS));
 
             Log.d("REMOLAÐI", request);
 

@@ -25,7 +25,7 @@
     <string name="photo">Mynd</string>
     <string name="submitAd">Skrá</string>
     <string name="myAds">Mínar auglýsingar</string>
-    <string name="inQueueFor">Hlutir sem ég er í röð fyrir</string>
+    <string name="inQueueFor">Í röð</string>
     <string name="categories">Flokkar</string>
     <string name="location">Staðsetning</string>
     <string name="viewSortedItems">Leita</string>
@@ -39,6 +39,8 @@
     <string name="viewad_message">Senda skilaboð</string>
     <string name="viewad_delete">Eyða</string>
     <string name="viewad_edit">Breyta</string>
+    <string name="viewad_owner">Notendanafn:</string>
+    <string name="viewad_stars">Stjörnugjöf:</string>
     <string name="settings_submit">Staðfesta</string>
     <string name="chosen">Valið:</string>
     <string name="chosenItems"></string>
@@ -56,6 +58,9 @@
     <string name="vestland">Vesturland</string>
     <string name="aust">Austurland</string>
     <string name="sudland">Suðurland</string>
+    <string name="userInfo_edit">Breyta</string>
+
+    userInfo_edit
 
 
     <string name="backTitle"></string>

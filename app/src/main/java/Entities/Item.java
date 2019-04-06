@@ -67,7 +67,7 @@ public class Item {
             this.category =  item.getString("category");
             this.rated =  item.getString("rated");
             this.acceptedUser =  item.getString("acceptedUser");
-            this.users =  item.getString("users");
+            this.users =  item.getString("queue");
             this.messenger =  item.getString("messenger");
             this.img =  item.getString("img");
             this.ownerID=item.getString("ownerID");

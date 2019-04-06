@@ -121,6 +121,9 @@
 
     <Button
         android:id="@+id/choose_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/choose" />

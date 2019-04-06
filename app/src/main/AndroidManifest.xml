@@ -29,6 +29,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".MyspaceActivity" />
+        <activity android:name=".MyAdsActivity" />
+        <activity android:name=".InQueueActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
