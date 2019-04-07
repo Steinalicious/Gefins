@@ -37,7 +37,7 @@ public class ViewAdActivity extends BackNavbarActivity {
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, userStarsTxtView;
     private Item item;
-    private String itemID;
+    private String itemID, numInQue, option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -96,7 +96,10 @@ public class ViewAdActivity extends BackNavbarActivity {
                     //debug
                     Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
+                    Log.d("JSONRESPONSE ", jsonResponse.toString());
                     item = new Item(jsonResponse.getJSONObject("item"));
+                    numInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("numInQue");
+                    Log.d("JSONRESPONSE ", numInQue);
 
                     if (currentUser.getUserName().equals(item.getOwner())) {
                         System.out.println("innri loopa");
@@ -116,8 +119,6 @@ public class ViewAdActivity extends BackNavbarActivity {
 
 
         getitem(responseListener);
-
-
 
         final Response.Listener<String> responseListener2 = new Response.Listener<String>() {
             @Override
@@ -139,16 +140,19 @@ public class ViewAdActivity extends BackNavbarActivity {
 
         // setti if því hann getur ekki set listener á takka sem er ekki til
         if (!currentUser.getUserName().equals(itemOwner)) {
-            enterQueueBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("ENTERQUE", itemID);
-                    ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
-                    RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
-                    queue.add(sortRequest);
-                }
 
-            });
+                enterQueueBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                            Log.d("ENTERQUE", itemID);
+                            ItemRequest sortRequest = new ItemRequest("Items/queue", option, itemID, currentUser.getId(), responseListener2);
+                            RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+                            queue.add(sortRequest);
+
+                    }
+                });
+
         }
     }
 
@@ -158,6 +162,14 @@ public class ViewAdActivity extends BackNavbarActivity {
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
         ownerInfoTxtView.setText(item.getOwner());
+        if(numInQue.equals("0")){
+            enterQueueBtn.setText("Fara í Röð");
+            option = "1";
+        } else {
+            enterQueueBtn.setText("Fara úr röð");
+            option = "2";
+        }
+
       //  String stars = String.valueOf();
       //  userStarsTxtView.setText(stars);
 
@@ -177,6 +189,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         zipTxtView.setText(item.getZipcode());
         ownerInfoTxtView.setText(item.getOwner());
     }*/
+
 
     public void getitem(Response.Listener<String> responseListener) {
         Log.d("ITEMID", itemID);
