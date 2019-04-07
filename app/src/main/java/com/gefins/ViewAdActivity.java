@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import Entities.QueueInfo;
 import Entities.User;
 
 import com.android.volley.RequestQueue;
@@ -101,6 +102,8 @@ public class ViewAdActivity extends BackNavbarActivity {
                     Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     item = new Item(jsonResponse.getJSONObject("item"));
+                    QueueInfo queueInfo = item.getQueueInfo();
+                    Log.d("HAHAHAHA", queueInfo.toString());
                     numInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("numInQue");
                     firstInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("firstInQue");
 
@@ -145,7 +148,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         };
 
         // setti if því hann getur ekki set listener á takka sem er ekki til
-        if (!currentUser.getUserName().equals(itemOwner)) {
+        if (!isOwner) {
             enterQueueBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

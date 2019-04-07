@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class WelcomeActivity extends AppCompatActivity {
 
     // Skilgreinigar
@@ -16,7 +17,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
         loginBtn = findViewById(R.id.main_login);
         registerBtn = findViewById(R.id.main_register);
 
