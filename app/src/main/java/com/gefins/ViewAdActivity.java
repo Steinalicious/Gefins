@@ -111,9 +111,9 @@ public class ViewAdActivity extends BackNavbarActivity {
 
                     if (currentUser.getUserName().equals(item.getOwner())) {
                         System.out.println("innri loopa");
-                        viewadOwner();
+                        viewadOwner(numInQue, firstInQue);
                     } else {
-                        viewad();
+                        viewad(numInQue);
                     }
 
 
@@ -173,23 +173,24 @@ public class ViewAdActivity extends BackNavbarActivity {
         }
     }
 
-    public void viewad() {
+    public void viewad(String numQueue) {
         adNameTxtView.setText(item.getItemName());
         descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
         ownerInfoTxtView.setText(item.getOwner());
-
+        numberQueueTxtView.setText(numQueue);
       //  String stars = String.valueOf();
       //  userStarsTxtView.setText(stars);
-
     }
 
-    public void viewadOwner() {
+    public void viewadOwner(String numQueue, String firstQueue) {
         adNameTxtView.setText(item.getItemName());
         descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
+        numberQueueTxtView.setText(numQueue);
+        firstQueueTxtView.setText(firstQueue);
     }
 /*
     public void viewadAccepted() {
