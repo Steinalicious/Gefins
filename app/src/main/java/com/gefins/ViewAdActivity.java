@@ -150,43 +150,29 @@ public class ViewAdActivity extends BackNavbarActivity {
     }
 
     public void viewad() {
-        String name = item.getItemName();
         adNameTxtView.setText(item.getItemName());
-        String description = item.getDescription();
-        descriptionTxtView.setText(description);
-        String category = item.getCategory();
-        categoryTxtView.setText(category);
-        String zip = item.getZipcode();
-        zipTxtView.setText(zip);
-        String owner = item.getOwner();
-        ownerInfoTxtView.setText(owner);
-      //  String stars = String.valueOf(currentUser.getratings());
-       // userStarsTxtView.setText(stars);
+        descriptionTxtView.setText(item.getDescription());
+        categoryTxtView.setText(item.getCategory());
+        zipTxtView.setText(item.getZipcode());
+        ownerInfoTxtView.setText(item.getOwner());
+      //  String stars = String.valueOf();
+      //  userStarsTxtView.setText(stars);
 
     }
 
     public void viewadOwner() {
-        String name = item.getItemName();
         adNameTxtView.setText(item.getItemName());
-        String description = item.getDescription();
-        descriptionTxtView.setText(description);
-        String category = item.getCategory();
-        categoryTxtView.setText(category);
-        String zip = item.getZipcode();
-        zipTxtView.setText(zip);
+        descriptionTxtView.setText(item.getDescription());
+        categoryTxtView.setText(item.getCategory());
+        zipTxtView.setText(item.getZipcode());
     }
 /*
     public void viewadAccepted() {
-        String name = item.getItemName();
         adNameTxtView.setText(item.getItemName());
-        String description = item.getDescription();
-        descriptionTxtView.setText(description);
-        String category = item.getCategory();
-        categoryTxtView.setText(category);
-        String zip = item.getZipcode();
-        zipTxtView.setText(zip);
-        String owner = item.getOwner();
-        ownerInfoTxtView.setText(owner);
+        descriptionTxtView.setText(item.getDescription());
+        categoryTxtView.setText(item.getCategory());
+        zipTxtView.setText(item.getZipcode());
+        ownerInfoTxtView.setText(item.getOwner());
     }*/
 
     public void getitem(Response.Listener<String> responseListener) {

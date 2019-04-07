@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,12 @@ public class SettingsActivity extends NavbarActivity {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_settings, contentFrameLayout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.drawer_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
+        mTitle.setText(R.string.settings);
 
         // set currentUser
         currentUser = (User) getIntent().getSerializableExtra("user");

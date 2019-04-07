@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +24,7 @@ import com.android.volley.toolbox.Volley;
 import Entities.User;
 import Requests.UserRequest;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BackNavbarActivity {
 
     //Skilgreiningar
     private Button registerBtn;
@@ -32,7 +34,14 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+        getLayoutInflater().inflate(R.layout.activity_register, contentFrameLayout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
+        mTitle.setText(R.string.register);
 
 
         nameEdTxt = findViewById(R.id.usernameEditText);
