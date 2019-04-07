@@ -39,6 +39,7 @@ public class SettingsActivity extends NavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_settings, contentFrameLayout);
 
+
         // set currentUser
         currentUser = (User) getIntent().getSerializableExtra("user");
 

@@ -29,8 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/app_name"
-                android:textColor="@color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@color/white"
                 android:textSize="22sp" />
         </android.support.v7.widget.Toolbar>
 

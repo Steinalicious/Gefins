@@ -57,7 +57,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="499dp">
+        android:layout_height="458dp">
 
         <GridView
             android:id="@+id/gridView"
