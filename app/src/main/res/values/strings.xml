@@ -2,7 +2,7 @@
     <string name="app_name">Gefins</string>
     <string name="register_title">Nýskráning</string>
     <string name="login_title">Innskráning</string>
-    <string name="appname">G e f i n s</string>
+    <string name="appname">Gefins</string>
     <string name="settings_title">Stillingar</string>
     <string name="myspace_title">Mitt svæði</string>
     <string name="user_account">User account</string>
@@ -39,7 +39,7 @@
     <string name="viewad_category">Flokkur: </string>
     <string name="viewad_zip">Póstnúmer: </string>
     <string name="viewad_description">Lýsing: </string>
-    <string name="viewad_ownerinfo">Upplýsingar um gefanda: </string>
+    <string name="viewad_ownerinfo">Upplýsingar um gefanda</string>
     <string name="viewad_cancel">Hætta við</string>
     <string name="viewad_message">Senda skilaboð</string>
     <string name="viewad_delete">Eyða</string>
