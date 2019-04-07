@@ -44,6 +44,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         super.onCreate(savedInstanceState);
         final Bundle extras = getIntent().getExtras();
         String itemOwner = extras.getString("itemOwner");
+
         currentUser = (User) getIntent().getSerializableExtra("user");
         if (currentUser.getUserName().equals(itemOwner)) {
             Log.d("Fyrsta", itemOwner );
@@ -136,17 +137,19 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
-     /*   enterQueueBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        // setti if því hann getur ekki set listener á takka sem er ekki til
+        if (!currentUser.getUserName().equals(itemOwner)) {
+            enterQueueBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("ENTERQUE", itemID);
+                    ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
+                    RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue.add(sortRequest);
+                }
 
-
-               ItemRequest sortRequest = new ItemRequest("/Items/queue","1",itemID,currentUser.getId(),responseListener2);
-                RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
-                queue.add(sortRequest);
-            }
-
-        });*/
+            });
+        }
     }
 
     public void viewad() {
@@ -176,7 +179,7 @@ public class ViewAdActivity extends BackNavbarActivity {
     }*/
 
     public void getitem(Response.Listener<String> responseListener) {
-
+        Log.d("ITEMID", itemID);
         String request = "items/" + itemID;
         ItemRequest sortRequest = new ItemRequest(request, responseListener);
         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);

@@ -39,11 +39,9 @@ public class MyspaceActivity extends NavbarActivity {
         // set currentUser
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-
         myAdsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(MyspaceActivity.this, MyAdsActivity.class);
                 intent.putExtra("user", currentUser);
@@ -54,7 +52,6 @@ public class MyspaceActivity extends NavbarActivity {
         inQueueForButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(MyspaceActivity.this, InQueueActivity.class);
                 intent.putExtra("user", currentUser);

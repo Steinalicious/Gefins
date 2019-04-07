@@ -71,7 +71,7 @@ public class UserActivity extends BackNavbarActivity {
                             if(!jsonResponse.isNull("user")) {
                             //if(success) {
                                 User currentuser = new User(jsonResponse.getJSONObject("user"));
-                                Log.d("user1",currentuser.toString());
+                                Log.d("user1", currentuser.toString());
 
                                 // Færir frá Login skjá á forsíðu
                                 Intent intent = new Intent(UserActivity.this, MainActivity.class);
@@ -94,7 +94,6 @@ public class UserActivity extends BackNavbarActivity {
 
                 // Tengist server
                 UserRequest loginRequest = new UserRequest(user, "login", responseListener);
-
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);
 

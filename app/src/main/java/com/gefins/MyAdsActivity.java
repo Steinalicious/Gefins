@@ -54,6 +54,7 @@ public class MyAdsActivity extends BackNavbarActivity {
             public void onResponse(String response) {
                 try {
                     //debug
+                    Log.d("MYADS", response);
                     JSONObject jsonResponse = new JSONObject(response);
                     final JSONArray adArray = jsonResponse.getJSONArray("items");
                     Item item = new Item();

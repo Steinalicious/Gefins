@@ -129,26 +129,10 @@ public class MainActivity extends NavbarActivity {
 
             }
         };
-       /* GridView gridView = findViewById(R.id.gridView);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("GRIDVIEW", parent.getItemAtPosition(position).toString());
-
-
-
-                Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
-                startActivity(i);
-
-
-            }
-        });
-*/
 
         Bundle extras = getIntent().getExtras();
-        if(extras.get(ITEM_REQUESTS) != null){
-
-            String request = ArrayStringListToRequest(extras.getStringArrayList(ITEM_REQUESTS));
+        if(extras.get(ITEM_REQUESTS) != null) {
+            String request = arrayStringListToRequest(extras.getStringArrayList(ITEM_REQUESTS));
 
             Log.d("REMOLAÐI", request);
 
@@ -192,7 +176,7 @@ public class MainActivity extends NavbarActivity {
         gd1.setCornerRadius(5);
 
     }
-    public String ArrayStringListToRequest(ArrayList<String> list) {
+    public String arrayStringListToRequest(ArrayList<String> list) {
         String request = "items?";
         for(int i = 0; i < list.size(); i++){
             if(list.get(i).matches(".*[0123456789].*")) {
