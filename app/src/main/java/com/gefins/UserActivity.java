@@ -42,7 +42,7 @@ public class UserActivity extends BackNavbarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
-        mTitle.setText(R.string.login);
+        mTitle.setText(R.string.login_title);
 
         loginBtn = findViewById(R.id.loginButton);
         emailEdTxt = findViewById(R.id.loginEmail);

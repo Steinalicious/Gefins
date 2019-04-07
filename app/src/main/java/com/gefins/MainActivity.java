@@ -57,7 +57,7 @@ public class MainActivity extends NavbarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
-        mTitle.setText(R.string.app_name);
+        mTitle.setText(R.string.appname);
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 

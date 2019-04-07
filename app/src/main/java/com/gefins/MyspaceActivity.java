@@ -30,7 +30,7 @@ public class MyspaceActivity extends NavbarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
-        mTitle.setText(R.string.myspace);
+        mTitle.setText(R.string.myspace_title);
 
         // Takkar
         myAdsButton = findViewById(R.id.myAdsButton);

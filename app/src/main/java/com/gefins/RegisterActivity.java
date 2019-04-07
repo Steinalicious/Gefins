@@ -41,7 +41,7 @@ public class RegisterActivity extends BackNavbarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
-        mTitle.setText(R.string.register);
+        mTitle.setText(R.string.register_title);
 
 
         nameEdTxt = findViewById(R.id.usernameEditText);

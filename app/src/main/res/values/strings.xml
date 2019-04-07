@@ -1,14 +1,19 @@
 <resources>
     <string name="app_name">Gefins</string>
+    <string name="register_title">Nýskráning</string>
+    <string name="login_title">Innskráning</string>
+    <string name="appname">G e f i n s</string>
+    <string name="settings_title">Stillingar</string>
+    <string name="myspace_title">Mitt svæði</string>
     <string name="user_account">User account</string>
+    <string name="login">Innskrá</string>
+    <string name="register">Nýskrá</string>
     <string name="myspace">Mitt svæði</string>
     <string name="settings">Stillingar</string>
     <string name="log_out">Útskrá</string>
     <string name="new_ad">Ný auglýsing</string>
     <string name="ad_image">Setja inn mynd: </string>
     <string name="ad_register">Skrá</string>
-    <string name="register">Nýskrá</string>
-    <string name="login">Innskrá</string>
     <string name="email">Netfang</string>
     <string name="password">Lykilorð</string>
     <string name="passwordConfirm">Lykilorð aftur</string>

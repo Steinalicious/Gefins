@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="@color/white"
+    android:background="@color/colorAccent"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
@@ -12,9 +12,10 @@
         android:id="@+id/navbar_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/colorAccent"
         android:text="@string/app_name"
-        android:textSize="22sp"
-        android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title" />
+        android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
 
 </LinearLayout>
