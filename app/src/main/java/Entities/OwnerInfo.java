@@ -91,4 +91,18 @@ public class OwnerInfo {
     public void setStar_num(String star_num) {
         this.star_num = star_num;
     }
+
+    @Override
+    public String toString() {
+        return "OwnerInfo{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", location='" + location + '\'' +
+                ", phone='" + phone + '\'' +
+                ", zip='" + zip + '\'' +
+                ", stars='" + stars + '\'' +
+                ", star_num='" + star_num + '\'' +
+                '}';
+    }
 }

@@ -260,6 +260,14 @@ public class Item {
         this.queueInfo = queueInfo;
     }
 
+    public OwnerInfo getOwnerInfo() {
+        return ownerInfo;
+    }
+
+    public void setOwnerInfo(OwnerInfo ownerInfo) {
+        this.ownerInfo = ownerInfo;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
