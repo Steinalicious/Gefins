@@ -123,7 +123,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/numberQueueContainer"
+            android:id="@+id/number_queue_container"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:fillViewport="true"
