@@ -53,6 +53,8 @@ public class ViewAdActivity extends BackNavbarActivity {
         } else {
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewad, contentFrameLayout);
+            enterQueueBtn = findViewById(R.id.enter_queue);
+            enterQueueBtn.setText("Fara í röð");
         }
 
 
@@ -77,7 +79,6 @@ public class ViewAdActivity extends BackNavbarActivity {
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
-        enterQueueBtn = findViewById(R.id.enter_queue);
         firstQueueTxtView = findViewById(R.id.first_in_queue_container);
 
         //ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
@@ -85,7 +86,7 @@ public class ViewAdActivity extends BackNavbarActivity {
        // ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
        // descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
-        enterQueueBtn.setText("Fara í röð");
+
 
 
 
@@ -98,11 +99,13 @@ public class ViewAdActivity extends BackNavbarActivity {
                     Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     item = new Item(jsonResponse.getJSONObject("item"));
+                    System.out.println("responsarinn");
 
                     if (currentUser.getUserName().equals(item.getOwner())) {
-                        System.out.println("innri loopa");
+                        System.out.println("er owner");
                         viewadOwner();
                     } else {
+                        System.out.println("er ekki owner");
                         viewad();
                     }
 
@@ -143,12 +146,20 @@ public class ViewAdActivity extends BackNavbarActivity {
             enterQueueBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String btnText = enterQueueBtn.getText().toString();
+                    if (enterQueueBtn.getText().equals("Fara í röð")) {
+                        enterQueueBtn.setText("Fara úr röð");
+                        Log.d("ENTERQUE", itemID);
+                        ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
+                        RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+                        queue.add(sortRequest);
+                    } else {
+                        enterQueueBtn.setText("Fara í röð");
+                        Log.d("LEAVEQUE", itemID);
+                        ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
+                        RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+                        queue.add(sortRequest);
+                    }
 
-                    Log.d("ENTERQUE", itemID);
-                    ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
-                    RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
-                    queue.add(sortRequest);
                 }
 
             });

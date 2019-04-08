@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.app.ActionBar;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import Entities.User;
 import Entities.Item;
@@ -77,6 +79,16 @@ public class NavbarActivity extends AppCompatActivity {
 
 
                 });
+
+        View headerview = navigationView.getHeaderView(0);
+        headerview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NavbarActivity.this, MainActivity.class);
+                intent.putExtra("user", currentUser);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
