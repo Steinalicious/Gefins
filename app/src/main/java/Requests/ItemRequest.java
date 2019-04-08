@@ -37,7 +37,7 @@ public class ItemRequest extends StringRequest {
         super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
     }
 
-    public ItemRequest(String request, int bull, Response.Listener<String> listener){
+    public ItemRequest(String request, boolean bull, Response.Listener<String> listener){
         super(Method.DELETE, ADMAKER_REQUEST_URL+request, listener, null);
     }
 
