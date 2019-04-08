@@ -61,6 +61,9 @@ public class MainActivity extends NavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 
+        daemiImage = (ImageView) findViewById(R.id.image_demo);
+        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg");
+
         if(currentUser==null){
         Log.d("ble","USERINN ER HORFINN!!!!!!");}
 
@@ -73,9 +76,9 @@ public class MainActivity extends NavbarActivity {
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.owner_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
-        daemiImage = (ImageView) findViewById(R.id.image_demo);
 
-        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg");
+
+
 
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
