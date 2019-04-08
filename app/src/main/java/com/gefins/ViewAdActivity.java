@@ -37,7 +37,8 @@ public class ViewAdActivity extends BackNavbarActivity {
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, userStarsTxtView;
     private Item item;
-    private String itemID, numInQue, option;
+    private String itemID, numInQue, firstInQue, option;
+    private boolean isOwner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,7 +47,8 @@ public class ViewAdActivity extends BackNavbarActivity {
         String itemOwner = extras.getString("itemOwner");
 
         currentUser = (User) getIntent().getSerializableExtra("user");
-        if (currentUser.getUserName().equals(itemOwner)) {
+        isOwner = currentUser.getUserName().equals(itemOwner);
+        if (isOwner) {
             Log.d("Fyrsta", itemOwner );
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewadowner, contentFrameLayout);
@@ -100,7 +102,9 @@ public class ViewAdActivity extends BackNavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     item = new Item(jsonResponse.getJSONObject("item"));
                     numInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("numInQue");
-                    Log.d("JSONRESPONSE ", numInQue);
+                    firstInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("firstInQue");
+
+                    Log.d("JSONRESPONSE ", firstInQue);
 
                     if (currentUser.getUserName().equals(item.getOwner())) {
                         System.out.println("innri loopa");
@@ -108,7 +112,6 @@ public class ViewAdActivity extends BackNavbarActivity {
                     } else {
                         viewad();
                     }
-
 
 
                 } catch (JSONException e){
@@ -158,6 +161,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                         ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
+
                     }
 
                 }
@@ -172,6 +176,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
         ownerInfoTxtView.setText(item.getOwner());
+
       //  String stars = String.valueOf();
       //  userStarsTxtView.setText(stars);
 
