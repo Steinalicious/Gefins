@@ -35,7 +35,7 @@ import Requests.ItemRequest;
 /* Eftir að klára allt varðandi ViewAd */
 
 public class ViewAdActivity extends BackNavbarActivity {
-    private Button inQueueButton,enterQueueBtn;
+    private Button inQueueButton,enterQueueBtn, editAd;
     private ImageView adImage;
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, ownerStarsTxtView, ownerAddressTxtView, ownerPhoneTxtView, ownerEmailTxtView, messageWindowTxtView;
@@ -118,6 +118,17 @@ public class ViewAdActivity extends BackNavbarActivity {
                     if (currentUser.getUserName().equals(item.getOwner())) {
                         System.out.println("innri loopa");
                         viewadOwner(numInQue, firstInQue);
+                        editAd = findViewById(R.id.editAd);
+                        editAd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(ViewAdActivity.this, EditAdActivity.class);
+                                intent.putExtra("chosenItem", item.getId());
+                                intent.putExtra("user", currentUser);
+                                startActivity(intent);
+                            }
+                        });
+
                     } else {
                         viewad(numInQue);
                       //  viewadAccepted();
