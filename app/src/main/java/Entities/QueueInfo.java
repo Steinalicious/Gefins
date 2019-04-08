@@ -12,7 +12,6 @@ public class QueueInfo {
         this.numInQue = "0";
         this.firstInQue = "Enginn í biðröð";
     }
-
     public QueueInfo(JSONObject queueInfo) {
         try {
             Log.d("HAHAHAHA", queueInfo.toString());

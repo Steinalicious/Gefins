@@ -104,6 +104,8 @@ public class ViewAdActivity extends BackNavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     item = new Item(jsonResponse.getJSONObject("item"));
                     numInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("numInQue");
+                    String test = item.getQueueInfo().getNumInQue();
+                    Log.d("HAHAHAH", item.getQueueInfo().getNumInQue());
                     firstInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("firstInQue");
 
                     Log.d("JSONRESPONSE ", firstInQue);

@@ -40,7 +40,7 @@ import Services.ItemService;
 public class MainActivity extends NavbarActivity {
     private ItemService itemservice = new ItemService();
     private Button inQueueButton;
-    private ImageView adImage;
+    private ImageView adImage, daemiImage;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
     private User currentUser;
@@ -73,6 +73,9 @@ public class MainActivity extends NavbarActivity {
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.owner_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
+        daemiImage = (ImageView) findViewById(R.id.image_demo);
+
+        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg");
 
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
@@ -98,6 +101,9 @@ public class MainActivity extends NavbarActivity {
                     GridView gridView = findViewById(R.id.gridView);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
                     gridView.setAdapter(adapter);
+
+
+
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
