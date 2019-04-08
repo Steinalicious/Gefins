@@ -34,6 +34,7 @@
     <string name="categories">Flokkar</string>
     <string name="location">Staðsetning</string>
     <string name="viewSortedItems">Leita</string>
+    <string name="editAd">Breyta</string>
     <string name="viewad_numberqueue">Fjöldi í röð: </string>
     <string name="viewad_enterqueue">Fara í röð</string>
     <string name="viewad_category">Flokkur: </string>
@@ -46,6 +47,13 @@
     <string name="viewad_edit">Breyta</string>
     <string name="viewad_owner">Notendanafn:</string>
     <string name="viewad_stars">Stjörnugjöf:</string>
+    <string name="viewad_address">Heimilisfang:</string>
+    <string name="viewad_phone">Símanúmer:</string>
+    <string name="viewad_email">Netfang:</string>
+    <string name="viewad_acceptButton">Samþykkja:</string>
+    <string name="viewad_deleteButton">Eyða:</string>
+    <string name="send_message">Skrifa skilaboð:</string>
+    <string name="message_title">Skilaboð:</string>
     <string name="settings_submit">Staðfesta</string>
     <string name="chosen">Valið:</string>
     <string name="chosenItems"></string>

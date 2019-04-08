@@ -17,17 +17,20 @@
         app:srcCompat="@drawable/earth_color" />
 
     <TextView
+        android:id="@+id/textView_adTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ad Title"
-        android:id="@+id/textView_adTitle"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imageView_ad"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_above="@+id/textView_description"
-        android:layout_margin="5dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@+id/imageView_ad"
+        android:text="Ad Title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:layout_width="wrap_content"

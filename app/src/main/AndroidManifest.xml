@@ -50,6 +50,7 @@
             android:name=".SettingsActivity"/>
         <activity android:name=".ExitNavbarActivity"/>
         <activity android:name=".BackNavbarActivity" />
+        <activity android:name=".EditAdActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

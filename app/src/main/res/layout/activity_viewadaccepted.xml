@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="341dp"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:gravity="bottom"
         android:orientation="horizontal">
 
@@ -88,7 +88,7 @@
 
     <LinearLayout
         android:layout_width="341dp"
-        android:layout_height="100dp"
+        android:layout_height="35dp"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -102,16 +102,73 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/description_container"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:fillViewport="true"
-            android:scrollbars="vertical"
-            android:textSize="14sp" />
-
         <View
             android:id="@+id/divider25"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="341dp"
+        android:layout_height="35dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/message_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/message_title"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/divider27"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="341dp"
+        android:layout_height="150dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <TextView
+                android:id="@+id/message_window"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center_vertical"
+                android:textAppearance="@android:style/TextAppearance.Material.Title"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </ScrollView>
+
+
+        <EditText
+            android:id="@+id/message_editor"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="textShortMessage"
+            android:hint="@string/send_message"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            android:textSize="14sp"
+            tools:ignore="Autofill"/>
+
+        <View
+            android:id="@+id/divider26"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
@@ -188,26 +245,103 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="341dp"
+        android:layout_height="35dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/owner_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/viewad_address"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/owner_address_container"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="341dp"
-        android:layout_height="60dp"
+        android:layout_height="35dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/owner_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/viewad_phone"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/owner_phone_container"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="341dp"
+        android:layout_height="35dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/owner_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/viewad_email"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/owner_email_container"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="341dp"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <Button style="?android:attr/buttonBarButtonStyle"
+        <Button
             android:id="@+id/cancel_queue"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="173dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="@string/viewad_cancel" />
+            android:text="@string/viewad_cancel"
+            android:textSize="12sp" />
 
-        <Button style="?android:attr/buttonBarButtonStyle"
+        <Button
             android:id="@+id/send_message"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="173dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="@string/viewad_message" />
+            android:text="@string/viewad_message"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

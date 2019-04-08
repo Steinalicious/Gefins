@@ -118,10 +118,8 @@ public class MainActivity extends NavbarActivity {
                                 i.putExtra("user", currentUser);
                                 startActivity(i);
                             } catch (Exception e) {
-
-
-                                //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
-                                //  startActivity(intent);
+                                //Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
+                                //startActivity(intent);
 
                             }
 
