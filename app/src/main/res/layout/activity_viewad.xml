@@ -95,8 +95,7 @@
             android:id="@+id/enter_queue"
             android:layout_width="173dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="@string/viewad_enterqueue" />
+            android:textSize="12sp" />
 
 
         <TextView

@@ -84,6 +84,7 @@ public class ViewAdActivity extends BackNavbarActivity {
        // ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
        // descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
+        enterQueueBtn.setText("Fara í röð");
 
 
 
@@ -136,17 +137,26 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
-     /*   enterQueueBtn.setOnClickListener(new View.OnClickListener(){
+        enterQueueBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                String btnText = enterQueueBtn.getText().toString();
+                if (btnText.equals("Fara í röð")) {
+                    enterQueueBtn.setText("Fara úr röð");
+                    ItemRequest sortRequest = new ItemRequest("items/queue","1",itemID,currentUser.getId(),responseListener2);
+                    RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue.add(sortRequest);
+                } else {
+                    enterQueueBtn.setText("Fara í röð");
+                    ItemRequest sortRequest = new ItemRequest("items/queue","2",itemID,currentUser.getId(),responseListener2);
+                    RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue.add(sortRequest);
+                }
 
 
-               ItemRequest sortRequest = new ItemRequest("/Items/queue","1",itemID,currentUser.getId(),responseListener2);
-                RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
-                queue.add(sortRequest);
             }
 
-        });*/
+        });
     }
 
     public void viewad() {
