@@ -215,14 +215,14 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/delete_from_queue"
+                android:id="@+id/accept_from_queue"
                 android:layout_width="50dp"
                 android:text="@string/viewad_acceptButton"
                 android:textSize="12sp"
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/accept_from_queue"
+                android:id="@+id/delete_from_queue"
                 android:layout_width="50dp"
                 android:text="@string/viewad_deleteButton"
                 android:textSize="12sp"
