@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import Entities.User;
 
-public class MyspaceActivity extends ExitNavbarActivity {
+public class MyspaceActivity extends NavbarActivity {
 
     private User currentUser;
     private Button myAdsButton, inQueueForButton;
@@ -26,10 +26,10 @@ public class MyspaceActivity extends ExitNavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_myspace, contentFrameLayout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.exit_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.drawer_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.exit_title);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
         mTitle.setText(R.string.myspace);
 
         // Takkar
@@ -39,11 +39,9 @@ public class MyspaceActivity extends ExitNavbarActivity {
         // set currentUser
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-
         myAdsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(MyspaceActivity.this, MyAdsActivity.class);
                 intent.putExtra("user", currentUser);
@@ -54,20 +52,11 @@ public class MyspaceActivity extends ExitNavbarActivity {
         inQueueForButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(MyspaceActivity.this, InQueueActivity.class);
                 intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent( this, MainActivity.class);
-        intent.putExtra("user", currentUser);
-        MyspaceActivity.this.startActivity(intent);
-        return true;
     }
 }

@@ -44,6 +44,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         super.onCreate(savedInstanceState);
         final Bundle extras = getIntent().getExtras();
         String itemOwner = extras.getString("itemOwner");
+
         currentUser = (User) getIntent().getSerializableExtra("user");
         if (currentUser.getUserName().equals(itemOwner)) {
             Log.d("Fyrsta", itemOwner );
@@ -137,26 +138,21 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
-        enterQueueBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String btnText = enterQueueBtn.getText().toString();
-                if (btnText.equals("Fara í röð")) {
-                    enterQueueBtn.setText("Fara úr röð");
-                    ItemRequest sortRequest = new ItemRequest("items/queue","1",itemID,currentUser.getId(),responseListener2);
-                    RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
-                    queue.add(sortRequest);
-                } else {
-                    enterQueueBtn.setText("Fara í röð");
-                    ItemRequest sortRequest = new ItemRequest("items/queue","2",itemID,currentUser.getId(),responseListener2);
+        // setti if því hann getur ekki set listener á takka sem er ekki til
+        if (!currentUser.getUserName().equals(itemOwner)) {
+            enterQueueBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String btnText = enterQueueBtn.getText().toString();
+
+                    Log.d("ENTERQUE", itemID);
+                    ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
                     RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                     queue.add(sortRequest);
                 }
 
-
-            }
-
-        });
+            });
+        }
     }
 
     public void viewad() {

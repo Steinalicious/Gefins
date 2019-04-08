@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,7 +25,7 @@ import Entities.User;
 import Requests.UserRequest;
 import Services.UserService;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends BackNavbarActivity {
 
     // Skilgreiningar
     private Button loginBtn;
@@ -32,7 +35,14 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+        getLayoutInflater().inflate(R.layout.activity_user, contentFrameLayout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
+        mTitle.setText(R.string.login);
 
         loginBtn = findViewById(R.id.loginButton);
         emailEdTxt = findViewById(R.id.loginEmail);
@@ -61,7 +71,7 @@ public class UserActivity extends AppCompatActivity {
                             if(!jsonResponse.isNull("user")) {
                             //if(success) {
                                 User currentuser = new User(jsonResponse.getJSONObject("user"));
-                                Log.d("user1",currentuser.toString());
+                                Log.d("user1", currentuser.toString());
 
                                 // Færir frá Login skjá á forsíðu
                                 Intent intent = new Intent(UserActivity.this, MainActivity.class);
@@ -84,7 +94,6 @@ public class UserActivity extends AppCompatActivity {
 
                 // Tengist server
                 UserRequest loginRequest = new UserRequest(user, "login", responseListener);
-
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);
 

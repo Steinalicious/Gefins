@@ -53,6 +53,7 @@ public class InQueueActivity extends BackNavbarActivity {
             public void onResponse(String response) {
                 try {
                     //debug
+                    Log.d("INQUE", response);
                     JSONObject jsonResponse = new JSONObject(response);
                     final JSONArray adArray = jsonResponse.getJSONArray("items");
                     Item item = new Item();
