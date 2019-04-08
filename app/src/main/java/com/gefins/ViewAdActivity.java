@@ -37,7 +37,7 @@ public class ViewAdActivity extends BackNavbarActivity {
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, userStarsTxtView;
     private Item item;
-    private String itemID;
+    private String itemID, numInQue, option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -79,13 +79,13 @@ public class ViewAdActivity extends BackNavbarActivity {
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
+        enterQueueBtn = findViewById(R.id.enter_queue);
         firstQueueTxtView = findViewById(R.id.first_in_queue_container);
 
         //ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
 
        // ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
        // descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
-
 
 
 
@@ -99,13 +99,13 @@ public class ViewAdActivity extends BackNavbarActivity {
                     Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     item = new Item(jsonResponse.getJSONObject("item"));
-                    System.out.println("responsarinn");
+                    numInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("numInQue");
+                    Log.d("JSONRESPONSE ", numInQue);
 
                     if (currentUser.getUserName().equals(item.getOwner())) {
-                        System.out.println("er owner");
+                        System.out.println("innri loopa");
                         viewadOwner();
                     } else {
-                        System.out.println("er ekki owner");
                         viewad();
                     }
 
@@ -193,7 +193,7 @@ public class ViewAdActivity extends BackNavbarActivity {
     }*/
 
     public void getitem(Response.Listener<String> responseListener) {
-
+        Log.d("ITEMID", itemID);
         String request = "items/" + itemID;
         ItemRequest sortRequest = new ItemRequest(request, responseListener);
         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
