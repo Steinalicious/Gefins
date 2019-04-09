@@ -23,6 +23,7 @@ import android.widget.ListView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.cloudinary.android.MediaManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +33,9 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import Entities.User;
 import Requests.ItemRequest;
@@ -105,10 +109,9 @@ public class MainActivity extends NavbarActivity {
                     }
 
                     GridView gridView = findViewById(R.id.gridView);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
+                            R.layout.grid_item_layout, R.id.ad_title, names);
                     gridView.setAdapter(adapter);
-
-
 
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -252,4 +255,5 @@ public class MainActivity extends NavbarActivity {
 
         return request;
     }
+
 }

@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/android_gridview_image"
-        android:layout_width="72dp"
-        android:layout_height="72dp"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
     <TextView
         android:id="@+id/android_gridview_text"
