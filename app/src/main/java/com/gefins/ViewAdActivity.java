@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import Entities.OwnerInfo;
+import Entities.QueueInfo;
 import Entities.User;
 
 import com.android.volley.RequestQueue;
