@@ -33,7 +33,7 @@ public class Item {
     }
     public Item(String owner,String ownerID, String description,
                 String location, String phone, String name,
-                String email, String zip, String category){
+                String email, String zip, String category, String img){
 
         this.id = "0";
         this.owner=owner;
@@ -50,8 +50,11 @@ public class Item {
         this.acceptedUser = "0";
         this.users = "0";
         this.messenger="0";
-        this.img="0";
-
+        if(img == null) {
+            this.img = "0";
+        }else {
+            this.img = img;
+        }
     }
     public Item(JSONObject item) {
         try {
@@ -87,38 +90,6 @@ public class Item {
     }
 
 
-   /* public Item(String id,
-                String owner,
-                String acceptedUser,
-                String description,
-                String location,
-                String generalLocation,
-                String phone,
-                String name,
-                String email,
-                String zip,
-                //List<String> users,
-                String users,
-                String category,
-                String rated) {
-        this.id = id;
-        this.owner=owner;
-        this.description = description;
-        this.location = location;
-        this.generalLocation = generalLocation;
-        this.phone = phone;
-        this.name = name;
-        this.email = email;
-        this.zip = zip;
-        this.category = category;
-        this.rated = rated;
-        this.acceptedUser = acceptedUser;
-        this.users = users;
-        this.messenger=messenger;
-        this.img=img;
-    }
-
-*/
 
     public String getOwnerID() {
         return ownerID;

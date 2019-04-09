@@ -60,7 +60,10 @@ public class AdActivity extends ExitNavbarActivity {
     private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt;
     private User currentUser;
     private Uri selectedImg;
+    private String imgUrl;
     private int PICK_FILE_REQUEST = 1;
+    private boolean hasPicture=false;
+
     private ImageView imageView3;
 
     @Override
@@ -94,6 +97,7 @@ public class AdActivity extends ExitNavbarActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                 startActivityForResult(Intent.createChooser(intent,"Choose image"), PICK_FILE_REQUEST);
+                hasPicture=true;
             }
         });
 
@@ -108,10 +112,11 @@ public class AdActivity extends ExitNavbarActivity {
 
                 Item item =new Item(currentUser.getUserName(),currentUser.getId(),descEdTxt.getText().toString(),locEdTxt.getText().toString(),
                         phoneEdTxt.getText().toString(),titleEdTxt.getText().toString(),
-                        currentUser.getEmail(),zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
+                        currentUser.getEmail(),zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString(), imgUrl);
 
-                uploadImg();
-
+                if(hasPicture) {
+                    uploadImg();
+                }
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -173,7 +178,7 @@ public class AdActivity extends ExitNavbarActivity {
 
         if(requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK){
 
-                selectedImg = data.getData();dd
+                selectedImg = data.getData();
                 Picasso.with(this).load(selectedImg).into(imageView3);
         }
     }
@@ -187,7 +192,7 @@ public class AdActivity extends ExitNavbarActivity {
     }
 
     public void uploadImg(){
-        String requestId = MediaManager.get()
+            imgUrl = MediaManager.get()
                 .upload(selectedImg)
                 .unsigned("utmqe54f")
                 .callback(new UploadCallback() {
@@ -207,8 +212,7 @@ public class AdActivity extends ExitNavbarActivity {
                         Toast.makeText(AdActivity.this,
                                 "Uploaded Succesfully", Toast.LENGTH_SHORT).show();
                         String publicId = resultData.get("public_id").toString();
-                        String imgUrl = MediaManager.get().url().generate(publicId+".jpg");
-
+                        imgUrl = MediaManager.get().url().generate(publicId+".jpg");
                         Log.d("selected", imgUrl);
                         // load the first image into the image view
                         Picasso.with(getApplicationContext()).load(imgUrl)

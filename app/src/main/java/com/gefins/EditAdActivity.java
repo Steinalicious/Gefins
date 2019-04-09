@@ -122,7 +122,7 @@ public class EditAdActivity extends BackNavbarActivity {
                         description_input.getText().toString(),itemLoc_input.getText().toString(),
                         phone_input.getText().toString(),title_input.getText().toString(),
                         currentUser.getEmail(),zip_input.getText().toString(),
-                        spinner1.getSelectedItem().toString());
+                        spinner1.getSelectedItem().toString(), null);
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
