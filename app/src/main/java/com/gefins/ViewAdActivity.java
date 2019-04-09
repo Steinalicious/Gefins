@@ -35,7 +35,7 @@ import Requests.ItemRequest;
 /* Eftir að klára allt varðandi ViewAd */
 
 public class ViewAdActivity extends BackNavbarActivity {
-    private Button inQueueButton,enterQueueBtn, editAd;
+    private Button inQueueButton,enterQueueBtn, editAd, deleteAdBtn;
     private ImageView adImage;
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, ownerStarsTxtView, ownerAddressTxtView, ownerPhoneTxtView, ownerEmailTxtView, messageWindowTxtView;
@@ -92,6 +92,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         ownerEmailTxtView = findViewById(R.id.owner_email_container);
         messageEdtText = findViewById(R.id.message_editor);
         messageWindowTxtView = findViewById(R.id.message_window);
+        deleteAdBtn = findViewById(R.id.deleteAd);
 
         //ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -207,7 +208,23 @@ public class ViewAdActivity extends BackNavbarActivity {
 
             });
         }
+
+        // setti if því hann getur ekki set listener á takka sem er ekki til
+        if (isOwner) {
+            deleteAdBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ItemRequest inQueueRequest = new ItemRequest ("Items/queue","exists", itemID, currentUser.getId(), responseListener3);
+                    RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue1.add(inQueueRequest);
+                }
+
+            });
+        }
     }
+
+
+
 
     public void viewad(String numQueue) {
         adNameTxtView.setText(item.getItemName());
