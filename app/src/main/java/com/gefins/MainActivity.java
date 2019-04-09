@@ -64,7 +64,7 @@ public class MainActivity extends NavbarActivity {
         currentUser = (User) getIntent().getSerializableExtra("user");
 
         daemiImage = (ImageView) findViewById(R.id.image_demo);
-        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg");
+        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
 
         if(currentUser==null){
         Log.d("ble","USERINN ER HORFINN!!!!!!");}

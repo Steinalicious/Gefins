@@ -37,6 +37,9 @@ public class ItemRequest extends StringRequest {
         super(Method.GET, ADMAKER_REQUEST_URL+request, listener, null);
     }
 
+    public ItemRequest(String request, boolean bull, Response.Listener<String> listener){
+        super(Method.DELETE, ADMAKER_REQUEST_URL+request, listener, null);
+    }
 
     //request = "/user/queued"
     public ItemRequest(String request,String userID, Response.Listener<String> listener){
