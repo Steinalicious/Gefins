@@ -88,8 +88,6 @@ public class MainActivity extends NavbarActivity {
         adNameTxtView = findViewById(R.id.ad_name_container);
         searchView = findViewById((R.id.search));
 
-        imageView4 = (ImageView) findViewById(R.id.imageView4);
-
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -104,11 +102,14 @@ public class MainActivity extends NavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     final JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
+                    String imgUrls[] = new String[items.length()];
 
                     for(int i = 0; i < items.length(); i++){
                         JSONObject item = items.getJSONObject(i);
                         names[i] = item.getString("name");
-                        Log.d("NAME", names[i]);
+                        imgUrls[i] = item.getString("img");
+                        String aUrl = imgUrls[i].replace("http", "https");
+                        //new DownloadImg(imageView4).execute(aUrl);
                     }
 
                     /*
@@ -119,10 +120,14 @@ public class MainActivity extends NavbarActivity {
                     new DownloadImg(imageView4).execute(aUrl);
                     */
 
+
                     GridView gridView = findViewById(R.id.gridView);
+                    //CustomGridAdapter customGridAdapter = new CustomGridAdapter(getApplicationContext(),
+                     //       R.layout.grid_item_layout, imgUrls, names);
+
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
                             R.layout.grid_item_layout, R.id.ad_title, names);
-                    gridView.setAdapter(adapter);
+                   gridView.setAdapter(adapter);
 
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -131,7 +136,6 @@ public class MainActivity extends NavbarActivity {
                             Log.d("GRIDVIEW", String.valueOf(position) );
                             try {
                                 Item item = new Item(items.getJSONObject(position));
-                                Log.d("ITEMID", item.getId());
                                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
                                 i.putExtra("chosenItem", item.getId());
                                 i.putExtra("itemOwner", item.getOwner());

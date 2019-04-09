@@ -1,6 +1,7 @@
 package com.gefins;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,7 @@ import Entities.User;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +38,7 @@ import Requests.ItemRequest;
 
 public class ViewAdActivity extends BackNavbarActivity {
     private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn;
-    private ImageView adImage;
+    private ImageView adImg;
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, ownerStarsTxtView, ownerAddressTxtView, ownerPhoneTxtView, ownerEmailTxtView, messageWindowTxtView;
     private EditText messageEdtText;
@@ -87,7 +89,7 @@ public class ViewAdActivity extends BackNavbarActivity {
 
         acceptfromqueue = findViewById(R.id.accept_from_queue);
 
-        adImage = findViewById(R.id.viewad_image);
+        adImg = findViewById(R.id.adImg);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
@@ -145,12 +147,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                     item = new Item(jsonResponse.getJSONObject("item"));
                     numInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("numInQue");
                     String test = item.getQueueInfo().getNumInQue();
-                    Log.d("HAHAHAH", item.getQueueInfo().getNumInQue());
                     firstInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("firstInQue");
-                    Log.d("j5",item.getAcceptedUser());
-                    Log.d("JSONRESPONSE ", firstInQue);
-                    Log.d("j3",""+layout);
-                    Log.d("IMAGE", item.getImg());
                     if(layout==3) {
                         viewadAccepted();
                     }
@@ -329,6 +326,11 @@ public class ViewAdActivity extends BackNavbarActivity {
         numberQueueTxtView.setText(numQueue);
       //  String stars = String.valueOf();
       //  ownerStarsTxtView.setText(stars);
+        String aUrl = item.getImg().replace("http", "https");
+        Picasso.with(getApplicationContext())
+                .load(Uri.parse(aUrl))
+                .placeholder(R.drawable.earth_color)
+                .into(adImg);
     }
 
     public void viewadOwner(String numQueue, String firstQueue) {
@@ -339,6 +341,12 @@ public class ViewAdActivity extends BackNavbarActivity {
         zipTxtView.setText(item.getZipcode());
         numberQueueTxtView.setText(numQueue);
         firstQueueTxtView.setText(firstQueue);
+
+        String aUrl = item.getImg().replace("http", "https");
+        Picasso.with(getApplicationContext())
+                .load(Uri.parse(aUrl))
+                .placeholder(R.drawable.earth_color)
+                .into(adImg);
     }
 
     public void viewadAccepted() {
@@ -347,6 +355,11 @@ public class ViewAdActivity extends BackNavbarActivity {
 //        descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
+        String aUrl = item.getImg().replace("http", "https");
+        Picasso.with(getApplicationContext())
+                .load(Uri.parse(aUrl))
+                .placeholder(R.drawable.earth_color)
+                .into(adImg);
        // ownerInfoTxtView.setText(item.getOwner());
         //String stars = String.valueOf();
        // ownerStarsTxtView.setText(stars);
