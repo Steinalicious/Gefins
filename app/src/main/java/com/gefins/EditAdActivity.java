@@ -36,6 +36,8 @@ public class EditAdActivity extends BackNavbarActivity {
     private Spinner spinner1;
     private Item item;
     private String itemID;
+    //ATHUGA
+    private String imgUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +124,7 @@ public class EditAdActivity extends BackNavbarActivity {
                         description_input.getText().toString(),itemLoc_input.getText().toString(),
                         phone_input.getText().toString(),title_input.getText().toString(),
                         currentUser.getEmail(),zip_input.getText().toString(),
-                        spinner1.getSelectedItem().toString(), null);
+                        spinner1.getSelectedItem().toString(), imgUrl);
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {

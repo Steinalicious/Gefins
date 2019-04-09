@@ -5,7 +5,7 @@
     android:background="#ffffff">
 
     <ImageView
-        android:id="@+id/img_company"
+        android:id="@+id/img_ad"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
@@ -16,7 +16,7 @@
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img_company">
+        android:layout_below="@+id/img_ad">
 
         <TextView
             android:id="@+id/ad_title"

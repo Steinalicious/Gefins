@@ -62,6 +62,4 @@
             android:name="CLOUDINARY_URL"
             android:value="cloudinary://@aso40" />
     </application>
-
-
 </manifest>

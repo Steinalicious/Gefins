@@ -1,20 +1,9 @@
 package com.gefins;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,30 +17,21 @@ import android.widget.Toast;
 import android.widget.Button;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.cloudinary.Cloudinary;
-import com.cloudinary.Transformation;
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import Entities.Item;
 import Entities.User;
 import Requests.ItemRequest;
+
 
 public class AdActivity extends ExitNavbarActivity {
     private static final String CURRENT_USER = null;
@@ -60,19 +40,17 @@ public class AdActivity extends ExitNavbarActivity {
     private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt;
     private User currentUser;
     private Uri selectedImg;
-    private String imgUrl;
     private int PICK_FILE_REQUEST = 1;
     private boolean hasPicture=false;
 
     private ImageView imageView3;
+    private String imgUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_ad, contentFrameLayout);
-
-
 
         MediaManager.init(this);
 
@@ -175,11 +153,9 @@ public class AdActivity extends ExitNavbarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
-
-        if(requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK){
-
-                selectedImg = data.getData();
-                Picasso.with(this).load(selectedImg).into(imageView3);
+        if(requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK) {
+            selectedImg = data.getData();
+            Picasso.with(this).load(selectedImg).into(imageView3);
         }
     }
 
@@ -192,7 +168,7 @@ public class AdActivity extends ExitNavbarActivity {
     }
 
     public void uploadImg(){
-            imgUrl = MediaManager.get()
+            String requestId = MediaManager.get()
                 .upload(selectedImg)
                 .unsigned("utmqe54f")
                 .callback(new UploadCallback() {

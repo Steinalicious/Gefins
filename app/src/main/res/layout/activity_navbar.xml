@@ -31,7 +31,9 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
-        </android.support.v7.widget.Toolbar>
+
+          
+</android.support.v7.widget.Toolbar>
 
     </FrameLayout>
 

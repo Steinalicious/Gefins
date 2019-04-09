@@ -130,6 +130,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                     Log.d("j5",item.getAcceptedUser());
                     Log.d("JSONRESPONSE ", firstInQue);
                     Log.d("j3",""+layout);
+                    Log.d("IMAGE", item.getImg());
                     if(layout==3) {
                         viewadAccepted();
                     }
