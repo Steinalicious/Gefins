@@ -34,6 +34,7 @@
     <string name="categories">Flokkar</string>
     <string name="location">Staðsetning</string>
     <string name="viewSortedItems">Leita</string>
+    <string name="editAd">Breyta</string>
     <string name="viewad_numberqueue">Fjöldi í röð: </string>
     <string name="viewad_enterqueue">Fara í röð</string>
     <string name="viewad_category">Flokkur: </string>

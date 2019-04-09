@@ -29,6 +29,7 @@ public class MyAdsActivity extends BackNavbarActivity {
 
     private User currentUser;
     ListView listView;
+    private String numInQue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -57,10 +58,11 @@ public class MyAdsActivity extends BackNavbarActivity {
                     Log.d("MYADS", response);
                     JSONObject jsonResponse = new JSONObject(response);
                     final JSONArray adArray = jsonResponse.getJSONArray("items");
+
                     Item item = new Item();
 
                     ArrayList<String> adList = new ArrayList<>();
-                    //ArrayList<String> usersList = new ArrayList<>(); // notendur i rod
+                    ArrayList<String> queueCount = new ArrayList<>(); // fjoldi i rod
 
                     for(int i = 0; i < adArray.length(); i++) {
                         item = new Item(adArray.getJSONObject(i));
@@ -68,6 +70,9 @@ public class MyAdsActivity extends BackNavbarActivity {
                             return;
                         } else {
                             adList.add(item.getItemName());
+                            //queueCount.add(item.getQueueInfo().getNumInQue());
+                            Log.d("queueCount", item.getQueueInfo().getNumInQue());
+
                             // Listi af auglýsingum
                             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MyAdsActivity.this,
                                     R.layout.list_item_layout, R.id.textView_adTitle, adList);

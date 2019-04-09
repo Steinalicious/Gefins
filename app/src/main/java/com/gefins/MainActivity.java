@@ -41,7 +41,7 @@ import Services.ItemService;
 public class MainActivity extends NavbarActivity {
     private ItemService itemservice = new ItemService();
     private Button inQueueButton;
-    private ImageView adImage;
+    private ImageView adImage, daemiImage;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
     private User currentUser;
@@ -63,6 +63,9 @@ public class MainActivity extends NavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 
+        daemiImage = (ImageView) findViewById(R.id.image_demo);
+        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg");
+
         if(currentUser==null){
         Log.d("ble","USERINN ER HORFINN!!!!!!");}
 
@@ -76,6 +79,9 @@ public class MainActivity extends NavbarActivity {
         ownerInfoTxtView = findViewById(R.id.owner_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
         searchView = findViewById((R.id.search));
+
+
+
 
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
@@ -102,6 +108,9 @@ public class MainActivity extends NavbarActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, names);
                     gridView.setAdapter(adapter);
 
+
+
+
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,10 +124,8 @@ public class MainActivity extends NavbarActivity {
                                 i.putExtra("user", currentUser);
                                 startActivity(i);
                             } catch (Exception e) {
-
-
-                                //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
-                                //  startActivity(intent);
+                                //Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
+                                //startActivity(intent);
 
                             }
 

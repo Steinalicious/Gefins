@@ -55,4 +55,5 @@
             android:textSize="19sp" />
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

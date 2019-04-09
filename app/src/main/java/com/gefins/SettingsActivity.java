@@ -71,7 +71,7 @@ public class SettingsActivity extends NavbarActivity {
             @Override
             public void onClick (View v) {
 
-                User user=new User(currentUser.getId(), nameSettingsEdTxt.getText().toString(),
+                User user = new User(currentUser.getId(), nameSettingsEdTxt.getText().toString(),
                         passSettingsEdTxt.getText().toString(), emailSettingsEdTxt.getText().toString(),
                         "0", "0");
 

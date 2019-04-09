@@ -20,6 +20,8 @@ public class WelcomeActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.main_login);
         registerBtn = findViewById(R.id.main_register);
 
+
+
         // Virknin á login takkanum
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

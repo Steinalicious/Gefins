@@ -65,6 +65,19 @@ public class ItemRequest extends StringRequest {
         params.put("phone", item.getPhone());
     }
 
+    public ItemRequest(Item item, String request, String itemID, Response.Listener<String> listener){
+        super(Method.PATCH, ADMAKER_REQUEST_URL+request, listener, null);
+        params = new HashMap<>();
+        params.put("name", item.getItemName());
+        params.put("category", item.getCategory());
+        params.put("img", item.getImg());
+        params.put("description", item.getDescription());
+        params.put("zip", item.getZipcode());
+        params.put("location", item.getLocation());
+        params.put("phone", item.getPhone());
+        params.put("itemID", itemID);
+    }
+
 
     @Override
     public Map<String, String> getParams(){ return params; }
