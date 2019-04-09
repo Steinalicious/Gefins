@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,7 +36,8 @@ public class ViewAdActivity extends BackNavbarActivity {
     private Button inQueueButton,enterQueueBtn;
     private ImageView adImage;
     private User currentUser;
-    private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, userStarsTxtView;
+    private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, ownerStarsTxtView, ownerAddressTxtView, ownerPhoneTxtView, ownerEmailTxtView, messageWindowTxtView;
+    private EditText messageEdtText;
     private Item item;
     private String itemID, numInQue, firstInQue, option;
     private boolean isOwner;
@@ -48,7 +50,7 @@ public class ViewAdActivity extends BackNavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
         isOwner = currentUser.getUserName().equals(itemOwner);
-        if (isOwner) {
+        if (isOwner ) {
             Log.d("Fyrsta", itemOwner );
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewadowner, contentFrameLayout);
@@ -77,12 +79,17 @@ public class ViewAdActivity extends BackNavbarActivity {
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.owner_container);
-        userStarsTxtView = findViewById(R.id.userStars_container);
+        ownerStarsTxtView = findViewById(R.id.userStars_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
         descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
         enterQueueBtn = findViewById(R.id.enter_queue);
         firstQueueTxtView = findViewById(R.id.first_in_queue_container);
+        ownerAddressTxtView = findViewById(R.id.owner_address_container);
+        ownerPhoneTxtView = findViewById(R.id.owner_phone_container);
+        ownerEmailTxtView = findViewById(R.id.owner_email_container);
+        messageEdtText = findViewById(R.id.message_editor);
+        messageWindowTxtView = findViewById(R.id.message_window);
 
         //ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -111,6 +118,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                         viewadOwner(numInQue, firstInQue);
                     } else {
                         viewad(numInQue);
+                      //  viewadAccepted();
                     }
 
 
@@ -144,26 +152,42 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
-        // setti if því hann getur ekki set listener á takka sem er ekki til
-        if (!currentUser.getUserName().equals(itemOwner)) {
-            enterQueueBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (enterQueueBtn.getText().equals("Fara í röð")) {
+        final Response.Listener<String> responseListener3 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //debug
+                    Log.d("JSONQUEUE ", response);
+                    JSONObject jsonResponse= new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("msg");
+                    if (success) {
                         enterQueueBtn.setText("Fara úr röð");
                         Log.d("ENTERQUE", itemID);
-                        ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
+                        ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
                     } else {
                         enterQueueBtn.setText("Fara í röð");
                         Log.d("LEAVEQUE", itemID);
-                        ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
+                        ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
-
                     }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
 
+            }
+        };
+
+        // setti if því hann getur ekki set listener á takka sem er ekki til
+        if (!isOwner) {
+            enterQueueBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ItemRequest inQueueRequest = new ItemRequest ("Items/queue","exists", itemID, currentUser.getId(), responseListener3);
+                    RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue1.add(inQueueRequest);
                 }
 
             });
@@ -178,7 +202,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         ownerInfoTxtView.setText(item.getOwner());
         numberQueueTxtView.setText(numQueue);
       //  String stars = String.valueOf();
-      //  userStarsTxtView.setText(stars);
+      //  ownerStarsTxtView.setText(stars);
     }
 
     public void viewadOwner(String numQueue, String firstQueue) {
@@ -189,14 +213,19 @@ public class ViewAdActivity extends BackNavbarActivity {
         numberQueueTxtView.setText(numQueue);
         firstQueueTxtView.setText(firstQueue);
     }
-/*
+
     public void viewadAccepted() {
         adNameTxtView.setText(item.getItemName());
         descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
         ownerInfoTxtView.setText(item.getOwner());
-    }*/
+        //String stars = String.valueOf();
+       // ownerStarsTxtView.setText(stars);
+      //  ownerAddressTxtView.setText();
+      //  ownerPhoneTxtView.setText();
+      //  ownerEmailTxtView.setText();
+    }
 
     public void getitem(Response.Listener<String> responseListener) {
         Log.d("ITEMID", itemID);
