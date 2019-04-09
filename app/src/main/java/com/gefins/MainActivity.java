@@ -268,8 +268,8 @@ public class MainActivity extends NavbarActivity {
     }
 
     public void secretOfTheDay(){
-       // daemiImage = (ImageView) findViewById(R.id.image_demo);
-        daemiVideo = (VideoView) findViewById(R.id.video_demo);
+       /*// daemiImage = (ImageView) findViewById(R.id.image_demo);
+       // daemiVideo = (VideoView) findViewById(R.id.video_demo);
 
 
         String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.ultra_dream_dragon1080p;
@@ -283,6 +283,6 @@ public class MainActivity extends NavbarActivity {
             }
         });
         //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/c_scale,h_500/v1554837966/5afee48f1e000043008e5ecd.jpg");
-
+*/
     }
 }
