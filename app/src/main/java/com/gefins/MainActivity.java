@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class MainActivity extends NavbarActivity {
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
     private User currentUser;
+    private SearchView searchView;
 
     public static final String ITEM_REQUESTS = "item_req";
 
@@ -73,13 +75,14 @@ public class MainActivity extends NavbarActivity {
         descriptionTxtView = findViewById(R.id.description_container);
         ownerInfoTxtView = findViewById(R.id.owner_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
+        searchView = findViewById((R.id.search));
 
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
 
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+        final Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -145,6 +148,54 @@ public class MainActivity extends NavbarActivity {
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
             queue.add(adListRequest);
         }
+
+        final Response.Listener<String> responseListener2 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //debug
+                    Log.d("JSONSEARCH ", response);
+                    JSONObject jsonResponse= new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            // Do whatever you need. This will be fired only when submitting.
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                callSearch(query);
+                return true;
+            }
+
+            // Do whatever you need when text changes.
+            // This will be fired every time you input any character.
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//              if (searchView.isExpanded() && TextUtils.isEmpty(newText)) {
+                callSearch(newText);
+//              }
+                return true;
+            }
+
+
+            public void callSearch(String query) {
+                //Do searching
+                String request = "items/?search=" + query;
+                ItemRequest sortRequest = new ItemRequest(request, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                queue.add(sortRequest);
+            }
+
+        });
+
+
+
 
 
 

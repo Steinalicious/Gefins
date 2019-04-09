@@ -87,13 +87,21 @@ public class SettingsActivity extends NavbarActivity {
                             boolean success = jsonResponse.getBoolean("success");
 
                             if (!success) {
-
                                 //Gefur upp glugga um að skráning mistókst
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
                                 builder.setMessage("Það mistókst að breyta notendaupplýsingum")
                                         .setNegativeButton("Reyna aftur",null)
                                         .create()
                                         .show();
+                            } else {
+                                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
+                                builder.setMessage("Það tókst að breyta notendaupplýsingum")
+                                        .setNegativeButton("Loka",null)
+                                        .create()
+                                        .show();
+                                /*Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                                intent.putExtra("user", currentUser);
+                                startActivity(intent);*/
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
