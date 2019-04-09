@@ -211,15 +211,15 @@ public class ViewAdActivity extends BackNavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("msg");
                     if (success) {
-                        enterQueueBtn.setText("Fara úr röð");
+                        enterQueueBtn.setText("Fara í röð");
                         Log.d("ENTERQUE", itemID);
-                        ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
+                        ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
                     } else {
-                        enterQueueBtn.setText("Fara í röð");
+                        enterQueueBtn.setText("Fara úr röð");
                         Log.d("LEAVEQUE", itemID);
-                        ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
+                        ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
                     }
