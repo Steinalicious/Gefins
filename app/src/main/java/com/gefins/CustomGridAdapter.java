@@ -9,8 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-
 import java.util.List;
 import Entities.Item;
 
@@ -46,7 +44,7 @@ public class CustomGridAdapter  extends BaseAdapter {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.grid_item_layout, null);
             holder = new ViewHolder();
-            holder.flagView = (ImageView) convertView.findViewById(R.id.img_company);
+            holder.flagView = (ImageView) convertView.findViewById(R.id.img_ad);
             new DownloadImg(holder.flagView).execute("https://res.cloudinary.com/aso40/image/upload/v1554385218/avatars-000559149189-tawe7l-t500x500.jpg");
             holder.countryNameView = (TextView) convertView.findViewById(R.id.ad_title);
             holder.populationView = (TextView) convertView.findViewById(R.id.ad_zip);

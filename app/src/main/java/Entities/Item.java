@@ -33,7 +33,7 @@ public class Item {
     }
     public Item(String owner,String ownerID, String description,
                 String location, String phone, String name,
-                String email, String zip, String category){
+                String email, String zip, String category, String img){
 
         this.id = "0";
         this.owner=owner;
@@ -50,7 +50,7 @@ public class Item {
         this.acceptedUser = "0";
         this.users = "0";
         this.messenger="0";
-        this.img="0";
+        this.img=img;
 
     }
     public Item(JSONObject item) {

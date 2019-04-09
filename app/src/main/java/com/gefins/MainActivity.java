@@ -2,8 +2,10 @@ package com.gefins;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
@@ -24,6 +26,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.cloudinary.android.MediaManager;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +48,7 @@ import Services.ItemService;
 public class MainActivity extends NavbarActivity {
     private ItemService itemservice = new ItemService();
     private Button inQueueButton;
-    private ImageView adImage, daemiImage;
+    private ImageView img_ad, imageView4;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
     private User currentUser;
@@ -56,6 +59,7 @@ public class MainActivity extends NavbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_main, contentFrameLayout);
 
@@ -67,15 +71,14 @@ public class MainActivity extends NavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-        daemiImage = (ImageView) findViewById(R.id.image_demo);
-        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
+        //image = (ImageView) findViewById(R.id.image_demo);
+        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
 
         if(currentUser==null){
         Log.d("ble","USERINN ER HORFINN!!!!!!");}
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
-        adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
@@ -84,8 +87,7 @@ public class MainActivity extends NavbarActivity {
         adNameTxtView = findViewById(R.id.ad_name_container);
         searchView = findViewById((R.id.search));
 
-
-
+        imageView4 = (ImageView) findViewById(R.id.imageView4);
 
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
@@ -107,6 +109,14 @@ public class MainActivity extends NavbarActivity {
                         names[i] = item.getString("name");
                         Log.d("NAME", names[i]);
                     }
+
+                    /*
+                    String aUrl = img.replace("http", "https");
+                    //String imgUri = "\""+img+"\"";
+                    img_ad = findViewById(R.id.img_ad);
+                    //Picasso.with(this).load(imgUri).into(imageView4);
+                    new DownloadImg(imageView4).execute(aUrl);
+                    */
 
                     GridView gridView = findViewById(R.id.gridView);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
@@ -144,7 +154,6 @@ public class MainActivity extends NavbarActivity {
             }
         };
 
-        Bundle extras = getIntent().getExtras();
         if(extras.get(ITEM_REQUESTS) != null) {
             String request = arrayStringListToRequest(extras.getStringArrayList(ITEM_REQUESTS));
 
