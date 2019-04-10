@@ -31,6 +31,7 @@ import android.widget.VideoView;
 
 import java.util.ArrayList;
 
+import Entities.Sort;
 import Entities.User;
 import Requests.ItemRequest;
 import Services.ItemService;
@@ -46,7 +47,7 @@ public class MainActivity extends NavbarActivity {
     private Button createAdBtn, filterBtn;
     private User currentUser;
     private SearchView searchView;
-
+    private Sort sort;
     public static final String ITEM_REQUESTS = "item_req";
 
     @Override
@@ -69,7 +70,15 @@ public class MainActivity extends NavbarActivity {
         secretOfTheDay();
 
         if(currentUser==null){
-        Log.d("ble","USERINN ER HORFINN!!!!!!");}
+            Log.d("ble","USERINN ER HORFINN!!!!!!");}
+
+        sort = (Sort) getIntent().getSerializableExtra("sort");
+
+
+        //daemiImage = (ImageView) findViewById(R.id.image_demo);
+        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
+
+
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
@@ -149,8 +158,9 @@ public class MainActivity extends NavbarActivity {
             }
         };
 
-        if(extras.get(ITEM_REQUESTS) != null) {
-            String request = arrayStringListToRequest(extras.getStringArrayList(ITEM_REQUESTS));
+
+        if(sort != null) {
+            String request = arrayStringListToRequest(sort.getALL());
 
             Log.d("REMOLAÐI", request);
 
@@ -226,10 +236,12 @@ public class MainActivity extends NavbarActivity {
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (sort==null)
+                    sort=new Sort();
                 //Færir frá forsíðu yfir á síu skjá
                 Intent intent = new Intent(MainActivity.this, SortActivity.class);
                 intent.putExtra("user", currentUser);
+                intent.putExtra("sort", sort);
                 startActivity(intent);
             }
         });

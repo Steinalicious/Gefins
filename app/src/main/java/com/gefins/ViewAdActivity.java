@@ -17,7 +17,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
+import com.squareup.picasso.Picasso;
 import Entities.OwnerInfo;
 import Entities.QueueInfo;
 import Entities.User;
@@ -25,7 +25,7 @@ import Entities.User;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,7 +89,7 @@ public class ViewAdActivity extends BackNavbarActivity {
 
         acceptfromqueue = findViewById(R.id.accept_from_queue);
 
-        adImg = findViewById(R.id.adImg);
+       // adImg = findViewById(R.id.adImg);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);

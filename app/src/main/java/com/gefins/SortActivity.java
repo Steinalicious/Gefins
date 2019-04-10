@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
+import Entities.Sort;
 import Entities.User;
 
 public class SortActivity extends ExitNavbarActivity {
@@ -22,6 +23,7 @@ public class SortActivity extends ExitNavbarActivity {
     public static final String ITEM_FILTERS = "chosenItems";
     public ArrayList<String> Listi;
     private User currentuser;
+    private Sort sort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class SortActivity extends ExitNavbarActivity {
         mTitle.setText(R.string.filter);
 
         currentuser = (User) getIntent().getSerializableExtra("user");
+        sort = (Sort) getIntent().getSerializableExtra("sort");
 
         sortCatBtn = findViewById(R.id.sort_categories);
         sortLocBtn = findViewById(R.id.sort_loc);
@@ -47,12 +50,8 @@ public class SortActivity extends ExitNavbarActivity {
 
         final Bundle extras = getIntent().getExtras();
 
-        if(extras.get(ITEM_FILTERS)!= null) {
-            String filters = (String) getIntent().getStringExtra(ITEM_FILTERS_TXT);
-            if(filters != null) {
-                chosenSort.append(filters);
-            }
-            Log.d("activity_from", filters);
+        if(!sort.isEmpty()) {
+            chosenSort.append(sort.toString());
         }
 
 
@@ -63,7 +62,8 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, CategoryActivity.class);
-                intent.putExtra(CategoryActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
+                // intent.putExtra(CategoryActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
+                intent.putExtra("sort", sort);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
 
@@ -77,7 +77,8 @@ public class SortActivity extends ExitNavbarActivity {
 
                 //Færir frá forsíðu yfir á ný auglýsing skjá
                 Intent intent = new Intent(SortActivity.this, LocationActivity.class);
-                intent.putExtra(LocationActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
+                //intent.putExtra(LocationActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
+                intent.putExtra("sort", sort);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
             }
@@ -87,9 +88,11 @@ public class SortActivity extends ExitNavbarActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("REMOLAÐI", sort.getALL().toString());
                 //Færir frá sort yfir á aðalskjá
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
-                intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(ITEM_FILTERS));
+                // intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(ITEM_FILTERS));
+                intent.putExtra("sort", sort);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
             }
