@@ -17,6 +17,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entities.Sort;
 import Entities.User;
 
 public class CategoryActivity extends BackNavbarActivity {
@@ -24,6 +25,7 @@ public class CategoryActivity extends BackNavbarActivity {
     private Intent sortIntent;
     CheckBox furniture, clothing, kids, electronics, tools, commute, food, animals;
     private User currentUser;
+    private Sort sort;
     public static final String FILTERS = "item_filter";
     private String chosenItems;
     private ArrayList<String> chosenCategories;
@@ -43,7 +45,7 @@ public class CategoryActivity extends BackNavbarActivity {
         mTitle.setText(R.string.categories);
 
         currentUser = (User) getIntent().getSerializableExtra("user");
-
+        sort = (Sort) getIntent().getSerializableExtra("sort");
         // Sækja checkbox flokka
 
         furniture = (CheckBox)findViewById(R.id.checkbox_furniture);
@@ -81,43 +83,42 @@ public class CategoryActivity extends BackNavbarActivity {
             public void onClick(View v) {
                 chosenItems += "Valdir flokkar:";
                 if(furniture.isChecked()) {
-                    chosenItems += "\nHúsgögn";
+                    // chosenItems += "\nHúsgögn";
                     chosenCategories.add("Húsgögn");
                 }
                 if(clothing.isChecked()) {
-                    chosenItems += "\nFatnaður";
+                    // chosenItems += "\nFatnaður";
                     chosenCategories.add("Fatnaður");
                 }
                 if(kids.isChecked()) {
-                    chosenItems += "\nBarnavörur";
+                    // chosenItems += "\nBarnavörur";
                     chosenCategories.add("Barnavörur");
                 }
                 if(electronics.isChecked()) {
-                    chosenItems += "\nRaftæki";
+                    // chosenItems += "\nRaftæki";
                     chosenCategories.add("Raftæki");
                 }
                 if(tools.isChecked()) {
-                    chosenItems += "\nVerkfæri";
+                    // chosenItems += "\nVerkfæri";
                     chosenCategories.add("Verkfæri");
                 }
                 if(commute.isChecked()) {
-                    chosenItems += "\nFarartæki";
+                    // chosenItems += "\nFarartæki";
                     chosenCategories.add("Farartæki");
                 }
                 if(food.isChecked()) {
-                    chosenItems += "\nMatur";
+                    // chosenItems += "\nMatur";
                     chosenCategories.add("Matur");
                 }
                 if(animals.isChecked()) {
-                    chosenItems +="\nDýr";
+                    // chosenItems +="\nDýr";
                     chosenCategories.add("Dýr");
                 }
 
                 //Færir frá "Flokkar" yfir á "Sort" skjá
+                sort.setCategory(chosenCategories);
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
-                sortIntent.putExtra(SortActivity.ITEM_FILTERS_TXT, chosenItems);
-                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenCategories);
-                //sortIntent.putExtra("LISTI", LIST);
+                sortIntent.putExtra("sort", sort);
                 sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);
             }

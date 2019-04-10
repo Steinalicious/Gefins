@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
-
+import com.squareup.picasso.Picasso;
 import Entities.OwnerInfo;
 import Entities.QueueInfo;
 import Entities.User;
@@ -26,7 +26,7 @@ import Entities.User;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
