@@ -262,7 +262,7 @@ public class ViewAdActivity extends BackNavbarActivity {
             });
         }
 
-        final Response.Listener<String> responseListener4 = new Response.Listener<String>() {
+        final Response.Listener<String> responseListener5 = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

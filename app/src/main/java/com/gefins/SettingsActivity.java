@@ -1,5 +1,6 @@
 package com.gefins;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -95,13 +96,19 @@ public class SettingsActivity extends NavbarActivity {
                                         .show();
                             } else {
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
-                                builder.setMessage("Það tókst að breyta notendaupplýsingum")
-                                        .setNegativeButton("Loka",null)
-                                        .create()
-                                        .show();
-                                /*Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-                                intent.putExtra("user", currentUser);
-                                startActivity(intent);*/
+                                builder.setMessage("Það tókst að breyta notendaupplýsingum");
+                                builder.setPositiveButton("Loka",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+                                        android.app.AlertDialog dialog = builder.create();
+                                        dialog.show();
+
+                                //Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                             //   intent.putExtra("user", currentUser);
+                              //  startActivity(intent);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
