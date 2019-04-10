@@ -173,7 +173,7 @@ public class AdActivity extends ExitNavbarActivity {
 
         if(requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK){
 
-                selectedImg = data.getData();dd
+                selectedImg = data.getData();
                 Picasso.with(this).load(selectedImg).into(imageView3);
         }
     }

@@ -62,6 +62,13 @@ public class RegisterActivity extends BackNavbarActivity {
 
                 String passwordConfirm = confirmEdTxt.getText().toString();
 
+                final EditText emailValidate = (EditText)findViewById(R.id.registerEmailEditText);
+
+                String email = emailValidate.getText().toString().trim();
+
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
                 //Meðhöndlun á svari frá server
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -92,7 +99,7 @@ public class RegisterActivity extends BackNavbarActivity {
                 };
 
 
-                if (user.getPassword().equals(passwordConfirm)) {
+                if (/*(*/user.getPassword().equals(passwordConfirm)/*) && (email.matches(emailPattern))*/) {
 
                     //Tengist server
                     UserRequest registerRequest = new UserRequest(user,"register", responseListener);
@@ -102,7 +109,7 @@ public class RegisterActivity extends BackNavbarActivity {
 
                     //Varar við að Lykilorð eru mismunandi
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("Mismundandi lykilorð")
+                    builder.setMessage("Mismundandi lykilorð eða ógilt netfang")
                             .setNegativeButton("Reyna Aftur", null)
                             .create()
                             .show();
