@@ -89,7 +89,7 @@ public class ViewAdActivity extends BackNavbarActivity {
 
         acceptfromqueue = findViewById(R.id.accept_from_queue);
 
-       // adImg = findViewById(R.id.adImg);
+        adImg = findViewById(R.id.adImg);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);

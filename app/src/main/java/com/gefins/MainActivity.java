@@ -67,7 +67,7 @@ public class MainActivity extends NavbarActivity {
 
         //image = (ImageView) findViewById(R.id.image_demo);
         //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
-        secretOfTheDay();
+        //secretOfTheDay();
 
         if(currentUser==null){
             Log.d("ble","USERINN ER HORFINN!!!!!!");}
@@ -269,6 +269,7 @@ public class MainActivity extends NavbarActivity {
         return request;
     }
 
+    /*
     public void secretOfTheDay(){
        // daemiImage = (ImageView) findViewById(R.id.image_demo);
         daemiVideo = (VideoView) findViewById(R.id.video_demo);
@@ -287,4 +288,5 @@ public class MainActivity extends NavbarActivity {
         //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/c_scale,h_500/v1554837966/5afee48f1e000043008e5ecd.jpg");
 
     }
+    */
 }
