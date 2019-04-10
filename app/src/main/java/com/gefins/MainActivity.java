@@ -1,29 +1,25 @@
 package com.gefins;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import Entities.Item;
 
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.cloudinary.android.MediaManager;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,11 +27,9 @@ import org.json.JSONObject;
 
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import Entities.User;
 import Requests.ItemRequest;
@@ -46,6 +40,8 @@ public class MainActivity extends NavbarActivity {
     private ItemService itemservice = new ItemService();
     private Button inQueueButton;
     private ImageView adImage, daemiImage;
+    private VideoView daemiVideo;
+    private ImageView img_ad, imageView4;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
     private User currentUser;
@@ -56,6 +52,7 @@ public class MainActivity extends NavbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_main, contentFrameLayout);
 
@@ -67,15 +64,15 @@ public class MainActivity extends NavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-        daemiImage = (ImageView) findViewById(R.id.image_demo);
-        new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
+        //image = (ImageView) findViewById(R.id.image_demo);
+        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
+        secretOfTheDay();
 
         if(currentUser==null){
         Log.d("ble","USERINN ER HORFINN!!!!!!");}
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
-        adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
         numberInQueueTxtView = findViewById(R.id.number_queue_container);
@@ -83,9 +80,6 @@ public class MainActivity extends NavbarActivity {
         ownerInfoTxtView = findViewById(R.id.owner_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
         searchView = findViewById((R.id.search));
-
-
-
 
       //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
       //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
@@ -101,18 +95,30 @@ public class MainActivity extends NavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     final JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
+                    String imgUrls[] = new String[items.length()];
+                    String aUrls[] = new String[items.length()];
 
                     for(int i = 0; i < items.length(); i++){
                         JSONObject item = items.getJSONObject(i);
                         names[i] = item.getString("name");
-                        Log.d("NAME", names[i]);
+                        imgUrls[i] = item.getString("img");
+                        aUrls[i] = imgUrls[i].replace("http", "https");
                     }
 
-                    GridView gridView = findViewById(R.id.gridView);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
-                            R.layout.grid_item_layout, R.id.ad_title, names);
-                    gridView.setAdapter(adapter);
+                    /*
+                    String aUrl = img.replace("http", "https");
+                    //String imgUri = "\""+img+"\"";
+                    img_ad = findViewById(R.id.img_ad);
+                    //Picasso.with(this).load(imgUri).into(imageView4);
+                    new DownloadImg(imageView4).execute(aUrl);
+                    Picasso.with(context).load(Uri.parse(imageUrls[])).into((ImageView) v);
+                    */
 
+
+                    GridView gridView = findViewById(R.id.gridView);
+                    GridViewAdapter gridViewAdapter = new GridViewAdapter(getApplicationContext(),
+                            R.layout.grid_item_layout, names, aUrls);
+                    gridView.setAdapter(gridViewAdapter);
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -120,7 +126,6 @@ public class MainActivity extends NavbarActivity {
                             Log.d("GRIDVIEW", String.valueOf(position) );
                             try {
                                 Item item = new Item(items.getJSONObject(position));
-                                Log.d("ITEMID", item.getId());
                                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
                                 i.putExtra("chosenItem", item.getId());
                                 i.putExtra("itemOwner", item.getOwner());
@@ -144,7 +149,6 @@ public class MainActivity extends NavbarActivity {
             }
         };
 
-        Bundle extras = getIntent().getExtras();
         if(extras.get(ITEM_REQUESTS) != null) {
             String request = arrayStringListToRequest(extras.getStringArrayList(ITEM_REQUESTS));
 
@@ -206,10 +210,6 @@ public class MainActivity extends NavbarActivity {
         });
 
 
-
-
-
-
         // Virknin á "skrá auglýsingu" takkanum
         createAdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,4 +257,22 @@ public class MainActivity extends NavbarActivity {
         return request;
     }
 
+    public void secretOfTheDay(){
+       // daemiImage = (ImageView) findViewById(R.id.image_demo);
+        daemiVideo = (VideoView) findViewById(R.id.video_demo);
+
+
+        String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.ultra_dream_dragon1080p;
+        Uri heh = Uri.parse(videoPath);
+        daemiVideo.setVideoURI(heh);
+        daemiVideo.start();
+        daemiVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.start();
+            }
+        });
+        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/c_scale,h_500/v1554837966/5afee48f1e000043008e5ecd.jpg");
+
+    }
 }

@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom|center_horizontal"
     android:orientation="vertical">
 
-    <ImageView
+
+    <!--<ImageView
         android:id="@+id/image_demo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    -->
+    <VideoView
+        android:id="@+id/video_demo"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/createAdButton"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -31,7 +40,7 @@
 
         <SearchView
             android:id="@+id/search"
-            android:layout_width="198dp"
+            android:layout_width="193dp"
             android:layout_height="wrap_content"
             android:visibility="visible">
 
@@ -46,7 +55,7 @@
         <Button
             android:id="@+id/filterButton"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="188dp"
+            android:layout_width="193dp"
             android:layout_height="wrap_content"
             android:text="@string/filter"
             android:textSize="17sp" />

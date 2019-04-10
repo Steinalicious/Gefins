@@ -59,18 +59,26 @@ public class InQueueActivity extends BackNavbarActivity {
                     Item item = new Item();
 
                     ArrayList<String> adList = new ArrayList<>();
-                    //ArrayList<String> usersList = new ArrayList<>(); // notendur i rod
+                    String names[] = new String[adArray.length()];
+                    String imgUrls[] = new String[adArray.length()];
+                    String aUrls[] = new String[adArray.length()];
+                    String queue[] = new String[adArray.length()];
 
                     for(int i = 0; i < adArray.length(); i++) {
                         item = new Item(adArray.getJSONObject(i));
+                        names[i] = item.getItemName();
+                        queue[i] = item.getQueueInfo().getNumInQue();
+                        imgUrls[i] = item.getImg();
+                        aUrls[i] = imgUrls[i].replace("http", "https");
                         if (item == null) {
                             return;
                         } else {
                             adList.add(item.getItemName());
+
                             // Listi af auglýsingum
-                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(InQueueActivity.this,
-                                    R.layout.list_item_layout, R.id.textView_adTitle, adList);
-                            listViewInQueue.setAdapter(arrayAdapter);
+                            ListViewAdapter listViewAdapter = new ListViewAdapter(getApplicationContext(),
+                                    R.layout.list_item_layout, names, aUrls, queue);
+                            listViewInQueue.setAdapter(listViewAdapter);
 
                             // Þegar owner klikkar á auglýsingarnar sínar
                             listViewInQueue.setOnItemClickListener(new AdapterView.OnItemClickListener() {
