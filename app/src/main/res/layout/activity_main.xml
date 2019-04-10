@@ -29,7 +29,7 @@
 
         <SearchView
             android:id="@+id/search"
-            android:layout_width="198dp"
+            android:layout_width="193dp"
             android:layout_height="wrap_content"
             android:visibility="visible">
 
@@ -44,7 +44,7 @@
         <Button
             android:id="@+id/filterButton"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="188dp"
+            android:layout_width="193dp"
             android:layout_height="wrap_content"
             android:text="@string/filter"
             android:textSize="17sp" />

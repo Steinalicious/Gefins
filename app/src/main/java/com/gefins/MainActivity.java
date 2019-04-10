@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -53,6 +54,7 @@ public class MainActivity extends NavbarActivity {
     private Button createAdBtn, filterBtn;
     private User currentUser;
     private SearchView searchView;
+    private ArrayList<String> mGridData;
 
     public static final String ITEM_REQUESTS = "item_req";
 
@@ -102,13 +104,13 @@ public class MainActivity extends NavbarActivity {
                     final JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
                     String imgUrls[] = new String[items.length()];
+                    String aUrls[] = new String[items.length()];
 
                     for(int i = 0; i < items.length(); i++){
                         JSONObject item = items.getJSONObject(i);
                         names[i] = item.getString("name");
                         imgUrls[i] = item.getString("img");
-                        String aUrl = imgUrls[i].replace("http", "https");
-                        //new DownloadImg(imageView4).execute(aUrl);
+                        aUrls[i] = imgUrls[i].replace("http", "https");
                     }
 
                     /*
@@ -117,17 +119,14 @@ public class MainActivity extends NavbarActivity {
                     img_ad = findViewById(R.id.img_ad);
                     //Picasso.with(this).load(imgUri).into(imageView4);
                     new DownloadImg(imageView4).execute(aUrl);
+                    Picasso.with(context).load(Uri.parse(imageUrls[])).into((ImageView) v);
                     */
 
 
                     GridView gridView = findViewById(R.id.gridView);
-                    //CustomGridAdapter customGridAdapter = new CustomGridAdapter(getApplicationContext(),
-                     //       R.layout.grid_item_layout, imgUrls, names);
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
-                            R.layout.grid_item_layout, R.id.ad_title, names);
-                   gridView.setAdapter(adapter);
-
+                    GridViewAdapter gridViewAdapter = new GridViewAdapter(getApplicationContext(),
+                            R.layout.grid_item_layout, names, aUrls);
+                    gridView.setAdapter(gridViewAdapter);
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override

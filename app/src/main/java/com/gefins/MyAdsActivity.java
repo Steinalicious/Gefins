@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -62,21 +63,26 @@ public class MyAdsActivity extends BackNavbarActivity {
                     Item item = new Item();
 
                     ArrayList<String> adList = new ArrayList<>();
-                    ArrayList<String> queueCount = new ArrayList<>(); // fjoldi i rod
+                    String names[] = new String[adArray.length()];
+                    String imgUrls[] = new String[adArray.length()];
+                    String aUrls[] = new String[adArray.length()];
+                    String queue[] = new String[adArray.length()];
 
                     for(int i = 0; i < adArray.length(); i++) {
                         item = new Item(adArray.getJSONObject(i));
+                        names[i] = item.getItemName();
+                        queue[i] = item.getQueueInfo().getNumInQue();
+                        imgUrls[i] = item.getImg();
+                        aUrls[i] = imgUrls[i].replace("http", "https");
                         if (item == null) {
                             return;
                         } else {
                             adList.add(item.getItemName());
-                            //queueCount.add(item.getQueueInfo().getNumInQue());
-                            Log.d("queueCount", item.getQueueInfo().getNumInQue());
 
-                            // Listi af auglýsingum
-                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MyAdsActivity.this,
-                                    R.layout.list_item_layout, R.id.textView_adTitle, adList);
-                            listView.setAdapter(arrayAdapter);
+                            // Listi af mínum auglýsingum
+                            ListViewAdapter listViewAdapter = new ListViewAdapter(getApplicationContext(),
+                                    R.layout.list_item_layout, names, aUrls, queue);
+                            listView.setAdapter(listViewAdapter);
 
                             // Þegar owner klikkar á auglýsingarnar sínar
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
