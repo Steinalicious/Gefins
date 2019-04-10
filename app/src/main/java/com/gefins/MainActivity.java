@@ -262,7 +262,7 @@ public class MainActivity extends NavbarActivity {
         daemiVideo = (VideoView) findViewById(R.id.video_demo);
 
 
-        String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.ultra_dream_dragon1080p;
+        String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.dancing_man;
         Uri heh = Uri.parse(videoPath);
         daemiVideo.setVideoURI(heh);
         daemiVideo.start();
