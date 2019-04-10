@@ -209,12 +209,31 @@ public class ViewAdActivity extends BackNavbarActivity {
             });
         }
 
+        final Response.Listener<String> responseListener4 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //debug
+                    Log.d("JSONDELETE ", response);
+                    JSONObject jsonResponse= new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if(success) {
+                        finish();
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+
         // setti if því hann getur ekki set listener á takka sem er ekki til
         if (isOwner) {
             deleteAdBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemRequest inQueueRequest = new ItemRequest ("Items/queue","exists", itemID, currentUser.getId(), responseListener3);
+                    ItemRequest inQueueRequest = new ItemRequest ("Items/delete", itemID,77, responseListener4);
                     RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
                     queue1.add(inQueueRequest);
                 }
