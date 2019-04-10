@@ -65,20 +65,10 @@ public class MainActivity extends NavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-        //image = (ImageView) findViewById(R.id.image_demo);
-        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
-        //secretOfTheDay();
-
         if(currentUser==null){
             Log.d("ble","USERINN ER HORFINN!!!!!!");}
 
         sort = (Sort) getIntent().getSerializableExtra("sort");
-
-
-        //daemiImage = (ImageView) findViewById(R.id.image_demo);
-        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
-
-
 
         createAdBtn = findViewById(R.id.createAdButton);
         filterBtn = findViewById(R.id.filterButton);
@@ -113,16 +103,6 @@ public class MainActivity extends NavbarActivity {
                         imgUrls[i] = item.getString("img");
                         aUrls[i] = imgUrls[i].replace("http", "https");
                     }
-
-                    /*
-                    String aUrl = img.replace("http", "https");
-                    //String imgUri = "\""+img+"\"";
-                    img_ad = findViewById(R.id.img_ad);
-                    //Picasso.with(this).load(imgUri).into(imageView4);
-                    new DownloadImg(imageView4).execute(aUrl);
-                    Picasso.with(context).load(Uri.parse(imageUrls[])).into((ImageView) v);
-                    */
-
 
                     GridView gridView = findViewById(R.id.gridView);
                     GridViewAdapter gridViewAdapter = new GridViewAdapter(getApplicationContext(),
@@ -268,25 +248,4 @@ public class MainActivity extends NavbarActivity {
 
         return request;
     }
-
-    /*
-    public void secretOfTheDay(){
-       // daemiImage = (ImageView) findViewById(R.id.image_demo);
-        daemiVideo = (VideoView) findViewById(R.id.video_demo);
-
-
-        String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.dancing_man;
-        Uri heh = Uri.parse(videoPath);
-        daemiVideo.setVideoURI(heh);
-        daemiVideo.start();
-        daemiVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.start();
-            }
-        });
-        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/c_scale,h_500/v1554837966/5afee48f1e000043008e5ecd.jpg");
-
-    }
-    */
 }
