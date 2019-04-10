@@ -72,7 +72,7 @@ public class ViewAdActivity extends BackNavbarActivity {
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewad, contentFrameLayout);
             enterQueueBtn = findViewById(R.id.enter_queue);
-            enterQueueBtn.setText("Fara í röð");
+          //  enterQueueBtn.setText("Fara í röð");
         }
 
 
@@ -108,12 +108,32 @@ public class ViewAdActivity extends BackNavbarActivity {
         messageWindowTxtView = findViewById(R.id.message_window);
         deleteAdBtn = findViewById(R.id.deleteAd);
 
+
+
         //ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
 
        // ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
        // descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
 
 
+        final Response.Listener<String> responseListener6 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse= new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("msg");
+                    if(success) {
+                        enterQueueBtn.setText("Fara úr röð");
+                    } else {
+                        enterQueueBtn.setText("Fara í röð");
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        isUserInQueue(accepted,responseListener6);
 
 
         final Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -191,13 +211,13 @@ public class ViewAdActivity extends BackNavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("msg");
                     if (success) {
-                        enterQueueBtn.setText("Fara úr röð");
+                        enterQueueBtn.setText("Fara í röð");
                         Log.d("ENTERQUE", itemID);
                         ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
                     } else {
-                        enterQueueBtn.setText("Fara í röð");
+                        enterQueueBtn.setText("Fara úr röð");
                         Log.d("LEAVEQUE", itemID);
                         ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
@@ -209,7 +229,6 @@ public class ViewAdActivity extends BackNavbarActivity {
 
             }
         };
-
 
         final Response.Listener<String> responseListener4 = new Response.Listener<String>() {
             @Override
@@ -246,7 +265,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                 }
             });
         }
-
+        isUserInQueue(accepted,responseListener6);
         // setti if því hann getur ekki set listener á takka sem er ekki til
         if (!isOwner && !accepted.equals(currentUser.getUserName())) {
             enterQueueBtn.setOnClickListener(new View.OnClickListener() {
@@ -277,6 +296,8 @@ public class ViewAdActivity extends BackNavbarActivity {
 
             }
         };
+
+
 
 
         // setti if því hann getur ekki set listener á takka sem er ekki til
@@ -353,5 +374,13 @@ public class ViewAdActivity extends BackNavbarActivity {
         ItemRequest sortRequest = new ItemRequest(request, responseListener);
         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
         queue.add(sortRequest);
+    }
+
+    public void isUserInQueue(String accepted, Response.Listener<String> responseListener){
+        if (!isOwner && !accepted.equals(currentUser.getUserName())) {
+            ItemRequest inQueueRequest = new ItemRequest ("Items/queue","exists", itemID, currentUser.getId(), responseListener);
+            RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
+            queue1.add(inQueueRequest);
+        }
     }
 }

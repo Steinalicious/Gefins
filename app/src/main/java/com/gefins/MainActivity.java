@@ -1,9 +1,10 @@
 package com.gefins;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,7 +22,6 @@ import Entities.Item;
 
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,11 +35,9 @@ import org.json.JSONObject;
 
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import Entities.User;
 import Requests.ItemRequest;
@@ -49,12 +47,13 @@ import Services.ItemService;
 public class MainActivity extends NavbarActivity {
     private ItemService itemservice = new ItemService();
     private Button inQueueButton;
+    private ImageView adImage, daemiImage;
+    private VideoView daemiVideo;
     private ImageView img_ad, imageView4;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
     private User currentUser;
     private SearchView searchView;
-    private ArrayList<String> mGridData;
 
     public static final String ITEM_REQUESTS = "item_req";
 
@@ -75,6 +74,7 @@ public class MainActivity extends NavbarActivity {
 
         //image = (ImageView) findViewById(R.id.image_demo);
         //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/v1554740993/32042_1285425382323_82382_n.jpg");
+        secretOfTheDay();
 
         if(currentUser==null){
         Log.d("ble","USERINN ER HORFINN!!!!!!");}
@@ -269,4 +269,22 @@ public class MainActivity extends NavbarActivity {
         return request;
     }
 
+    public void secretOfTheDay(){
+       // daemiImage = (ImageView) findViewById(R.id.image_demo);
+        daemiVideo = (VideoView) findViewById(R.id.video_demo);
+
+
+        String videoPath = "android.resource://"+getPackageName()+"/"+R.raw.ultra_dream_dragon1080p;
+        Uri heh = Uri.parse(videoPath);
+        daemiVideo.setVideoURI(heh);
+        daemiVideo.start();
+        daemiVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.start();
+            }
+        });
+        //new DownloadImg(daemiImage).execute("https://res.cloudinary.com/aso40/image/upload/c_scale,h_500/v1554837966/5afee48f1e000043008e5ecd.jpg");
+
+    }
 }
