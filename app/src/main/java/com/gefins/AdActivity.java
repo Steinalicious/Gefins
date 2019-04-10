@@ -1,11 +1,18 @@
 package com.gefins;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.ActionBar;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +32,22 @@ import android.support.v7.widget.Toolbar;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import Entities.Item;
 import Entities.User;
@@ -36,14 +57,21 @@ public class AdActivity extends ExitNavbarActivity {
     private static final String CURRENT_USER = null;
     private Spinner spinner1;
     private Button button, submitBtn;
-    private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt,category;
+    private EditText titleEdTxt, descEdTxt, zipEdTxt, locEdTxt, phoneEdTxt;
     private User currentUser;
+    private Uri selectedImg;
+    private int PICK_FILE_REQUEST = 1;
+    private ImageView imageView3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_ad, contentFrameLayout);
+
+
+
+        MediaManager.init(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.exit_toolbar);
         setSupportActionBar(toolbar);
@@ -52,19 +80,20 @@ public class AdActivity extends ExitNavbarActivity {
         mTitle.setText(R.string.new_ad);
 
         currentUser = (User) getIntent().getSerializableExtra("user");
-        Log.d("ble1",currentUser.toString());
+
+        imageView3 = (ImageView) findViewById(R.id.imageView3);
+
         spinner1 = findViewById(R.id.spinner);
         spinner1.setOnItemSelectedListener(new ItemSelectedListener());
-        button = findViewById(R.id.btn_picker);
         submitBtn = findViewById(R.id.submitAdButton);
+        button = findViewById(R.id.btn_picker);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
-                intent.putExtra("user", currentUser);
-                startActivityForResult(intent, 7);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(Intent.createChooser(intent,"Choose image"), PICK_FILE_REQUEST);
             }
         });
 
@@ -81,6 +110,7 @@ public class AdActivity extends ExitNavbarActivity {
                         phoneEdTxt.getText().toString(),titleEdTxt.getText().toString(),
                         currentUser.getEmail(),zipEdTxt.getText().toString(),spinner1.getSelectedItem().toString());
 
+                uploadImg();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -139,15 +169,12 @@ public class AdActivity extends ExitNavbarActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 7:
-                if (resultCode == Activity.RESULT_OK) {
-                    String PathHolder = data.getData().getPath();
-                    Toast.makeText(AdActivity.this, PathHolder, Toast.LENGTH_LONG).show();
-                }
-                break;
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+
+        if(requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK){
+
+                selectedImg = data.getData();
+                Picasso.with(this).load(selectedImg).into(imageView3);
         }
     }
 
@@ -159,7 +186,50 @@ public class AdActivity extends ExitNavbarActivity {
         return true;
     }
 
+    public void uploadImg(){
+        String requestId = MediaManager.get()
+                .upload(selectedImg)
+                .unsigned("utmqe54f")
+                .callback(new UploadCallback() {
+                    @Override
+                    public void onStart(String requestId) {
+                        Toast.makeText(AdActivity.this, "Upload has started...",
+                                Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        Toast.makeText(AdActivity.this,
+                                "Uploaded Succesfully", Toast.LENGTH_SHORT).show();
+                        String publicId = resultData.get("public_id").toString();
+                        String imgUrl = MediaManager.get().url().generate(publicId+".jpg");
+
+                        Log.d("selected", imgUrl);
+                        // load the first image into the image view
+                        Picasso.with(getApplicationContext()).load(imgUrl)
+                                .into(imageView3);
+                    }
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        Log.d("selected", requestId);
+                        Toast.makeText(AdActivity.this,
+                                "Upload Error", Toast.LENGTH_SHORT).show();
+                        Log.v("ERROR!!", error.getDescription());
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+
+                    }
+                }).dispatch();
+        Log.d("selected", requestId);
+    }
 
 
 

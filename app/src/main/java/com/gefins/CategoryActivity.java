@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import Entities.User;
 
@@ -44,6 +45,7 @@ public class CategoryActivity extends BackNavbarActivity {
         currentUser = (User) getIntent().getSerializableExtra("user");
 
         // Sækja checkbox flokka
+
         furniture = (CheckBox)findViewById(R.id.checkbox_furniture);
         clothing = (CheckBox)findViewById(R.id.checkbox_clothing);
         kids = (CheckBox)findViewById(R.id.checkbox_kids);

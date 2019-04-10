@@ -35,7 +35,7 @@ import Requests.ItemRequest;
 /* Eftir að klára allt varðandi ViewAd */
 
 public class ViewAdActivity extends BackNavbarActivity {
-    private Button inQueueButton,enterQueueBtn, editAd, deleteAdBtn;
+    private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn;
     private ImageView adImage;
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, ownerStarsTxtView, ownerAddressTxtView, ownerPhoneTxtView, ownerEmailTxtView, messageWindowTxtView;
@@ -43,20 +43,30 @@ public class ViewAdActivity extends BackNavbarActivity {
     private Item item;
     private String itemID, numInQue, firstInQue, option;
     private boolean isOwner;
+    private int layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         final Bundle extras = getIntent().getExtras();
         String itemOwner = extras.getString("itemOwner");
-
+        String accepted = extras.getString("accepted");
         currentUser = (User) getIntent().getSerializableExtra("user");
         isOwner = currentUser.getUserName().equals(itemOwner);
-        if (isOwner ) {
+
+
+        if (currentUser.getUserName().equals(accepted) || isOwner && !accepted.equals("0")){
+            layout =3;
+            FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+            getLayoutInflater().inflate(R.layout.activity_viewadaccepted, contentFrameLayout);
+        }
+        else if (isOwner ) {
+            layout =2;
             Log.d("Fyrsta", itemOwner );
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewadowner, contentFrameLayout);
         } else {
+            layout =1;
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewad, contentFrameLayout);
             enterQueueBtn = findViewById(R.id.enter_queue);
@@ -75,6 +85,8 @@ public class ViewAdActivity extends BackNavbarActivity {
 
         itemID = extras.getString("chosenItem");
 
+        acceptfromqueue = findViewById(R.id.accept_from_queue);
+
         adImage = findViewById(R.id.viewad_image);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
@@ -84,7 +96,7 @@ public class ViewAdActivity extends BackNavbarActivity {
         ownerStarsTxtView = findViewById(R.id.userStars_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
-        descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
+        //descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
         enterQueueBtn = findViewById(R.id.enter_queue);
         firstQueueTxtView = findViewById(R.id.first_in_queue_container);
         ownerAddressTxtView = findViewById(R.id.owner_address_container);
@@ -115,10 +127,14 @@ public class ViewAdActivity extends BackNavbarActivity {
                     String test = item.getQueueInfo().getNumInQue();
                     Log.d("HAHAHAH", item.getQueueInfo().getNumInQue());
                     firstInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("firstInQue");
-
+                    Log.d("j5",item.getAcceptedUser());
                     Log.d("JSONRESPONSE ", firstInQue);
-
-                    if (currentUser.getUserName().equals(item.getOwner())) {
+                    Log.d("j3",""+layout);
+                    if(layout==3) {
+                        viewadAccepted();
+                    }
+                    else if (layout==2) {
+                        Log.d("j4",""+layout);
                         System.out.println("innri loopa");
                         viewadOwner(numInQue, firstInQue);
                         editAd = findViewById(R.id.editAd);
@@ -196,8 +212,45 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
+
+        final Response.Listener<String> responseListener4 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //debug
+                    Log.d("JSONQUEUE ", response);
+                    JSONObject jsonResponse= new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        Log.d("j1","225");
+                        layout=3;
+                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
+                        getLayoutInflater().inflate(R.layout.activity_viewadaccepted, contentFrameLayout);
+                        getitem(responseListener);
+                    } else {
+                        Log.d("j2","responseListener4");
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        if(isOwner && accepted.equals("0")) {
+            acceptfromqueue.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Log.d("j7","listener");
+                    ItemRequest inQueueRequest = new ItemRequest("items/queue", "4", itemID, currentUser.getId(), responseListener4);
+                    RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue1.add(inQueueRequest);
+                }
+            });
+        }
+
         // setti if því hann getur ekki set listener á takka sem er ekki til
-        if (!isOwner) {
+        if (!isOwner && !accepted.equals(currentUser.getUserName())) {
             enterQueueBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -229,7 +282,7 @@ public class ViewAdActivity extends BackNavbarActivity {
 
 
         // setti if því hann getur ekki set listener á takka sem er ekki til
-        if (isOwner) {
+        if (isOwner && accepted.equals("0")) {
             deleteAdBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -257,6 +310,7 @@ public class ViewAdActivity extends BackNavbarActivity {
     }
 
     public void viewadOwner(String numQueue, String firstQueue) {
+
         adNameTxtView.setText(item.getItemName());
         descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
@@ -266,11 +320,12 @@ public class ViewAdActivity extends BackNavbarActivity {
     }
 
     public void viewadAccepted() {
+        Log.d("j8",item.toString());
         adNameTxtView.setText(item.getItemName());
-        descriptionTxtView.setText(item.getDescription());
+//        descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
-        ownerInfoTxtView.setText(item.getOwner());
+       // ownerInfoTxtView.setText(item.getOwner());
         //String stars = String.valueOf();
        // ownerStarsTxtView.setText(stars);
       //  ownerAddressTxtView.setText();

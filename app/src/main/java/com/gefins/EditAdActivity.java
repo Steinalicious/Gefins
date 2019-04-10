@@ -152,6 +152,7 @@ public class EditAdActivity extends BackNavbarActivity {
                         }
                     }
                 };
+
                 ItemRequest itemRequest = new ItemRequest(item, "editad", itemID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(EditAdActivity.this);
                 queue.add(itemRequest);
