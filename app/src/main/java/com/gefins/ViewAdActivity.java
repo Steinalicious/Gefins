@@ -286,7 +286,7 @@ public class ViewAdActivity extends BackNavbarActivity {
             deleteAdBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemRequest inQueueRequest = new ItemRequest ("Items/delete", itemID,77, responseListener4);
+                    ItemRequest inQueueRequest = new ItemRequest ("Items/delete", itemID,77, responseListener5);
                     RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
                     queue1.add(inQueueRequest);
                 }
