@@ -93,6 +93,7 @@ public class MyAdsActivity extends BackNavbarActivity {
                                         Intent i = new Intent(getApplicationContext(), ViewAdActivity.class);
                                         i.putExtra("chosenItem", item.getId());
                                         i.putExtra("itemOwner", item.getOwner());
+                                        i.putExtra("accepted",item.getAcceptedUser());
                                         i.putExtra("user", currentUser);
                                         startActivity(i);
                                     } catch (Exception e) {

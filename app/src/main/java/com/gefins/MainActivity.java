@@ -210,10 +210,6 @@ public class MainActivity extends NavbarActivity {
         });
 
 
-
-
-
-
         // Virknin á "skrá auglýsingu" takkanum
         createAdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
