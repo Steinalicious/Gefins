@@ -55,7 +55,12 @@ public class NavbarActivity extends AppCompatActivity {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                 String MyText = "Reminder";
-                Notification mNotification = new Notification(R.drawable.item_count, MyText, System.currentTimeMillis() );
+
+                Notification mNotification = new Notification.Builder(getApplicationContext())
+                        .setContentText("hallo")
+                        .setSmallIcon(R.drawable.notifyicon)
+                        .setWhen(System.currentTimeMillis())
+                        .build();
                 //The three parameters are: 1. an icon, 2. a title, 3. time when the notification appears
 
                 String MyNotificationTitle = "Medicine!";

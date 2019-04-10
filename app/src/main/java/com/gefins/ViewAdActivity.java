@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import Entities.Item;
 import Requests.ItemRequest;
 
@@ -49,6 +52,8 @@ public class ViewAdActivity extends ExitNavbarActivity {
     private String itemID, numInQue, firstInQue, option;
     private boolean isOwner;
     private int layout;
+    ListView listView;
+    ArrayList<String> messageList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -85,6 +90,8 @@ public class ViewAdActivity extends ExitNavbarActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.exit_title);
         mTitle.setText(R.string.viewad_title);
 
+        listView = (ListView)findViewById(R.id.message_list);
+
         //set currentUser
 
 
@@ -110,7 +117,7 @@ public class ViewAdActivity extends ExitNavbarActivity {
         ownerPhoneTxtView = findViewById(R.id.owner_phone_container);
         ownerEmailTxtView = findViewById(R.id.owner_email_container);
         messageEdtText = findViewById(R.id.message_editor);
-        messageWindowTxtView = findViewById(R.id.message_window);
+        //messageWindowTxtView = findViewById(R.id.message_window);
         messageBtn = findViewById(R.id.message_button);
         deleteAdBtn = findViewById(R.id.deleteAd);
         stars1 = findViewById(R.id.star1);
@@ -394,7 +401,13 @@ public class ViewAdActivity extends ExitNavbarActivity {
 
     public void viewadAccepted() {
         Log.d("vA",item.toString());
-        messageWindowTxtView.setText(item.getMessenger());
+        //messageWindowTxtView.setText(item.getMessenger());
+        messageList.add(item.getMessenger());
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ViewAdActivity.this,
+                R.layout.message_item_layout, R.id.message, messageList);
+        listView.setAdapter(arrayAdapter);
+
         Log.d("vA",messageWindowTxtView.getText().toString());
         adNameTxtView.setText(item.getItemName());
 //        descriptionTxtView.setText(item.getDescription());
