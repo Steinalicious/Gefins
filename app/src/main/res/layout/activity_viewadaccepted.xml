@@ -159,7 +159,7 @@
 
                 <LinearLayout
                     android:layout_width="341dp"
-                    android:layout_height="200dp"
+                    android:layout_height="180dp"
                     android:gravity="bottom"
                     android:orientation="vertical">
 
@@ -189,7 +189,7 @@
                     <EditText
                         android:id="@+id/message_editor"
                         android:layout_width="260dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:fillViewport="true"
                         android:hint="@string/send_message"
                         android:inputType="textShortMessage"
@@ -201,11 +201,11 @@
                     <Button
                         android:id="@+id/message_button"
                         style="@style/Widget.AppCompat.Button.Colored"
-                        android:backgroundTint="@color/colorAccent"
-                        android:textColor="@color/white"
                         android:layout_width="80dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/colorAccent"
                         android:text="@string/message_send"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -371,7 +371,7 @@
                 android:layout_height="5dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
-                android:layoutmarginBottom="20dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="vertical"
                 android:paddingTop="8dp">
 
@@ -390,10 +390,8 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
-                android:layoutmarginTop="20dp"
                 android:orientation="vertical"
                 android:paddingTop="8dp">
-
 
 
                 <TextView
