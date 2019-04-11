@@ -57,6 +57,15 @@ public class Item {
             this.img = img;
         }
     }
+
+    public MessageInfo getMessageInfo() {
+        return messageInfo;
+    }
+
+    public void setMessageInfo(MessageInfo messageInfo) {
+        this.messageInfo = messageInfo;
+    }
+
     public Item(JSONObject item) {
         try {
             this.id = item.getString("id");
