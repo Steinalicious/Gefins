@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
@@ -44,7 +45,7 @@ import Requests.MessageRequest;
 /* Eftir að klára allt varðandi ViewAd */
 
 public class ViewAdActivity extends ExitNavbarActivity {
-    private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn, messageBtn, cancelqueue;
+    private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn, messageBtn, cancelqueue, submitRatingBtn;
     private ImageView adImg;
     private ImageView stars1,stars2, stars3, stars4, stars5;
     private User currentUser;
@@ -54,6 +55,7 @@ public class ViewAdActivity extends ExitNavbarActivity {
     private String itemID, numInQue, firstInQue, option;
     private boolean isOwner;
     private int layout;
+    private Spinner spinner;
     ListView listView;
     ArrayList<String> messageList = new ArrayList<>();
     private LinearLayout acceptLayout;
@@ -102,9 +104,9 @@ public class ViewAdActivity extends ExitNavbarActivity {
         itemID = extras.getString("chosenItem");
 
         acceptfromqueue = findViewById(R.id.accept_from_queue);
-
+        spinner = findViewById(R.id.spinner);
         cancelqueue = findViewById(R.id.cancel_queue);
-
+        submitRatingBtn = findViewById(R.id.submitRatingBtn);
         adImg = findViewById(R.id.adImg);
         categoryTxtView = findViewById(R.id.category_container);
         zipTxtView = findViewById(R.id.zip_container);
@@ -318,6 +320,55 @@ public class ViewAdActivity extends ExitNavbarActivity {
 
             }
         };
+
+
+
+        final Response.Listener<String> responseListener7 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    //debug
+                    Log.d("JSONDELETE ", response);
+                    JSONObject jsonResponse= new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if(success) {
+                        finish();
+
+                        Intent intent = new Intent( ViewAdActivity.this, MainActivity.class);
+                        intent.putExtra("user", currentUser);
+                        startActivity(intent);
+
+                    }
+                    else Log.d("false","responesListener 7 response =false");
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+
+
+
+        if (layout == 3){
+            // submits Rating
+            submitRatingBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    String a="6";
+                    if (isOwner){
+                        a="5";
+                    }
+
+                    ItemRequest inQueueRequest = new ItemRequest("items/queue",a,itemID,spinner.getSelectedItem().toString(), responseListener7);
+
+                    RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue1.add(inQueueRequest);
+                }
+
+            });
+        }
+
 
 
         if (layout == 3){

@@ -117,6 +117,7 @@ public class CategoryActivity extends BackNavbarActivity {
 
                 //Færir frá "Flokkar" yfir á "Sort" skjá
                 sort.setCategory(chosenCategories);
+                finish();
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
                 sortIntent.putExtra("sort", sort);
                 sortIntent.putExtra("user", currentUser);

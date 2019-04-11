@@ -170,6 +170,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
             public void onClick(View v) {
                 sort.setLocation(chosenLocations);
                 //Færir frá "Staðsetning" yfir á "Sort" skjá
+                finish();
                 sortIntent = new Intent(LocationActivity.this, SortActivity.class);
                 //sortIntent.putExtra(SortActivity.ITEM_FILTERS_TXT, chosenItems2);
                 //sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenLocations);

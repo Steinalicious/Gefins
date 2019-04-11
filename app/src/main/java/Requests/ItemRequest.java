@@ -22,7 +22,7 @@ public class ItemRequest extends StringRequest {
     // 2 skrá sig úr rod
     // 3 eida efsta
     // 4 velja efsta
-    // 5 rate þigjanda
+    // 5 rate þigjanda sem owner
     // 6 rate owner
     // 7 add massage
     // items/queue
