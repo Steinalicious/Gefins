@@ -74,7 +74,7 @@ public class UserActivity extends BackNavbarActivity {
                                 Log.d("user1", currentuser.toString());
 
                                 // Færir frá Login skjá á forsíðu
-                                Intent intent = new Intent(UserActivity.this, MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.putExtra("user", currentuser);
                                 startActivity(intent);
 
