@@ -1,8 +1,12 @@
 package com.gefins;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,9 +68,19 @@ public class InQueueActivity extends BackNavbarActivity {
                     String aUrls[] = new String[adArray.length()];
                     String queue[] = new String[adArray.length()];
 
+                    SpannableStringBuilder builder = new SpannableStringBuilder();
+                    String accepted = "Accepted";
+                    SpannableString redSpannable= new SpannableString(accepted);
+                    redSpannable.setSpan(new ForegroundColorSpan(Color.RED), 0, accepted.length(), 0);
+                    builder.append(redSpannable);
+
                     for(int i = 0; i < adArray.length(); i++) {
                         item = new Item(adArray.getJSONObject(i));
                         names[i] = item.getItemName();
+                        if (item.getAcceptedUser().equals(currentUser.getUserName())) {
+                            System.out.print("lita rautt");
+                            names[i] += accepted;
+                        }
                         queue[i] = item.getQueueInfo().getNumInQue();
                         imgUrls[i] = item.getImg();
                         aUrls[i] = imgUrls[i].replace("http", "https");

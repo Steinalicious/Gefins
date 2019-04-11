@@ -175,7 +175,9 @@
                             android:textAppearance="@android:style/TextAppearance.Material.Title"
                             android:textSize="14sp"
                             android:textStyle="bold" />
+
                     </ScrollView>
+
                 </LinearLayout>
 
 
