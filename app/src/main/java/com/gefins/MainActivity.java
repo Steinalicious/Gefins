@@ -2,8 +2,6 @@ package com.gefins;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.support.v7.widget.Toolbar;
@@ -66,7 +64,7 @@ public class MainActivity extends NavbarActivity {
         currentUser = (User) getIntent().getSerializableExtra("user");
 
         if(currentUser==null){
-            Log.d("ble","USERINN ER HORFINN!!!!!!");}
+            Log.d("HAHAHAH","USERINN ER HORFINN!!!!!!");}
 
         sort = (Sort) getIntent().getSerializableExtra("sort");
 

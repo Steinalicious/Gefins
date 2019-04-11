@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class User implements Serializable{
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 21L;
     // Declare that this attribute is the id
     private String mId;
     private String id;
