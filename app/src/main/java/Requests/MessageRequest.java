@@ -11,6 +11,7 @@ public class MessageRequest extends StringRequest {
     private static final String ADMAKER_REQUEST_URL = "https://gefins-server.herokuapp.com/";
     private Map<String, String> params;
 
+    // sent með request=getMessage
     public MessageRequest(String request, String itemId, String person, String message, Response.Listener<String>listener){
         super(Method.POST, ADMAKER_REQUEST_URL+request, listener, null);
         params = new HashMap<>();

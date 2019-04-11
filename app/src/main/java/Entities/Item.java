@@ -26,6 +26,7 @@ public class Item {
     private String img;
     private QueueInfo queueInfo;
     private OwnerInfo ownerInfo;
+    private MessageInfo messageInfo;
     // Notice the empty constructor, because we need to be able to create an empty PostitNote to add
     // to our model so we can use it with our form
     public Item() {
@@ -83,6 +84,14 @@ public class Item {
             }
                 OwnerInfo ownerInfo = new OwnerInfo(item.getJSONObject("ownerInfo"));
             this.ownerInfo = ownerInfo;
+
+            if(item.has("messageInfo")){
+                MessageInfo messageInfo = new MessageInfo(item.getJSONObject("messageInfo"));
+                this.messageInfo = messageInfo;
+            } else {
+                MessageInfo messageInfo = new MessageInfo();
+                this.messageInfo = messageInfo;
+            }
 
         } catch (Exception e){
             e.printStackTrace();
