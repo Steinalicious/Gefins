@@ -16,8 +16,9 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
-
+import com.squareup.picasso.Picasso;
 import Entities.OwnerInfo;
 import Entities.QueueInfo;
 import Entities.User;
@@ -25,7 +26,7 @@ import Entities.User;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +40,7 @@ import Requests.ItemRequest;
 public class ViewAdActivity extends BackNavbarActivity {
     private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn;
     private ImageView adImg;
+    private ImageView stars1,stars2, stars3, stars4, stars5;
     private User currentUser;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView, numberQueueTxtView, firstQueueTxtView, ownerStarsTxtView, ownerAddressTxtView, ownerPhoneTxtView, ownerEmailTxtView, messageWindowTxtView;
     private EditText messageEdtText;
@@ -107,6 +109,11 @@ public class ViewAdActivity extends BackNavbarActivity {
         messageEdtText = findViewById(R.id.message_editor);
         messageWindowTxtView = findViewById(R.id.message_window);
         deleteAdBtn = findViewById(R.id.deleteAd);
+        stars1 = findViewById(R.id.star1);
+        stars2 = findViewById(R.id.star2);
+        stars3 = findViewById(R.id.star3);
+        stars4 = findViewById(R.id.star4);
+        stars5 = findViewById(R.id.star5);
 
 
 
@@ -266,6 +273,7 @@ public class ViewAdActivity extends BackNavbarActivity {
             });
         }
         isUserInQueue(accepted,responseListener6);
+
         // setti if því hann getur ekki set listener á takka sem er ekki til
         if (!isOwner && !accepted.equals(currentUser.getUserName())) {
             enterQueueBtn.setOnClickListener(new View.OnClickListener() {
@@ -331,6 +339,8 @@ public class ViewAdActivity extends BackNavbarActivity {
                 .load(Uri.parse(aUrl))
                 .placeholder(R.drawable.earth_color)
                 .into(adImg);
+        String rating  = item.getOwnerInfo().getStars();
+        initStars(rating);
     }
 
     public void viewadOwner(String numQueue, String firstQueue) {
@@ -360,6 +370,9 @@ public class ViewAdActivity extends BackNavbarActivity {
                 .load(Uri.parse(aUrl))
                 .placeholder(R.drawable.earth_color)
                 .into(adImg);
+
+
+        //}
        // ownerInfoTxtView.setText(item.getOwner());
         //String stars = String.valueOf();
        // ownerStarsTxtView.setText(stars);
@@ -383,4 +396,92 @@ public class ViewAdActivity extends BackNavbarActivity {
             queue1.add(inQueueRequest);
         }
     }
+
+    public void initStars(String rating){
+        switch (rating){
+            case "0":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_empty);
+                stars3.setImageResource(R.drawable.earth_rating_empty);
+                stars4.setImageResource(R.drawable.earth_rating_empty);
+                stars5.setImageResource(R.drawable.earth_rating_empty);
+
+                break;
+            case "0.5":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_empty);
+                stars3.setImageResource(R.drawable.earth_rating_empty);
+                stars4.setImageResource(R.drawable.earth_rating_empty);
+                stars5.setImageResource(R.drawable.earth_rating_half);
+                break;
+            case "1":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_empty);
+                stars3.setImageResource(R.drawable.earth_rating_empty);
+                stars4.setImageResource(R.drawable.earth_rating_empty);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "1.5":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_empty);
+                stars3.setImageResource(R.drawable.earth_rating_empty);
+                stars4.setImageResource(R.drawable.earth_rating_half);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "2":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_empty);
+                stars3.setImageResource(R.drawable.earth_rating_empty);
+                stars4.setImageResource(R.drawable.earth_rating_full);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "2.5":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_empty);
+                stars3.setImageResource(R.drawable.earth_rating_half);
+                stars4.setImageResource(R.drawable.earth_rating_full);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "3":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_empty);
+                stars3.setImageResource(R.drawable.earth_rating_full);
+                stars4.setImageResource(R.drawable.earth_rating_full);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "3.5":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_half);
+                stars3.setImageResource(R.drawable.earth_rating_full);
+                stars4.setImageResource(R.drawable.earth_rating_full);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "4":
+                stars1.setImageResource(R.drawable.earth_rating_empty);
+                stars2.setImageResource(R.drawable.earth_rating_full);
+                stars3.setImageResource(R.drawable.earth_rating_full);
+                stars4.setImageResource(R.drawable.earth_rating_full);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "4.5":
+                stars1.setImageResource(R.drawable.earth_rating_half);
+                stars2.setImageResource(R.drawable.earth_rating_full);
+                stars3.setImageResource(R.drawable.earth_rating_full);
+                stars4.setImageResource(R.drawable.earth_rating_full);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+            case "5":
+                stars1.setImageResource(R.drawable.earth_rating_full);
+                stars2.setImageResource(R.drawable.earth_rating_full);
+                stars3.setImageResource(R.drawable.earth_rating_full);
+                stars4.setImageResource(R.drawable.earth_rating_full);
+                stars5.setImageResource(R.drawable.earth_rating_full);
+                break;
+
+                default:
+
+      }
+
+    }
+
 }

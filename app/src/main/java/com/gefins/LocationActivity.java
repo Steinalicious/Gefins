@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import Entities.MultiSelectSpinner;
+import Entities.Sort;
 import Entities.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
     private ArrayList<String> chosenLocations;
     private String loc;
     public static final String FILTERS = "item_filter";
-
+    private Sort sort;
     private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
 
         //set curentUser
         currentUser = (User) getIntent().getSerializableExtra("user");
-
+        sort = (Sort) getIntent().getSerializableExtra("sort");
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -41,37 +42,37 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
 
         String[] arrayRvk = {"Hreinsa", "101 - Miðbær", "103 - Kringlan", "104 - Vogar", "105 - Austurbær",
                 "107 - Vesturbær", "108 - Austurbær", "109 - Neðra Breiðholt", "110 - Árbær", "111 - Efra Breiðholt",
-        "112 - Grafarvogur", "113 - Grafarholt", "116 - Kjalarnes", "162 - Dreifbýli"};
+                "112 - Grafarvogur", "113 - Grafarholt", "116 - Kjalarnes", "162 - Dreifbýli"};
         String[] arrayKop = {"Hreinsa", "200 - Kópavogur", "201 - Kópavogur", "202 - Kópavogur", "203 - Kópavogur"};
         String[] arrayGrb = {"Hreinsa", "210 - Garðabær", "212 - Garðabær", "225 - Garðabær"};
         String[] arrayHfj = {"Hreinsa", "220 - Hafnarfjörður", "221 - Hafnarfjörður", "222 - Hafnarfjörður"};
         String[] arrayMos = {"Hreinsa", "270 - Mosfellsbær", "271 - Mosfellsbær", "276 - Mosfellsbær"};
         String[] arraySel = {"Hreinsa", "170 - Seltjarnarnes"};
         String[] arraySudnes = {"Hreinsa", "230 - Keflavík", "232 - Keflavík", "233 - Hafnir", "262 - Ásbrú",
-        "235 - Ásbrú", "240 - Grindavík", "245 - Sandgerði", "250 - Garður", "260 - Njarðvík", "190 - Vogar"};
+                "235 - Ásbrú", "240 - Grindavík", "245 - Sandgerði", "250 - Garður", "260 - Njarðvík", "190 - Vogar"};
         String[] arrayNord = {"Hreinsa", "500 - Staður", "510 - Hólmavík", "520 - Drangsnes", "522 - Kjörvogur",
-        "523 - Bær", "524 - Norðurfjörður", "530 - Hvammstangi", "531 - Hvammstangi", "540 - Blönduós",
-        "541 - Blönduós", "545 - Skagaströnd", "550 - Sauðárkrókur", "551 - Sauðárkrókur", "560 - Varmahlíð",
-        "565 - Hofsós", "566 - Hofsós", "570 - Fljót", "580 - Siglufjörður", "600 - Akureyri", "601 - Akureyri",
-        "602 - Akureyri", "603 - Akureyri", "610 - Grenivík", "611 - Grímsey", "620 - Dalvík", "621 - Dalvík",
+                "523 - Bær", "524 - Norðurfjörður", "530 - Hvammstangi", "531 - Hvammstangi", "540 - Blönduós",
+                "541 - Blönduós", "545 - Skagaströnd", "550 - Sauðárkrókur", "551 - Sauðárkrókur", "560 - Varmahlíð",
+                "565 - Hofsós", "566 - Hofsós", "570 - Fljót", "580 - Siglufjörður", "600 - Akureyri", "601 - Akureyri",
+                "602 - Akureyri", "603 - Akureyri", "610 - Grenivík", "611 - Grímsey", "620 - Dalvík", "621 - Dalvík",
                 "625 - Ólafsfjörður", "630 - Hrísey", "640 - Húsavík", "641 - Húsavík", "645 - Fosshóll",
-        "650 - Laugar", "660 - Mývatn", "670 - Kópasker", "671 - Kópasker", "675 - Raufarhöfn", "680 - Þórshöfn",
-        "681 - Þórshöfn"};
+                "650 - Laugar", "660 - Mývatn", "670 - Kópasker", "671 - Kópasker", "675 - Raufarhöfn", "680 - Þórshöfn",
+                "681 - Þórshöfn"};
         String[] arrayVest = {"Hreinsa", "400 - Ísafjörður", "401 - Ísafjörður", "410 - Hnífsdalur", "415 - Bolungarvík",
-        "420 - Súðavík", "425 - Flateyri", "430 - Suðureyri", "450 - Patreksfjörður", "451 - Patreksfjörður",
-        "460 - Tálknafjörður", "465 - Bíldudalur", "470 - Þingeyri", "471 - Þingeyri"};
+                "420 - Súðavík", "425 - Flateyri", "430 - Suðureyri", "450 - Patreksfjörður", "451 - Patreksfjörður",
+                "460 - Tálknafjörður", "465 - Bíldudalur", "470 - Þingeyri", "471 - Þingeyri"};
         String[] arrayVestland = {"Hreinsa", "300 - Akranes", "301 - Akranes", "302 - Akranes", "310 - Borgarnes",
-        "311 - Borgarbyggð", "320 - Reykholt í Borgarfirði", "340 - Stykkishólmur", "345 - Flatey á Breiðafirði",
-        "350 - Grundarfjörður", "355 - Snæfellsbær", "356 - Snæfellsbær", "360 - Snæfellsbær", "370 - Búðardalur",
-        "371 - Búðardalur", "380 - Króksfjarðarnes"};
+                "311 - Borgarbyggð", "320 - Reykholt í Borgarfirði", "340 - Stykkishólmur", "345 - Flatey á Breiðafirði",
+                "350 - Grundarfjörður", "355 - Snæfellsbær", "356 - Snæfellsbær", "360 - Snæfellsbær", "370 - Búðardalur",
+                "371 - Búðardalur", "380 - Króksfjarðarnes"};
         String[] arrayAust = {"Hreinsa", "685 - Bakkafjörður", "690 - Vopnafjörður", "700 - Egilsstaðir", "701 - Egilsstaðir",
-        "710 - Seyðisfjörður", "715 - Mjóifjörður", "720 - Borgarfjörður", "730 - Reyðarfjörður", "735 - Eskifjörður",
-        "740 - Neskaupstaður", "750 - Fáskrúðsfjörður", "755 - Stöðvarfjörður", "760 - Breiðdalsvík",
-        "765 - Djúpivogur", "780 - Höfn í Hornafirði", "781 - Höfn í Hornafirði", "785 - Fagurhólsmýri"};
+                "710 - Seyðisfjörður", "715 - Mjóifjörður", "720 - Borgarfjörður", "730 - Reyðarfjörður", "735 - Eskifjörður",
+                "740 - Neskaupstaður", "750 - Fáskrúðsfjörður", "755 - Stöðvarfjörður", "760 - Breiðdalsvík",
+                "765 - Djúpivogur", "780 - Höfn í Hornafirði", "781 - Höfn í Hornafirði", "785 - Fagurhólsmýri"};
         String[] arraySudland = {"Hreinsa", "800 - Selfoss", "801 - Selfoss", "802 - Selfoss", "810 - Hveragerði",
-        "815 - Þorlákshöfn", "820 - Eyrarbakki", "825 - Stokkseyri", "840 - Laugarvatn", "845 - Flúðir",
-        "850 - Hella", "851 - Hella", "860 - Hvolsvöllur", "861 - Hvolsvöllur", "870 - Vík", "871 - Vík",
-        "880 - Kirkjubæjarklaustur", "900 - Vestmannaeyjar", "901 - Vestmannaeyjabær"};
+                "815 - Þorlákshöfn", "820 - Eyrarbakki", "825 - Stokkseyri", "840 - Laugarvatn", "845 - Flúðir",
+                "850 - Hella", "851 - Hella", "860 - Hvolsvöllur", "861 - Hvolsvöllur", "870 - Vík", "871 - Vík",
+                "880 - Kirkjubæjarklaustur", "900 - Vestmannaeyjar", "901 - Vestmannaeyjabær"};
 
 
         MultiSelectSpinner multiSelectSpinnerRvk = (MultiSelectSpinner) findViewById(R.id.spinnerRvk);
@@ -167,10 +168,12 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
         chooseLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sort.setLocation(chosenLocations);
                 //Færir frá "Staðsetning" yfir á "Sort" skjá
                 sortIntent = new Intent(LocationActivity.this, SortActivity.class);
-                sortIntent.putExtra(SortActivity.ITEM_FILTERS_TXT, chosenItems2);
-                sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenLocations);
+                //sortIntent.putExtra(SortActivity.ITEM_FILTERS_TXT, chosenItems2);
+                //sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenLocations);
+                sortIntent.putExtra("sort", sort);
                 sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);
             }
