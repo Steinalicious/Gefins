@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -68,18 +69,14 @@ public class InQueueActivity extends BackNavbarActivity {
                     String aUrls[] = new String[adArray.length()];
                     String queue[] = new String[adArray.length()];
 
-                    SpannableStringBuilder builder = new SpannableStringBuilder();
-                    String accepted = "Accepted";
-                    SpannableString redSpannable= new SpannableString(accepted);
-                    redSpannable.setSpan(new ForegroundColorSpan(Color.RED), 0, accepted.length(), 0);
-                    builder.append(redSpannable);
+
+
 
                     for(int i = 0; i < adArray.length(); i++) {
                         item = new Item(adArray.getJSONObject(i));
                         names[i] = item.getItemName();
-                        if (item.getAcceptedUser().equals(currentUser.getUserName())) {
-                            System.out.print("lita rautt");
-                            names[i] += accepted;
+                        if (item.getAcceptedUser().equals(currentUser.getId())) {
+                            names[i] += "  VARAN ER ÞÍN";
                         }
                         queue[i] = item.getQueueInfo().getNumInQue();
                         imgUrls[i] = item.getImg();
@@ -88,7 +85,8 @@ public class InQueueActivity extends BackNavbarActivity {
                             return;
                         } else {
                             adList.add(item.getItemName());
-
+                            String accepter = item.getAcceptedUser();
+                            Log.d("accepterQueue", accepter);
                             // Listi af auglýsingum
                             ListViewAdapter listViewAdapter = new ListViewAdapter(getApplicationContext(),
                                     R.layout.list_item_layout, names, aUrls, queue);

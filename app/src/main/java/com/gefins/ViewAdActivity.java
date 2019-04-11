@@ -61,11 +61,12 @@ public class ViewAdActivity extends ExitNavbarActivity {
         final Bundle extras = getIntent().getExtras();
         String itemOwner = extras.getString("itemOwner");
         String accepted = extras.getString("accepted");
+        Log.d("accepted", accepted);
         currentUser = (User) getIntent().getSerializableExtra("user");
         isOwner = currentUser.getUserName().equals(itemOwner);
 
 
-        if (currentUser.getUserName().equals(accepted) || isOwner && !accepted.equals("0")){
+        if (currentUser.getId().equals(accepted) || isOwner && !accepted.equals("0")){
             layout =3;
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewadaccepted, contentFrameLayout);
@@ -285,7 +286,7 @@ public class ViewAdActivity extends ExitNavbarActivity {
         isUserInQueue(accepted,responseListener6);
 
         // setti if því hann getur ekki set listener á takka sem er ekki til
-        if (!isOwner && !accepted.equals(currentUser.getUserName())) {
+        if (!isOwner && !accepted.equals(currentUser.getId())) {
             enterQueueBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -408,7 +409,7 @@ public class ViewAdActivity extends ExitNavbarActivity {
                 R.layout.message_item_layout, R.id.message, messageList);
         listView.setAdapter(arrayAdapter);
 
-        Log.d("vA",messageWindowTxtView.getText().toString());
+       // Log.d("vA",messageWindowTxtView.getText().toString());
         adNameTxtView.setText(item.getItemName());
 //        descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
@@ -438,7 +439,7 @@ public class ViewAdActivity extends ExitNavbarActivity {
     }
 
     public void isUserInQueue(String accepted, Response.Listener<String> responseListener){
-        if (!isOwner && !accepted.equals(currentUser.getUserName())) {
+        if (!isOwner && !accepted.equals(currentUser.getId())) {
             ItemRequest inQueueRequest = new ItemRequest ("Items/queue","exists", itemID, currentUser.getId(), responseListener);
             RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
             queue1.add(inQueueRequest);
