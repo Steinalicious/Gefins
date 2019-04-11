@@ -62,9 +62,8 @@ public class RegisterActivity extends BackNavbarActivity {
 
                 String passwordConfirm = confirmEdTxt.getText().toString();
 
-                final EditText emailValidate = (EditText)findViewById(R.id.registerEmailEditText);
 
-                String email = emailValidate.getText().toString().trim();
+                String email = emailEdTxt.getText().toString().trim();
 
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -99,17 +98,31 @@ public class RegisterActivity extends BackNavbarActivity {
                 };
 
 
-                if (/*(*/user.getPassword().equals(passwordConfirm)/*) && (email.matches(emailPattern))*/) {
+                if ((user.getPassword().equals(passwordConfirm)) && (email.matches(emailPattern))) {
 
                     //Tengist server
                     UserRequest registerRequest = new UserRequest(user,"register", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(registerRequest);
-                } else {
+                } else if ((!user.getPassword().equals(passwordConfirm)) && (email.matches(emailPattern))){
 
                     //Varar við að Lykilorð eru mismunandi
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("Mismundandi lykilorð eða ógilt netfang")
+                    builder.setMessage("Mismundandi lykilorð")
+                            .setNegativeButton("Reyna Aftur", null)
+                            .create()
+                            .show();
+                } else if ((user.getPassword().equals(passwordConfirm)) && (!email.matches(emailPattern))) {
+                    //Varar við að Lykilorð eru mismunandi
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setMessage("Netfang er ekki gilt")
+                            .setNegativeButton("Reyna Aftur", null)
+                            .create()
+                            .show();
+                } else if ((!user.getPassword().equals(passwordConfirm)) && (!email.matches(emailPattern))) {
+                    //Varar við að Lykilorð eru mismunandi
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setMessage("Mismundandi lykilorð og netfang er ekki gilt")
                             .setNegativeButton("Reyna Aftur", null)
                             .create()
                             .show();

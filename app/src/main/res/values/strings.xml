@@ -40,8 +40,7 @@
     <string name="viewad_category">Flokkur: </string>
     <string name="viewad_zip">Póstnúmer: </string>
     <string name="viewad_description">Lýsing: </string>
-    <string name="viewad_ownerinfo">Upplýsingar um gefanda</string>
-    <string name="viewad_cancel">Hætta við</string>
+    <string name="viewad_ownerinfo">Upplýsingar um gefanda:</string>
     <string name="viewad_message">Senda skilaboð</string>
     <string name="viewad_delete">Eyða</string>
     <string name="viewad_edit">Breyta</string>
@@ -54,6 +53,10 @@
     <string name="viewad_deleteButton">Eyða:</string>
     <string name="send_message">Skrifa skilaboð:</string>
     <string name="message_title">Skilaboð:</string>
+    <string name="message_send">Senda</string>
+    <string name="cancel">Hætta við</string>
+    <string name="ratings_title">Stjörnugjöf:</string>
+    <string name="stars">Stjörnur:</string>
     <string name="settings_submit">Staðfesta</string>
     <string name="chosen">Valið:</string>
     <string name="chosenItems"></string>
@@ -103,6 +106,14 @@
         <item>Matur</item>
         <item>Dýr</item>
         <item>Annað</item>
+    </string-array>
+
+    <string-array name="stars_dropdown">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 </resources>
