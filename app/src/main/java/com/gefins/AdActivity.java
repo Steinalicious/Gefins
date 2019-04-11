@@ -50,8 +50,6 @@ public class AdActivity extends ExitNavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_ad, contentFrameLayout);
 
-        MediaManager.init(this);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.exit_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -79,6 +77,7 @@ public class AdActivity extends ExitNavbarActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MediaManager.init(getApplicationContext());
 
                 String requestId = MediaManager.get()
                         .upload(selectedImg)

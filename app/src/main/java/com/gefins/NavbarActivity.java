@@ -45,41 +45,6 @@ public class NavbarActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.baseline_menu_white2_18dp);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        notifyBtn = findViewById(R.id.notifyBtn);
-
-        notifyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //We get a reference to the NotificationManager
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-                String MyText = "Reminder";
-
-                Notification mNotification = new Notification.Builder(getApplicationContext())
-                        .setContentText("hallo")
-                        .setSmallIcon(R.drawable.notifyicon)
-                        .setWhen(System.currentTimeMillis())
-                        .build();
-                //The three parameters are: 1. an icon, 2. a title, 3. time when the notification appears
-
-                String MyNotificationTitle = "Medicine!";
-                String MyNotificationText  = "Don't forget to take your medicine!";
-
-                Intent MyIntent = new Intent(Intent.ACTION_VIEW);
-                PendingIntent StartIntent = PendingIntent.getActivity(getApplicationContext(),0,MyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-                //A PendingIntent will be fired when the notification is clicked. The FLAG_CANCEL_CURRENT flag cancels the pendingintent
-
-                //mNotification.setLatestEventInfo(getApplicationContext(), MyNotificationTitle, MyNotificationText, StartIntent);
-
-                int NOTIFICATION_ID = 1;
-                notificationManager.notify(NOTIFICATION_ID , mNotification);
-                //We are passing the notification to the NotificationManager with a unique id.
-                Intent i = new Intent(NavbarActivity.this, MyspaceActivity.class);
-                i.putExtra("user", currentUser);
-                startActivity(i);
-            }
-        });
 
         Item item = new Item();
         item.getOwner();

@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 import Entities.Item;
 import Requests.ItemRequest;
+import Requests.MessageRequest;
 
 /* Eftir að klára allt varðandi ViewAd */
 
@@ -64,7 +65,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         final Bundle extras = getIntent().getExtras();
         String itemOwner = extras.getString("itemOwner");
         String accepted = extras.getString("accepted");
-        Log.d("accepted", accepted);
         currentUser = (User) getIntent().getSerializableExtra("user");
         isOwner = currentUser.getUserName().equals(itemOwner);
 
@@ -340,12 +340,14 @@ public class ViewAdActivity extends ExitNavbarActivity {
             messageBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    String a = currentUser.getUserName();
-                    a+="\n"+messageEdtText.getText().toString();
+                    String message = messageEdtText.getText().toString();
+                    //String a = currentUser.getUserName();
+                    //a += "\n" + messageEdtText.getText().toString();
 
-                    ItemRequest inQueueRequest = new ItemRequest("items/queue","7",itemID,a, responseListener4);
+                    MessageRequest messageRequest = new MessageRequest("/sendMessage",
+                            itemID, currentUser.getId(), message , responseListener4);
                     RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
-                    queue1.add(inQueueRequest);
+                    queue1.add(messageRequest);
                 }
 
             });
@@ -404,15 +406,31 @@ public class ViewAdActivity extends ExitNavbarActivity {
     }
 
     public void viewadAccepted() {
+        /*
         Log.d("vA",item.toString());
-        //messageWindowTxtView.setText(item.getMessenger());
+        messageWindowTxtView.setText(item.getMessenger());
         messageList.add(item.getMessenger());
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ViewAdActivity.this,
                 R.layout.message_item_layout, R.id.message, messageList);
         listView.setAdapter(arrayAdapter);
 
-       // Log.d("vA",messageWindowTxtView.getText().toString());
+        Log.d("vA",messageWindowTxtView.getText().toString());
+        */
+
+        ////////////////////////////////////////////////////////item.getMessageInfo().getUserName();
+
+        String[] usernames = {"anna", "ragnar", "petur", "palina", "halli", "tussa"};
+        String[] messages = {"hallo", "flott", "jajajjaja", "akldjglkajdslkjgal", "jalkdsjglka", "ladsjglkajg"};
+
+        // Listi af mínum auglýsingum
+        //MessageListAdapter messageListAdapter = new MessageListAdapter(getApplicationContext(),
+         //       R.layout.message_item_layout, usernames, messages);
+        //listView.setAdapter(messageListAdapter);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ViewAdActivity.this,
+                R.layout.message_item_layout, R.id.message_username, usernames);
+        listView.setAdapter(arrayAdapter);
+
         adNameTxtView.setText(item.getItemName());
 //        descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
@@ -438,6 +456,13 @@ public class ViewAdActivity extends ExitNavbarActivity {
             ownerEmailTxtView.setText(item.getOwnerInfo().getEmail());
         }
 
+        //}
+       // ownerInfoTxtView.setText(item.getOwner());
+        //String stars = String.valueOf();
+       // ownerStarsTxtView.setText(stars);
+      //  ownerAddressTxtView.setText();
+      //  ownerPhoneTxtView.setText();
+      //  ownerEmailTxtView.setText();
     }
 
     public void getitem(Response.Listener<String> responseListener) {
