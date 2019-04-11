@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Switch;
@@ -54,6 +55,8 @@ public class ViewAdActivity extends ExitNavbarActivity {
     private int layout;
     ListView listView;
     ArrayList<String> messageList = new ArrayList<>();
+    private LinearLayout acceptLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -421,13 +424,20 @@ public class ViewAdActivity extends ExitNavbarActivity {
                 .into(adImg);
 
 
-        //}
-       // ownerInfoTxtView.setText(item.getOwner());
-        //String stars = String.valueOf();
-       // ownerStarsTxtView.setText(stars);
-      //  ownerAddressTxtView.setText();
-      //  ownerPhoneTxtView.setText();
-      //  ownerEmailTxtView.setText();
+        acceptLayout=(LinearLayout)this.findViewById(R.id.accepted_layout);
+
+        if(isOwner) {
+            acceptLayout.setVisibility(LinearLayout.GONE);
+        } else {
+            acceptLayout.setVisibility(LinearLayout.VISIBLE);
+            ownerInfoTxtView.setText(item.getOwner());
+            //String stars = String.valueOf();
+            // ownerStarsTxtView.setText(stars);
+            ownerAddressTxtView.setText(item.getOwnerInfo().getLocation());
+            ownerPhoneTxtView.setText(item.getOwnerInfo().getPhone());
+            ownerEmailTxtView.setText(item.getOwnerInfo().getEmail());
+        }
+
     }
 
     public void getitem(Response.Listener<String> responseListener) {

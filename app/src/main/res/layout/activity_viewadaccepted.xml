@@ -208,6 +208,13 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="341dp"
+            android:layout_height="250dp"
+            android:gravity="bottom"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:id="@+id/accepted_layout">
 
             <LinearLayout
                 android:layout_width="341dp"
@@ -356,6 +363,7 @@
 
 
             </LinearLayout>
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="341dp"
