@@ -24,6 +24,8 @@ public class ItemRequest extends StringRequest {
     // 4 velja efsta
     // 5 rate þigjanda
     // 6 rate owner
+    // 7 add massage
+    // items/queue
     public ItemRequest(String request,String option,String itemID,String userID, Response.Listener<String> listener){
         super(Method.PATCH, ADMAKER_REQUEST_URL+request, listener, null);
         params = new HashMap<>();

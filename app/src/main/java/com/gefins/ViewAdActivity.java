@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,13 +34,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import Entities.Item;
 import Requests.ItemRequest;
 
 /* Eftir að klára allt varðandi ViewAd */
 
-public class ViewAdActivity extends BackNavbarActivity {
-    private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn;
+public class ViewAdActivity extends ExitNavbarActivity {
+    private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn, messageBtn, cancelqueue;
     private ImageView adImg;
     private ImageView stars1,stars2, stars3, stars4, stars5;
     private User currentUser;
@@ -48,6 +52,8 @@ public class ViewAdActivity extends BackNavbarActivity {
     private String itemID, numInQue, firstInQue, option;
     private boolean isOwner;
     private int layout;
+    ListView listView;
+    ArrayList<String> messageList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -78,11 +84,13 @@ public class ViewAdActivity extends BackNavbarActivity {
         }
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.exit_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.back_title);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.exit_title);
         mTitle.setText(R.string.viewad_title);
+
+        listView = (ListView)findViewById(R.id.message_list);
 
         //set currentUser
 
@@ -90,6 +98,8 @@ public class ViewAdActivity extends BackNavbarActivity {
         itemID = extras.getString("chosenItem");
 
         acceptfromqueue = findViewById(R.id.accept_from_queue);
+
+        cancelqueue = findViewById(R.id.cancel_queue);
 
         adImg = findViewById(R.id.adImg);
         categoryTxtView = findViewById(R.id.category_container);
@@ -107,7 +117,8 @@ public class ViewAdActivity extends BackNavbarActivity {
         ownerPhoneTxtView = findViewById(R.id.owner_phone_container);
         ownerEmailTxtView = findViewById(R.id.owner_email_container);
         messageEdtText = findViewById(R.id.message_editor);
-        messageWindowTxtView = findViewById(R.id.message_window);
+        //messageWindowTxtView = findViewById(R.id.message_window);
+        messageBtn = findViewById(R.id.message_button);
         deleteAdBtn = findViewById(R.id.deleteAd);
         stars1 = findViewById(R.id.star1);
         stars2 = findViewById(R.id.star2);
@@ -246,11 +257,7 @@ public class ViewAdActivity extends BackNavbarActivity {
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Log.d("j1","225");
-                        layout=3;
-                        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
-                        getLayoutInflater().inflate(R.layout.activity_viewadaccepted, contentFrameLayout);
-                        getitem(responseListener);
+                        reload();
                     } else {
                         Log.d("j2","responseListener4");
                     }
@@ -261,11 +268,14 @@ public class ViewAdActivity extends BackNavbarActivity {
             }
         };
 
+
         if(isOwner && accepted.equals("0")) {
+            //acceptar user í röð
             acceptfromqueue.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    Log.d("j7","listener");
+
+                    item.setAcceptedUser(firstInQue);
                     ItemRequest inQueueRequest = new ItemRequest("items/queue", "4", itemID, currentUser.getId(), responseListener4);
                     RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
                     queue1.add(inQueueRequest);
@@ -306,6 +316,36 @@ public class ViewAdActivity extends BackNavbarActivity {
         };
 
 
+        if (layout == 3){
+            // add message takki
+            cancelqueue.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    item.setAcceptedUser("0");
+                    ItemRequest inQueueRequest = new ItemRequest("items/queue","3",itemID,"0", responseListener4);
+                    RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue1.add(inQueueRequest);
+                }
+
+            });
+        }
+
+
+        if (layout == 3){
+            // add message takki
+            messageBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    String a = currentUser.getUserName();
+                    a+="\n"+messageEdtText.getText().toString();
+
+                    ItemRequest inQueueRequest = new ItemRequest("items/queue","7",itemID,a, responseListener4);
+                    RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
+                    queue1.add(inQueueRequest);
+                }
+
+            });
+        }
 
 
         // setti if því hann getur ekki set listener á takka sem er ekki til
@@ -360,7 +400,15 @@ public class ViewAdActivity extends BackNavbarActivity {
     }
 
     public void viewadAccepted() {
-        Log.d("j8",item.toString());
+        Log.d("vA",item.toString());
+        //messageWindowTxtView.setText(item.getMessenger());
+        messageList.add(item.getMessenger());
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ViewAdActivity.this,
+                R.layout.message_item_layout, R.id.message, messageList);
+        listView.setAdapter(arrayAdapter);
+
+        Log.d("vA",messageWindowTxtView.getText().toString());
         adNameTxtView.setText(item.getItemName());
 //        descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
@@ -396,6 +444,24 @@ public class ViewAdActivity extends BackNavbarActivity {
             queue1.add(inQueueRequest);
         }
     }
+    private  void reload(){
+        finish();
+        Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
+        i.putExtra("chosenItem", item.getId());
+        i.putExtra("itemOwner", item.getOwner());
+        i.putExtra("accepted",item.getAcceptedUser());
+        i.putExtra("user", currentUser);
+        startActivity(i);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent( this, MainActivity.class);
+        intent.putExtra("user", currentUser);
+        this.startActivity(intent);
+        return true;
+    }
+
 
     public void initStars(String rating){
         switch (rating){

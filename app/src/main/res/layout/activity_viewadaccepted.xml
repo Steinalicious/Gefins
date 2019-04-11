@@ -153,7 +153,7 @@
 
             <LinearLayout
                 android:layout_width="341dp"
-                android:layout_height="250dp"
+                android:layout_height="295dp"
                 android:gravity="bottom"
                 android:orientation="vertical">
 
@@ -163,35 +163,22 @@
                     android:gravity="bottom"
                     android:orientation="vertical">
 
-                    <ScrollView
+                    <ListView
+                        android:id="@+id/message_list"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fillViewport="true">
-
-                        <TextView
-                            android:id="@+id/message_window"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@android:style/TextAppearance.Material.Title"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </ScrollView>
-
+                        android:layout_height="match_parent" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="341dp"
                     android:layout_height="48dp"
                     android:gravity="bottom"
-                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/message_editor"
-                        android:layout_width="260dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:fillViewport="true"
                         android:hint="@string/send_message"
                         android:inputType="textShortMessage"
@@ -200,22 +187,24 @@
                         android:textSize="14sp"
                         tools:ignore="Autofill" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                     <Button
                         android:id="@+id/message_button"
                         style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="80dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorAccent"
                         android:text="@string/message_send"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/divider26"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
 
             </LinearLayout>
 
@@ -416,7 +405,7 @@
 
                 <TextView
                     android:id="@+id/ratings"
-                    android:layout_width="match_parent"
+                    android:layout_width="104dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -426,15 +415,25 @@
 
                 <Spinner
                     android:id="@+id/spinner"
-                    android:layout_width="match_parent"
+                    android:layout_width="134dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorAccent"
                     android:dropDownWidth="match_parent"
                     android:entries="@array/stars_dropdown"
                     android:padding="5dp"
-                    android:textSize="12sp"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/submitRatingBtn"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="69dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="OK"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -451,7 +450,7 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/blue"
                     android:text="@string/cancel"
                     android:textColor="@color/white"
                     android:textSize="12sp" />

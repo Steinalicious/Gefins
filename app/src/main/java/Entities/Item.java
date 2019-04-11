@@ -108,7 +108,7 @@ public class Item {
     }
 
     public String getMessenger() {
-        return messenger;
+        return this.messenger;
     }
 
     public void setMessenger(String m){
