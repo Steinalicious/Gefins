@@ -76,7 +76,7 @@ public class InQueueActivity extends BackNavbarActivity {
                         item = new Item(adArray.getJSONObject(i));
                         names[i] = item.getItemName();
                         if (item.getAcceptedUser().equals(currentUser.getId())) {
-                            names[i] += "  VARAN ER ÞÍN";
+                            names[i] += "  ✔ ";
                         }
                         queue[i] = item.getQueueInfo().getNumInQue();
                         imgUrls[i] = item.getImg();

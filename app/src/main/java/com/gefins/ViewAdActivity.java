@@ -451,8 +451,8 @@ public class ViewAdActivity extends ExitNavbarActivity {
             ownerInfoTxtView.setText(item.getOwner());
             //String stars = String.valueOf();
             // ownerStarsTxtView.setText(stars);
-            ownerAddressTxtView.setText(item.getOwnerInfo().getLocation());
-            ownerPhoneTxtView.setText(item.getOwnerInfo().getPhone());
+            ownerAddressTxtView.setText(item.getLocation());
+            ownerPhoneTxtView.setText(item.getPhone());
             ownerEmailTxtView.setText(item.getOwnerInfo().getEmail());
         }
 

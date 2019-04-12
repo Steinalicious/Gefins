@@ -68,6 +68,7 @@ public class AdActivity extends ExitNavbarActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                 startActivityForResult(Intent.createChooser(intent,"Choose image"), PICK_FILE_REQUEST);
@@ -77,7 +78,14 @@ public class AdActivity extends ExitNavbarActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaManager.init(getApplicationContext());
+
+
+                    try{ MediaManager.get();}
+
+                    catch (Exception e){
+                        MediaManager.init(getApplicationContext());
+                    }
+
 
                 String requestId = MediaManager.get()
                         .upload(selectedImg)
@@ -130,6 +138,7 @@ public class AdActivity extends ExitNavbarActivity {
 
                                             if(success) {
                                                 // Færir frá Login skjá á forsíðu
+                                                finish();
                                                 Intent intent = new Intent( AdActivity.this, MainActivity.class);
                                                 intent.putExtra("user", currentUser);
                                                 AdActivity.this.startActivity(intent);
@@ -147,6 +156,7 @@ public class AdActivity extends ExitNavbarActivity {
                                     }
                                 };
                                 Log.d("JSONADMAKER", "HEI");
+
                                 ItemRequest itemRequest = new ItemRequest(item, "admaker", responseListener);
                                 RequestQueue queue = Volley.newRequestQueue(AdActivity.this);
                                 queue.add(itemRequest);
@@ -199,6 +209,7 @@ public class AdActivity extends ExitNavbarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
         Intent intent = new Intent( this, MainActivity.class);
         intent.putExtra("user", currentUser);
         AdActivity.this.startActivity(intent);

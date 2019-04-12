@@ -24,7 +24,7 @@
         <Button
             android:id="@+id/myAdsButton"
             android:layout_width="match_parent"
-            android:layout_height="295dp"
+            android:layout_height="300dp"
             android:backgroundTint="@color/blue"
             android:text="@string/myAds"
             android:textColor="@color/white"
@@ -33,7 +33,7 @@
         <Button
             android:id="@+id/inQueueForButton"
             android:layout_width="match_parent"
-            android:layout_height="295dp"
+            android:layout_height="300dp"
             android:backgroundTint="@color/blue"
             android:text="@string/inQueueFor"
             android:textColor="@color/white"

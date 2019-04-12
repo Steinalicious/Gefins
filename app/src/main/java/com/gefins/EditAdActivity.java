@@ -58,7 +58,11 @@ public class EditAdActivity extends BackNavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_editad, contentFrameLayout);
 
-        MediaManager.init(this);
+        try{ MediaManager.get();}
+
+        catch (Exception e){
+            MediaManager.init(this);
+        }
 
         // Titill í header
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
@@ -121,6 +125,7 @@ public class EditAdActivity extends BackNavbarActivity {
         btn_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                 startActivityForResult(Intent.createChooser(intent,"Choose image"), PICK_FILE_REQUEST);
@@ -181,6 +186,7 @@ public class EditAdActivity extends BackNavbarActivity {
 
                                             if(success) {
                                                 // Færir frá Login skjá á forsíðu
+                                                finish();
                                                 Intent intent = new Intent( EditAdActivity.this, MainActivity.class);
                                                 intent.putExtra("user", currentUser);
                                                 EditAdActivity.this.startActivity(intent);
@@ -246,6 +252,7 @@ public class EditAdActivity extends BackNavbarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
         Intent intent = new Intent( this, MainActivity.class);
         intent.putExtra("user", currentUser);
         EditAdActivity.this.startActivity(intent);
