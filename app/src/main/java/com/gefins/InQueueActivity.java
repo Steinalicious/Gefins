@@ -41,7 +41,7 @@ public class InQueueActivity extends BackNavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_inqueue, contentFrameLayout);
 
-        // Titill í header
+        // Title in header
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -57,8 +57,6 @@ public class InQueueActivity extends BackNavbarActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("INQUE", response);
                     JSONObject jsonResponse = new JSONObject(response);
                     final JSONArray adArray = jsonResponse.getJSONArray("items");
                     Item item = new Item();
@@ -68,9 +66,6 @@ public class InQueueActivity extends BackNavbarActivity {
                     String imgUrls[] = new String[adArray.length()];
                     String aUrls[] = new String[adArray.length()];
                     String queue[] = new String[adArray.length()];
-
-
-
 
                     for(int i = 0; i < adArray.length(); i++) {
                         item = new Item(adArray.getJSONObject(i));
@@ -86,13 +81,12 @@ public class InQueueActivity extends BackNavbarActivity {
                         } else {
                             adList.add(item.getItemName());
                             String accepter = item.getAcceptedUser();
-                            Log.d("accepterQueue", accepter);
-                            // Listi af auglýsingum
+                            // List of ads
                             ListViewAdapter listViewAdapter = new ListViewAdapter(getApplicationContext(),
                                     R.layout.list_item_layout, names, aUrls, queue);
                             listViewInQueue.setAdapter(listViewAdapter);
 
-                            // Þegar owner klikkar á auglýsingarnar sínar
+                            // When owner clicks on his ads
                             listViewInQueue.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -104,8 +98,7 @@ public class InQueueActivity extends BackNavbarActivity {
                                         i.putExtra("user", currentUser);
                                         startActivity(i);
                                     } catch (Exception e) {
-                                        //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
-                                        //  startActivity(intent);
+                                        e.printStackTrace();
                                     }
                                 }
                             });

@@ -8,8 +8,6 @@ import android.widget.Button;
 
 
 public class WelcomeActivity extends AppCompatActivity {
-
-    // Skilgreinigar
     private Button loginBtn;
     private Button registerBtn;
 
@@ -22,23 +20,19 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
 
-        // Virknin á login takkanum
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Færir frá aðalskjá yfir á login skjá
+                //Moves from welcome screen to the loginScreen
                 Intent intent = new Intent(WelcomeActivity.this, UserActivity.class);
                 startActivity(intent);
             }
         });
 
-        // Virknin á register takkanum
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Færir frá aðalskjá yfir á register skjá
+                //Moves from welcome screen to the login screen
                 Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }

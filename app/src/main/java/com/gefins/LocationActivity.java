@@ -149,7 +149,7 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
         chosenItems2 = getString(R.string.chosenItems);
         chosenLocations = new ArrayList<>();
 
-        // Velja takki
+        // picked button
         chooseLocBtn = findViewById(R.id.chooseLocBtn);
         sortIntent = new Intent(LocationActivity.this, SortActivity.class);
 
@@ -164,16 +164,14 @@ public class LocationActivity extends BackNavbarActivity implements MultiSelectS
         }
 
 
-        // Virknin á "Velja" takkanum
+        // functionality of "Velja" button
         chooseLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sort.setLocation(chosenLocations);
-                //Færir frá "Staðsetning" yfir á "Sort" skjá
+                //Moves from "Staðsetning" to "Sort" screen
                 finish();
                 sortIntent = new Intent(LocationActivity.this, SortActivity.class);
-                //sortIntent.putExtra(SortActivity.ITEM_FILTERS_TXT, chosenItems2);
-                //sortIntent.putExtra(SortActivity.ITEM_FILTERS, chosenLocations);
                 sortIntent.putExtra("sort", sort);
                 sortIntent.putExtra("user", currentUser);
                 startActivity(sortIntent);

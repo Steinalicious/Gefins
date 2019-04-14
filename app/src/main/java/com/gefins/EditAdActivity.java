@@ -1,6 +1,5 @@
 package com.gefins;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -64,7 +63,7 @@ public class EditAdActivity extends BackNavbarActivity {
             MediaManager.init(this);
         }
 
-        // Titill í header
+        // Title in header
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -88,17 +87,16 @@ public class EditAdActivity extends BackNavbarActivity {
 
         itemID = extras.getString("chosenItem");
 
-        // Sækja viðeigandi item
+        // fetch proper item
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     //debug
-                    Log.d("JSONADLIST ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     item = new Item(jsonResponse.getJSONObject("item"));
 
-                    // Setja gömlu gildin í reitina
+                    // pul old values in feilds
                     title_input.setText(item.getItemName());
                     description_input.setText(item.getDescription());
                     zip_input.setText(item.getZipcode());
@@ -125,9 +123,7 @@ public class EditAdActivity extends BackNavbarActivity {
         btn_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
                 startActivityForResult(Intent.createChooser(intent,"Choose image"), PICK_FILE_REQUEST);
             }
         });
@@ -135,6 +131,7 @@ public class EditAdActivity extends BackNavbarActivity {
         submitAdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Uploads picture to Cloudinary
                 String requestId = MediaManager.get()
                         .upload(selectedImg)
                         .unsigned("utmqe54f")
@@ -157,15 +154,11 @@ public class EditAdActivity extends BackNavbarActivity {
                                 String publicId = resultData.get("public_id").toString();
                                 imgUrl = MediaManager.get().url().generate(publicId+".jpg");
 
-                                Log.d("selected", imgUrl);
-
-
                                 title_input = findViewById(R.id.title_input);
                                 description_input = findViewById(R.id.description_input);
                                 zip_input = findViewById(R.id.zip_input);
                                 itemLoc_input = findViewById(R.id.itemLoc_input);
                                 phone_input = findViewById(R.id.phone_input);
-
 
                                 Item item = new Item(currentUser.getUserName(),currentUser.getId(),
                                         description_input.getText().toString(),itemLoc_input.getText().toString(),
@@ -177,15 +170,12 @@ public class EditAdActivity extends BackNavbarActivity {
                                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
-                                        Log.d("JSONADMAKER", "hei");
                                         try {
-                                            //debug
-                                            Log.d("JSONADMAKER", response);
                                             JSONObject jsonResponse= new JSONObject(response);
                                             boolean success = jsonResponse.getBoolean("success");
 
                                             if(success) {
-                                                // Færir frá Login skjá á forsíðu
+                                                // Moves from login screen to main screen
                                                 finish();
                                                 Intent intent = new Intent( EditAdActivity.this, MainActivity.class);
                                                 intent.putExtra("user", currentUser);
@@ -210,7 +200,6 @@ public class EditAdActivity extends BackNavbarActivity {
 
                             @Override
                             public void onError(String requestId, ErrorInfo error) {
-                                Log.d("selected", requestId);
                                 Toast.makeText(EditAdActivity.this,
                                         "Upload Error", Toast.LENGTH_SHORT).show();
                                 Log.v("ERROR!!", error.getDescription());

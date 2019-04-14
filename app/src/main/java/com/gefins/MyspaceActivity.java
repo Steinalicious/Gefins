@@ -32,7 +32,7 @@ public class MyspaceActivity extends NavbarActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.drawer_title);
         mTitle.setText(R.string.myspace_title);
 
-        // Takkar
+        // Buttons
         myAdsButton = findViewById(R.id.myAdsButton);
         inQueueForButton = findViewById(R.id.inQueueForButton);
 
@@ -42,7 +42,7 @@ public class MyspaceActivity extends NavbarActivity {
         myAdsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Færir frá forsíðu yfir á ný auglýsing skjá
+                //Moves from myspace to my ads screen
                 Intent intent = new Intent(MyspaceActivity.this, MyAdsActivity.class);
                 intent.putExtra("user", currentUser);
                 startActivity(intent);
@@ -52,7 +52,7 @@ public class MyspaceActivity extends NavbarActivity {
         inQueueForButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Færir frá forsíðu yfir á ný auglýsing skjá
+                //Moves from myspace to queue screen
                 Intent intent = new Intent(MyspaceActivity.this, InQueueActivity.class);
                 intent.putExtra("user", currentUser);
                 startActivity(intent);

@@ -38,7 +38,7 @@ public class MyAdsActivity extends BackNavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_myads, contentFrameLayout);
 
-        // Titill í header
+        // Title in header
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -55,8 +55,6 @@ public class MyAdsActivity extends BackNavbarActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("MYADS", response);
                     JSONObject jsonResponse = new JSONObject(response);
                     final JSONArray adArray = jsonResponse.getJSONArray("items");
 
@@ -79,12 +77,12 @@ public class MyAdsActivity extends BackNavbarActivity {
                         } else {
                             adList.add(item.getItemName());
 
-                            // Listi af mínum auglýsingum
+                            // List of my ads
                             ListViewAdapter listViewAdapter = new ListViewAdapter(getApplicationContext(),
                                     R.layout.list_item_layout, names, aUrls, queue);
                             listView.setAdapter(listViewAdapter);
 
-                            // Þegar owner klikkar á auglýsingarnar sínar
+                            // when owner clicks on his ads
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,8 +95,7 @@ public class MyAdsActivity extends BackNavbarActivity {
                                         i.putExtra("user", currentUser);
                                         startActivity(i);
                                     } catch (Exception e) {
-                                        //  Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
-                                        //  startActivity(intent);
+                                        e.printStackTrace();
                                     }
                                 }
                             });

@@ -38,8 +38,7 @@ import Services.ItemService;
 public class MainActivity extends NavbarActivity {
     private ItemService itemservice = new ItemService();
     private Button inQueueButton;
-    private ImageView adImage, daemiImage;
-    private VideoView daemiVideo;
+    private ImageView adImage;
     private ImageView img_ad, imageView4;
     private TextView categoryTxtView, zipTxtView, numberInQueueTxtView, descriptionTxtView, ownerInfoTxtView, adNameTxtView;
     private Button createAdBtn, filterBtn;
@@ -63,9 +62,6 @@ public class MainActivity extends NavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-        if(currentUser==null){
-            Log.d("HAHAHAH","USERINN ER HORFINN!!!!!!");}
-
         sort = (Sort) getIntent().getSerializableExtra("sort");
 
         createAdBtn = findViewById(R.id.createAdButton);
@@ -78,17 +74,10 @@ public class MainActivity extends NavbarActivity {
         adNameTxtView = findViewById(R.id.ad_name_container);
         searchView = findViewById((R.id.search));
 
-      //  ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
-      //  descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
-
-
-
         final Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("JSONADLIST ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     final JSONArray items =  jsonResponse.getJSONArray("items");
                     String names[] = new String[items.length()];
@@ -110,7 +99,6 @@ public class MainActivity extends NavbarActivity {
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Log.d("GRIDVIEW", String.valueOf(position) );
                             try {
                                 Item item = new Item(items.getJSONObject(position));
                                 Intent i = new Intent(getApplicationContext(),ViewAdActivity.class);
@@ -120,14 +108,10 @@ public class MainActivity extends NavbarActivity {
                                 i.putExtra("user", currentUser);
                                 startActivity(i);
                             } catch (Exception e) {
-                                //Intent intent = new Intent(MainActivity.this, ViewAdActivity.class);
-                                //startActivity(intent);
-
+                                e.printStackTrace();
                             }
-
                         }
                     });
-
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -140,8 +124,6 @@ public class MainActivity extends NavbarActivity {
         if(sort != null) {
             String request = arrayStringListToRequest(sort.getALL());
 
-            Log.d("REMOLAÐI", request);
-
             ItemRequest sortRequest = new ItemRequest(request, responseListener);
             RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
             queue.add(sortRequest);
@@ -152,43 +134,21 @@ public class MainActivity extends NavbarActivity {
             queue.add(adListRequest);
         }
 
-        final Response.Listener<String> responseListener2 = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    //debug
-                    Log.d("JSONSEARCH ", response);
-                    JSONObject jsonResponse= new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-
-                } catch (JSONException e){
-                    e.printStackTrace();
-                }
-
-            }
-        };
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            // Do whatever you need. This will be fired only when submitting.
             @Override
             public boolean onQueryTextSubmit(String query) {
                 callSearch(query);
                 return true;
             }
 
-            // Do whatever you need when text changes.
-            // This will be fired every time you input any character.
             @Override
             public boolean onQueryTextChange(String newText) {
-//              if (searchView.isExpanded() && TextUtils.isEmpty(newText)) {
                 callSearch(newText);
-//              }
                 return true;
             }
 
 
             public void callSearch(String query) {
-                //Do searching
                 String request = "items/?search=" + query;
                 ItemRequest sortRequest = new ItemRequest(request, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
@@ -197,33 +157,30 @@ public class MainActivity extends NavbarActivity {
 
         });
 
-
-        // Virknin á "skrá auglýsingu" takkanum
+        // Functionality of "skrá auglýsingu" button
         createAdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Færir frá forsíðu yfir á ný auglýsing skjá
+                //Moves from main screen to ad screen
                 Intent intent = new Intent(MainActivity.this, AdActivity.class);
                 intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
 
-        // Virknin á "Sía" takkanum
+        // Functionality of "Sía" button
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sort==null)
                     sort=new Sort();
-                //Færir frá forsíðu yfir á síu skjá
+                //Moves from main to sort screen
                 Intent intent = new Intent(MainActivity.this, SortActivity.class);
                 intent.putExtra("user", currentUser);
                 intent.putExtra("sort", sort);
                 startActivity(intent);
             }
         });
-
         GradientDrawable gd1 = new GradientDrawable();
         gd1.setCornerRadius(5);
 

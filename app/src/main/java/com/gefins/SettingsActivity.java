@@ -50,12 +50,6 @@ public class SettingsActivity extends NavbarActivity {
         // set currentUser
         currentUser = (User) getIntent().getSerializableExtra("user");
 
-        if(currentUser==null){
-            Log.d("ble","USERINN ER HORFINN!!!!!!");
-        }
-        System.out.println(currentUser.getUserName());
-
-
         nameSettingsEdTxt = findViewById(R.id.usernameEditText);
         emailSettingsEdTxt = findViewById(R.id.registerEmailEditText);
         passSettingsEdTxt = findViewById(R.id.registerPassEditText);
@@ -67,7 +61,7 @@ public class SettingsActivity extends NavbarActivity {
         passSettingsEdTxt.setText(currentUser.getPassword());
         confirmSettingsEdTxt.setText(currentUser.getPassword());
 
-        // Virkni á RegisterTakkanum
+        // Functionality if settings button
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -77,22 +71,19 @@ public class SettingsActivity extends NavbarActivity {
                         "0", "0");
 
                 String passwordConfirm = confirmSettingsEdTxt.getText().toString();
-
                 String email = emailSettingsEdTxt.getText().toString().trim();
-
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-                //Meðhöndlun á svari frá server
+                //Mitigation from server
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.d("JSONSETTINGS", response);
                             JSONObject jsonResponse = new JSONObject(response);
 
                             boolean success = jsonResponse.getBoolean("success");
                             if (!success) {
-                                //Gefur upp glugga um að skráning mistókst
+                                //If changing failed
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
                                 builder.setMessage("Það mistókst að breyta notendaupplýsingum")
                                         .setNegativeButton("Reyna aftur",null)
@@ -109,10 +100,6 @@ public class SettingsActivity extends NavbarActivity {
                                         });
                                         android.app.AlertDialog dialog = builder.create();
                                         dialog.show();
-
-                                //Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-                             //   intent.putExtra("user", currentUser);
-                              //  startActivity(intent);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -123,27 +110,26 @@ public class SettingsActivity extends NavbarActivity {
 
                 if ((user.getPassword().equals(passwordConfirm)) && (email.matches(emailPattern))) {
 
-                    //Tengist server
+                    //Connecting to server
                     UserRequest registerRequest = new UserRequest(user,"register", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(SettingsActivity.this);
                     queue.add(registerRequest);
                 } else if ((!user.getPassword().equals(passwordConfirm)) && (email.matches(emailPattern))){
-
-                    //Varar við að Lykilorð eru mismunandi
+                    //Warning if password is invalid
                     AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                     builder.setMessage("Mismundandi lykilorð")
                             .setNegativeButton("Reyna Aftur", null)
                             .create()
                             .show();
                 } else if ((user.getPassword().equals(passwordConfirm)) && (!email.matches(emailPattern))) {
-                    //Varar við að Lykilorð eru mismunandi
+                    //Warning if email is invalid
                     AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                     builder.setMessage("Netfang er ekki gilt")
                             .setNegativeButton("Reyna Aftur", null)
                             .create()
                             .show();
                 } else if ((!user.getPassword().equals(passwordConfirm)) && (!email.matches(emailPattern))) {
-                    //Varar við að Lykilorð eru mismunandi
+                    //Warning if both are invalid
                     AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                     builder.setMessage("Mismundandi lykilorð og netfang er ekki gilt")
                             .setNegativeButton("Reyna Aftur", null)

@@ -59,7 +59,6 @@ public class AdActivity extends ExitNavbarActivity {
         currentUser = (User) getIntent().getSerializableExtra("user");
 
         imageView3 = (ImageView) findViewById(R.id.imageView3);
-
         spinner1 = findViewById(R.id.spinner);
         spinner1.setOnItemSelectedListener(new ItemSelectedListener());
         submitBtn = findViewById(R.id.submitAdButton);
@@ -70,7 +69,6 @@ public class AdActivity extends ExitNavbarActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
                 startActivityForResult(Intent.createChooser(intent,"Choose image"), PICK_FILE_REQUEST);
             }
         });
@@ -79,14 +77,13 @@ public class AdActivity extends ExitNavbarActivity {
             @Override
             public void onClick(View v) {
 
-
                     try{ MediaManager.get();}
 
                     catch (Exception e){
                         MediaManager.init(getApplicationContext());
                     }
 
-
+                // Uploads and saves picture to Cloudinary
                 String requestId = MediaManager.get()
                         .upload(selectedImg)
                         .unsigned("utmqe54f")
@@ -129,10 +126,7 @@ public class AdActivity extends ExitNavbarActivity {
                                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
-                                        Log.d("JSONADMAKER", "hei");
                                         try {
-                                            //debug
-                                            Log.d("JSONADMAKER", response);
                                             JSONObject jsonResponse= new JSONObject(response);
                                             boolean success = jsonResponse.getBoolean("success");
 
@@ -155,7 +149,6 @@ public class AdActivity extends ExitNavbarActivity {
                                         }
                                     }
                                 };
-                                Log.d("JSONADMAKER", "HEI");
 
                                 ItemRequest itemRequest = new ItemRequest(item, "admaker", responseListener);
                                 RequestQueue queue = Volley.newRequestQueue(AdActivity.this);
@@ -180,8 +173,7 @@ public class AdActivity extends ExitNavbarActivity {
     }
 
     public class ItemSelectedListener implements AdapterView.OnItemSelectedListener {
-
-        //get strings of first item
+        //Get strings of first item
         String firstItem = String.valueOf(spinner1.getSelectedItem());
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

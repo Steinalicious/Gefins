@@ -48,7 +48,7 @@ public class UserActivity extends BackNavbarActivity {
         emailEdTxt = findViewById(R.id.loginEmail);
         passEdTxt = findViewById(R.id.loginPass);
 
-        //Virknin á Login takkanum
+        //Functionality of Login button
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,29 +57,23 @@ public class UserActivity extends BackNavbarActivity {
                 user.setEmail(emailEdTxt.getText().toString());
                 user.setPassword(passEdTxt.getText().toString());
 
-                //Meðhöndlun á svari frá server
+                //Handling of response from server
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         try {
-                            //debug
-                            Log.d("JSONLOGIN", response);
                             JSONObject jsonResponse= new JSONObject(response);
-                            //boolean success = jsonResponse.getBoolean("success");
 
                             if(!jsonResponse.isNull("user")) {
-                            //if(success) {
                                 User currentuser = new User(jsonResponse.getJSONObject("user"));
-                                Log.d("user1", currentuser.toString());
 
-                                // Færir frá Login skjá á forsíðu
+                                // Moves from login to mainn
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.putExtra("user", currentuser);
                                 startActivity(intent);
 
                             } else{
-                                // Lætur vita ef innskráning mistókst
+                                // Warning if login failed
                                 AlertDialog.Builder builder = new AlertDialog.Builder( UserActivity.this);
                                 builder.setMessage("Innskráning mistókst")
                                         .setNegativeButton("Reyna aftur", null)
@@ -92,7 +86,7 @@ public class UserActivity extends BackNavbarActivity {
                     }
                 };
 
-                // Tengist server
+                // Connection to server
                 UserRequest loginRequest = new UserRequest(user, "login", responseListener);
                 RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                 queue.add(loginRequest);

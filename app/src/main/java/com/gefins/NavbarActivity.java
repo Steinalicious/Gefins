@@ -1,29 +1,20 @@
 package com.gefins;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.GravityCompat;
 import android.support.design.widget.NavigationView;
 
-
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import Entities.User;
 import Entities.Item;
-
 
 public class NavbarActivity extends AppCompatActivity {
 
@@ -49,7 +40,7 @@ public class NavbarActivity extends AppCompatActivity {
         Item item = new Item();
         item.getOwner();
 
-        /* Virkni á menu items */
+        /* Functionality of menu items */
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(
@@ -77,9 +68,6 @@ public class NavbarActivity extends AppCompatActivity {
 
                         // close drawer when item is tapped
                         drawerLayout.closeDrawers();
-
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
 
                         return true;
                     }

@@ -47,7 +47,6 @@ public class SortActivity extends ExitNavbarActivity {
 
         Listi = (ArrayList<String>) getIntent().getStringArrayListExtra("LISTI");
 
-
         final Bundle extras = getIntent().getExtras();
 
         if(!sort.isEmpty()) {
@@ -55,14 +54,12 @@ public class SortActivity extends ExitNavbarActivity {
         }
 
 
-        // Virknin á "Flokkar" takkanum
+        // Functionality of "Flokkar" button
         sortCatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Færir frá forsíðu yfir á ný auglýsing skjá
+                //Moves from sort to category screen
                 Intent intent = new Intent(SortActivity.this, CategoryActivity.class);
-                // intent.putExtra(CategoryActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
                 intent.putExtra("sort", sort);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
@@ -70,28 +67,25 @@ public class SortActivity extends ExitNavbarActivity {
             }
         });
 
-        // Virknin á "Staðsetning" takkanum
+        // Functionality of "Staðsetning" button
         sortLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Færir frá forsíðu yfir á ný auglýsing skjá
+                //Moves from sort to location screen
                 Intent intent = new Intent(SortActivity.this, LocationActivity.class);
-                //intent.putExtra(LocationActivity.FILTERS, (String) getIntent().getStringExtra(ITEM_FILTERS_TXT));
                 intent.putExtra("sort", sort);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);
             }
         });
 
-        // Virknin á "Leita" takkanum
+        // Functionality of "Leita" button
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("REMOLAÐI", sort.getALL().toString());
-                //Færir frá sort yfir á aðalskjá
+                //Moves from sort to main screen
                 Intent intent = new Intent(SortActivity.this, MainActivity.class);
-                // intent.putExtra(MainActivity.ITEM_REQUESTS, extras.getStringArrayList(ITEM_FILTERS));
                 intent.putExtra("sort", sort);
                 intent.putExtra("user", currentuser);
                 startActivity(intent);

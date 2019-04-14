@@ -1,21 +1,15 @@
 package com.gefins;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Button;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import Entities.Sort;
 import Entities.User;
@@ -37,7 +31,7 @@ public class CategoryActivity extends BackNavbarActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_category, contentFrameLayout);
 
-        // Titill í header
+        // Title in header
         Toolbar toolbar = (Toolbar) findViewById(R.id.back_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -46,8 +40,8 @@ public class CategoryActivity extends BackNavbarActivity {
 
         currentUser = (User) getIntent().getSerializableExtra("user");
         sort = (Sort) getIntent().getSerializableExtra("sort");
-        // Sækja checkbox flokka
 
+        // Fetch checkbox categories
         furniture = (CheckBox)findViewById(R.id.checkbox_furniture);
         clothing = (CheckBox)findViewById(R.id.checkbox_clothing);
         kids = (CheckBox)findViewById(R.id.checkbox_kids);
@@ -57,7 +51,7 @@ public class CategoryActivity extends BackNavbarActivity {
         food = (CheckBox)findViewById(R.id.checkbox_food);
         animals = (CheckBox)findViewById(R.id.checkbox_animals);
 
-        // Velja takki
+        // chosen button
         choose_button = findViewById(R.id.choose_button);
 
         sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
@@ -66,56 +60,46 @@ public class CategoryActivity extends BackNavbarActivity {
         chosenCategories = new ArrayList<>();
         LIST =  new ArrayList<>();
 
-        // GET extras úr SortActivity og PUT-a þau aftur
+        // GET extras from SortActivity and PUT the back
         Bundle extras = getIntent().getExtras();
         Intent filterIntent = getIntent();
 
         final String allFilters = filterIntent.getStringExtra(FILTERS);
         if (allFilters != null) {
             chosenItems += allFilters + "\n" + "\n";
-            //schosenCategories.add(allFilters);
-            //LIST.add("Húsgögn");
         }
 
-        // Virknin á "Velja" takkanum
+        // Functionality of the "Velja" button
         choose_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chosenItems += "Valdir flokkar:";
                 if(furniture.isChecked()) {
-                    // chosenItems += "\nHúsgögn";
                     chosenCategories.add("Húsgögn");
                 }
                 if(clothing.isChecked()) {
-                    // chosenItems += "\nFatnaður";
                     chosenCategories.add("Fatnaður");
                 }
                 if(kids.isChecked()) {
-                    // chosenItems += "\nBarnavörur";
                     chosenCategories.add("Barnavörur");
                 }
                 if(electronics.isChecked()) {
-                    // chosenItems += "\nRaftæki";
                     chosenCategories.add("Raftæki");
                 }
                 if(tools.isChecked()) {
-                    // chosenItems += "\nVerkfæri";
                     chosenCategories.add("Verkfæri");
                 }
                 if(commute.isChecked()) {
-                    // chosenItems += "\nFarartæki";
                     chosenCategories.add("Farartæki");
                 }
                 if(food.isChecked()) {
-                    // chosenItems += "\nMatur";
                     chosenCategories.add("Matur");
                 }
                 if(animals.isChecked()) {
-                    // chosenItems +="\nDýr";
                     chosenCategories.add("Dýr");
                 }
 
-                //Færir frá "Flokkar" yfir á "Sort" skjá
+                //Moves from "Flokkar" to "Sort" screen
                 sort.setCategory(chosenCategories);
                 finish();
                 sortIntent = new Intent(CategoryActivity.this, SortActivity.class);
@@ -127,7 +111,7 @@ public class CategoryActivity extends BackNavbarActivity {
     }
 
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
+        // Is the view checked
         boolean checked = ((CheckBox) view).isChecked();
         String str = "";
     }

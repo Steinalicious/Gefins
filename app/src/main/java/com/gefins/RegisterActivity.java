@@ -1,6 +1,5 @@
 package com.gefins;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -25,8 +24,6 @@ import Entities.User;
 import Requests.UserRequest;
 
 public class RegisterActivity extends BackNavbarActivity {
-
-    //Skilgreiningar
     private Button registerBtn;
     private Intent userIntent;
     private EditText nameEdTxt, emailEdTxt, passEdTxt, confirmEdTxt;
@@ -50,7 +47,7 @@ public class RegisterActivity extends BackNavbarActivity {
         confirmEdTxt = findViewById(R.id.registerPassConfEditText);
         registerBtn = findViewById(R.id.registerButton);
 
-        // Virkni á RegisterTakkanum
+        // Functionality of Register button
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -59,32 +56,25 @@ public class RegisterActivity extends BackNavbarActivity {
                         passEdTxt.getText().toString(), emailEdTxt.getText().toString(),
                         "0", "0");
 
-
                 String passwordConfirm = confirmEdTxt.getText().toString();
-
-
                 String email = emailEdTxt.getText().toString().trim();
-
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
 
-                //Meðhöndlun á svari frá server
+                //mitigate answer from server
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.d("JSONREGITER", response);
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
 
                             if (success) {
-
-                                //Fer frá register skjá á Login skjá
+                                //Moves from register to login screen
                                 Intent intent = new Intent(RegisterActivity.this, UserActivity.class);
                                 RegisterActivity.this.startActivity(intent);
                             } else {
-
-                                //Gefur upp glugga um að skráning mistókst
+                                //Wanring message if registration failed
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegisterActivity.this);
                                 builder.setMessage("Skráning mistókst")
                                         .setNegativeButton("Reyna aftur",null)
@@ -99,28 +89,26 @@ public class RegisterActivity extends BackNavbarActivity {
 
 
                 if ((user.getPassword().equals(passwordConfirm)) && (email.matches(emailPattern))) {
-
-                    //Tengist server
+                    //cennecting to server
                     UserRequest registerRequest = new UserRequest(user,"register", responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(registerRequest);
                 } else if ((!user.getPassword().equals(passwordConfirm)) && (email.matches(emailPattern))){
-
-                    //Varar við að Lykilorð eru mismunandi
+                    //Warning if password is invalid
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setMessage("Mismundandi lykilorð")
                             .setNegativeButton("Reyna Aftur", null)
                             .create()
                             .show();
                 } else if ((user.getPassword().equals(passwordConfirm)) && (!email.matches(emailPattern))) {
-                    //Varar við að Lykilorð eru mismunandi
+                    //Warning if email is not valid
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setMessage("Netfang er ekki gilt")
                             .setNegativeButton("Reyna Aftur", null)
                             .create()
                             .show();
                 } else if ((!user.getPassword().equals(passwordConfirm)) && (!email.matches(emailPattern))) {
-                    //Varar við að Lykilorð eru mismunandi
+                    //Warning if both ain't valid
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setMessage("Mismundandi lykilorð og netfang er ekki gilt")
                             .setNegativeButton("Reyna Aftur", null)

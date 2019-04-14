@@ -3,36 +3,26 @@ package com.gefins;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
-import Entities.OwnerInfo;
-import Entities.QueueInfo;
 import Entities.User;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,8 +31,6 @@ import java.util.ArrayList;
 import Entities.Item;
 import Requests.ItemRequest;
 import Requests.MessageRequest;
-
-/* Eftir að klára allt varðandi ViewAd */
 
 public class ViewAdActivity extends ExitNavbarActivity {
     private Button inQueueButton,enterQueueBtn,acceptfromqueue, editAd, deleteAdBtn, messageBtn, cancelqueue, submitRatingBtn;
@@ -70,7 +58,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         currentUser = (User) getIntent().getSerializableExtra("user");
         isOwner = currentUser.getUserName().equals(itemOwner);
 
-
         if (currentUser.getId().equals(accepted) || isOwner && !accepted.equals("0")){
             layout =3;
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
@@ -78,7 +65,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         }
         else if (isOwner ) {
             layout =2;
-            Log.d("Fyrsta", itemOwner );
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewadowner, contentFrameLayout);
         } else {
@@ -86,7 +72,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
             FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
             getLayoutInflater().inflate(R.layout.activity_viewad, contentFrameLayout);
             enterQueueBtn = findViewById(R.id.enter_queue);
-          //  enterQueueBtn.setText("Fara í röð");
         }
 
 
@@ -97,9 +82,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         mTitle.setText(R.string.viewad_title);
 
         listView = (ListView)findViewById(R.id.message_list);
-
-        //set currentUser
-
 
         itemID = extras.getString("chosenItem");
 
@@ -116,14 +98,12 @@ public class ViewAdActivity extends ExitNavbarActivity {
         ownerStarsTxtView = findViewById(R.id.userStars_container);
         adNameTxtView = findViewById(R.id.ad_name_container);
         numberQueueTxtView = findViewById(R.id.number_queue_container);
-        //descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
         enterQueueBtn = findViewById(R.id.enter_queue);
         firstQueueTxtView = findViewById(R.id.first_in_queue_container);
         ownerAddressTxtView = findViewById(R.id.owner_address_container);
         ownerPhoneTxtView = findViewById(R.id.owner_phone_container);
         ownerEmailTxtView = findViewById(R.id.owner_email_container);
         messageEdtText = findViewById(R.id.message_editor);
-        //messageWindowTxtView = findViewById(R.id.message_window);
         messageBtn = findViewById(R.id.message_button);
         deleteAdBtn = findViewById(R.id.deleteAd);
         stars1 = findViewById(R.id.star1);
@@ -131,14 +111,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         stars3 = findViewById(R.id.star3);
         stars4 = findViewById(R.id.star4);
         stars5 = findViewById(R.id.star5);
-
-
-
-        //ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
-
-       // ownerInfoTxtView.setMovementMethod(new ScrollingMovementMethod());
-       // descriptionTxtView.setMovementMethod(new ScrollingMovementMethod());
-
 
         final Response.Listener<String> responseListener6 = new Response.Listener<String>() {
             @Override
@@ -159,25 +131,18 @@ public class ViewAdActivity extends ExitNavbarActivity {
         };
         isUserInQueue(accepted,responseListener6);
 
-
         final Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 try {
-                    //debug
-                    Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     item = new Item(jsonResponse.getJSONObject("item"));
                     numInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("numInQue");
-                    String test = item.getQueueInfo().getNumInQue();
                     firstInQue = jsonResponse.getJSONObject("item").getJSONObject("queueInfo").getString("firstInQue");
                     if(layout==3) {
                         viewadAccepted();
                     }
                     else if (layout==2) {
-                        Log.d("j4",""+layout);
-                        System.out.println("innri loopa");
                         viewadOwner(numInQue, firstInQue);
                         editAd = findViewById(R.id.editAd);
                         editAd.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +157,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
 
                     } else {
                         viewad(numInQue);
-                      //  viewadAccepted();
                     }
 
 
@@ -203,17 +167,12 @@ public class ViewAdActivity extends ExitNavbarActivity {
             }
         };
 
-
         getitem(responseListener);
-
-
 
         final Response.Listener<String> responseListener2 = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("JSONAD ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if(success)
@@ -230,19 +189,15 @@ public class ViewAdActivity extends ExitNavbarActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("JSONQUEUE ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("msg");
                     if (success) {
                         enterQueueBtn.setText("Fara í röð");
-                        Log.d("ENTERQUE", itemID);
                         ItemRequest sortRequest = new ItemRequest("Items/queue", "2", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
                     } else {
                         enterQueueBtn.setText("Fara úr röð");
-                        Log.d("LEAVEQUE", itemID);
                         ItemRequest sortRequest = new ItemRequest("Items/queue", "1", itemID, currentUser.getId(), responseListener2);
                         RequestQueue queue = Volley.newRequestQueue(ViewAdActivity.this);
                         queue.add(sortRequest);
@@ -258,14 +213,11 @@ public class ViewAdActivity extends ExitNavbarActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("JSONQUEUE ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
                         reload();
                     } else {
-                        Log.d("j2","responseListener4");
                     }
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -276,11 +228,10 @@ public class ViewAdActivity extends ExitNavbarActivity {
 
 
         if(isOwner && accepted.equals("0")) {
-            //acceptar user í röð
+            //accepts user í queue
             acceptfromqueue.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-
                     item.setAcceptedUser(firstInQue);
                     ItemRequest inQueueRequest = new ItemRequest("items/queue", "4", itemID, currentUser.getId(), responseListener4);
                     RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
@@ -290,7 +241,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         }
         isUserInQueue(accepted,responseListener6);
 
-        // setti if því hann getur ekki set listener á takka sem er ekki til
         if (!isOwner && !accepted.equals(currentUser.getId())) {
             enterQueueBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -307,8 +257,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("JSONDELETE ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if(success) {
@@ -321,14 +269,10 @@ public class ViewAdActivity extends ExitNavbarActivity {
             }
         };
 
-
-
         final Response.Listener<String> responseListener7 = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    //debug
-                    Log.d("JSONDELETE ", response);
                     JSONObject jsonResponse= new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if(success) {
@@ -347,9 +291,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
             }
         };
 
-
-
-
         if (layout == 3){
             // submits Rating
             submitRatingBtn.setOnClickListener(new View.OnClickListener(){
@@ -359,9 +300,7 @@ public class ViewAdActivity extends ExitNavbarActivity {
                     if (isOwner){
                         a="5";
                     }
-
                     ItemRequest inQueueRequest = new ItemRequest("items/queue",a,itemID,spinner.getSelectedItem().toString(), responseListener7);
-
                     RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
                     queue1.add(inQueueRequest);
                 }
@@ -369,10 +308,8 @@ public class ViewAdActivity extends ExitNavbarActivity {
             });
         }
 
-
-
         if (layout == 3){
-            // add message takki
+            // add message Button
             cancelqueue.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -381,19 +318,15 @@ public class ViewAdActivity extends ExitNavbarActivity {
                     RequestQueue queue1 = Volley.newRequestQueue(ViewAdActivity.this);
                     queue1.add(inQueueRequest);
                 }
-
             });
         }
 
-
         if (layout == 3){
-            // add message takki
+            // add message button
             messageBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     String message = messageEdtText.getText().toString();
-                    //String a = currentUser.getUserName();
-                    //a += "\n" + messageEdtText.getText().toString();
 
                     MessageRequest messageRequest = new MessageRequest("/sendMessage",
                             itemID, currentUser.getId(), message , responseListener4);
@@ -404,8 +337,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
             });
         }
 
-
-        // setti if því hann getur ekki set listener á takka sem er ekki til
         if (isOwner && accepted.equals("0")) {
             deleteAdBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -419,9 +350,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         }
     }
 
-
-
-
     public void viewad(String numQueue) {
         adNameTxtView.setText(item.getItemName());
         descriptionTxtView.setText(item.getDescription());
@@ -429,8 +357,6 @@ public class ViewAdActivity extends ExitNavbarActivity {
         zipTxtView.setText(item.getZipcode());
         ownerInfoTxtView.setText(item.getOwner());
         numberQueueTxtView.setText(numQueue);
-      //  String stars = String.valueOf();
-      //  ownerStarsTxtView.setText(stars);
         String aUrl = item.getImg().replace("http", "https");
         Picasso.with(getApplicationContext())
                 .load(Uri.parse(aUrl))
@@ -457,33 +383,14 @@ public class ViewAdActivity extends ExitNavbarActivity {
     }
 
     public void viewadAccepted() {
-        /*
-        Log.d("vA",item.toString());
-        messageWindowTxtView.setText(item.getMessenger());
-        messageList.add(item.getMessenger());
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ViewAdActivity.this,
-                R.layout.message_item_layout, R.id.message, messageList);
-        listView.setAdapter(arrayAdapter);
-
-        Log.d("vA",messageWindowTxtView.getText().toString());
-        */
-
-        ////////////////////////////////////////////////////////item.getMessageInfo().getUserName();
-
         String[] usernames = {"anna", "ragnar", "petur", "palina", "halli", "tussa"};
         String[] messages = {"hallo", "flott", "jajajjaja", "akldjglkajdslkjgal", "jalkdsjglka", "ladsjglkajg"};
 
-        // Listi af mínum auglýsingum
-        //MessageListAdapter messageListAdapter = new MessageListAdapter(getApplicationContext(),
-         //       R.layout.message_item_layout, usernames, messages);
-        //listView.setAdapter(messageListAdapter);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ViewAdActivity.this,
                 R.layout.message_item_layout, R.id.message_username, usernames);
         listView.setAdapter(arrayAdapter);
 
         adNameTxtView.setText(item.getItemName());
-//        descriptionTxtView.setText(item.getDescription());
         categoryTxtView.setText(item.getCategory());
         zipTxtView.setText(item.getZipcode());
         String aUrl = item.getImg().replace("http", "https");
@@ -500,20 +407,10 @@ public class ViewAdActivity extends ExitNavbarActivity {
         } else {
             acceptLayout.setVisibility(LinearLayout.VISIBLE);
             ownerInfoTxtView.setText(item.getOwner());
-            //String stars = String.valueOf();
-            // ownerStarsTxtView.setText(stars);
             ownerAddressTxtView.setText(item.getLocation());
             ownerPhoneTxtView.setText(item.getPhone());
             ownerEmailTxtView.setText(item.getOwnerInfo().getEmail());
         }
-
-        //}
-       // ownerInfoTxtView.setText(item.getOwner());
-        //String stars = String.valueOf();
-       // ownerStarsTxtView.setText(stars);
-      //  ownerAddressTxtView.setText();
-      //  ownerPhoneTxtView.setText();
-      //  ownerEmailTxtView.setText();
     }
 
     public void getitem(Response.Listener<String> responseListener) {
